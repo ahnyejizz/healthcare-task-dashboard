@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# healthcare-task-dashboard
+
+Next.js App Router 기반의 태스크 대시보드 프로젝트 골격입니다. 요구사항 문서와 기술스택을 반영해 `TypeScript`, `Tailwind CSS`, `react-hook-form`, `MSW`, `React Query`, FSD 스타일 디렉터리 구성을 기본값으로 잡았습니다.
+
+## Stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- react-hook-form + zod
+- MSW
+- TanStack React Query
+- TanStack Virtual
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+nvm use
+npm install
+npm run msw:init
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 `http://localhost:3000`을 열면 됩니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+프로젝트는 `Node.js >= 20.9.0`을 기준으로 맞춰져 있습니다.
 
-## Learn More
+```bash
+NEXT_PUBLIC_ENABLE_MSW=true
+```
 
-To learn more about Next.js, take a look at the following resources:
+개발 환경에서는 값을 따로 넣지 않아도 MSW가 기본 활성화됩니다.
+필요할 때만 `NEXT_PUBLIC_ENABLE_MSW=false`로 끌 수 있습니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+src
+├── app
+├── entities
+├── features
+├── shared
+└── widgets
+```
 
-## Deploy on Vercel
+## Documents
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `docs/PRD.md`: 프로젝트 요구사항 기반 PRD
+- `openapi.yaml`: API 계약 원문
+- `AI_USAGE.md`: AI 활용 내역 초안
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- 현재는 초기 세팅 단계라 일부 페이지는 스캐폴딩 위주로 구성했습니다.
+- 상세 구현 시 `/task` 목록에는 `TanStack Virtual + React Query infinite query`를 연결할 예정입니다.
