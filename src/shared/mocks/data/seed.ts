@@ -20,7 +20,7 @@ export const userFixture: UserResponse = {
 export const tasksFixture: TaskItem[] = Array.from(
   { length: TOTAL_TASKS },
   (_, index) => ({
-    id: `TASK-${String(index + 1).padStart(3, "0")}`,
+    id: `task-${String(index + 1).padStart(3, "0")}`,
     title: `건강 루틴 개선 태스크 ${index + 1}`,
     memo:
       index % 2 === 0
