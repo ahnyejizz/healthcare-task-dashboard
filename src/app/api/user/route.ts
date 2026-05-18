@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import {
+  getAuthorizedEmail,
   getUnauthorizedError,
   getUser,
   isAuthorizedRequest,
@@ -12,5 +13,13 @@ export async function GET(request: Request) {
     });
   }
 
-  return NextResponse.json(getUser());
+  const email = getAuthorizedEmail(request);
+
+  if (!email) {
+    return NextResponse.json(getUnauthorizedError(), {
+      status: 401,
+    });
+  }
+
+  return NextResponse.json(getUser(email));
 }

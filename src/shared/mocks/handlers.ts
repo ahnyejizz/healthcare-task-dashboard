@@ -3,10 +3,12 @@ import type { SignInRequest } from "@/shared/api/contracts";
 import {
   deleteTaskById,
   getAuthTokens,
+  getAuthorizedEmail,
   getDashboard,
   getDeleteTaskNotFoundError,
   getInvalidCredentialsError,
   getInvalidRefreshTokenError,
+  getRefreshTokenEmail,
   getTaskDetail,
   getTaskNotFoundError,
   getTaskPage,
@@ -15,7 +17,7 @@ import {
   hasValidRefreshTokenCookie,
   isAuthorizedRequest,
   isValidSignIn,
-  REFRESH_TOKEN,
+  REFRESH_TOKEN_COOKIE_NAME,
 } from "@/shared/api/mock-backend";
 
 export const handlers = [
@@ -27,10 +29,12 @@ export const handlers = [
       return HttpResponse.json(getInvalidCredentialsError(), { status: 400 });
     }
 
-    return HttpResponse.json(getAuthTokens(), {
+    const tokens = getAuthTokens(payload.email);
+
+    return HttpResponse.json(tokens, {
       status: 200,
       headers: {
-        "Set-Cookie": `token=${REFRESH_TOKEN}; Path=/; SameSite=Lax`,
+        "Set-Cookie": `${REFRESH_TOKEN_COOKIE_NAME}=${tokens.refreshToken}; Path=/; SameSite=Lax`,
       },
     });
   }),
@@ -41,7 +45,13 @@ export const handlers = [
       return HttpResponse.json(getInvalidRefreshTokenError(), { status: 401 });
     }
 
-    return HttpResponse.json(getAuthTokens());
+    const email = getRefreshTokenEmail(request);
+
+    if (!email) {
+      return HttpResponse.json(getInvalidRefreshTokenError(), { status: 401 });
+    }
+
+    return HttpResponse.json(getAuthTokens(email));
   }),
   http.get("/api/user", async ({ request }) => {
     await delay(250);
@@ -50,7 +60,13 @@ export const handlers = [
       return HttpResponse.json(getUnauthorizedError(), { status: 401 });
     }
 
-    return HttpResponse.json(getUser());
+    const email = getAuthorizedEmail(request);
+
+    if (!email) {
+      return HttpResponse.json(getUnauthorizedError(), { status: 401 });
+    }
+
+    return HttpResponse.json(getUser(email));
   }),
   http.get("/api/dashboard", async ({ request }) => {
     await delay(250);

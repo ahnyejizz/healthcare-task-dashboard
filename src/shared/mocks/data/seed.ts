@@ -3,7 +3,6 @@ import type {
   SignInRequest,
   TaskDetailResponse,
   TaskItem,
-  UserResponse,
 } from "@/shared/api/contracts";
 
 const TOTAL_TASKS = 48;
@@ -11,10 +10,6 @@ const TOTAL_TASKS = 48;
 export const mockCredentials: SignInRequest = {
   email: "test@naver.com",
   password: "frontend2026",
-};
-
-export const userFixture: UserResponse = {
-  email: "test@naver.com",
 };
 
 export const tasksFixture: TaskItem[] = Array.from(

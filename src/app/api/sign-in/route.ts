@@ -4,7 +4,6 @@ import {
   getAuthTokens,
   getInvalidCredentialsError,
   isValidSignIn,
-  REFRESH_TOKEN,
   REFRESH_TOKEN_COOKIE_NAME,
 } from "@/shared/api/mock-backend";
 
@@ -17,9 +16,10 @@ export async function POST(request: Request) {
     });
   }
 
-  const response = NextResponse.json(getAuthTokens());
+  const tokens = getAuthTokens(payload.email);
+  const response = NextResponse.json(tokens);
 
-  response.cookies.set(REFRESH_TOKEN_COOKIE_NAME, REFRESH_TOKEN, {
+  response.cookies.set(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken, {
     path: "/",
     sameSite: "lax",
   });

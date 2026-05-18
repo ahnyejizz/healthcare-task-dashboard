@@ -13,27 +13,69 @@ import {
   getTaskDetailFixture,
   mockCredentials,
   tasksFixture,
-  userFixture,
 } from "@/shared/mocks/data/seed";
 
-export const ACCESS_TOKEN = "mock-access-token";
-export const REFRESH_TOKEN = "mock-refresh-token";
+const ACCESS_TOKEN_PREFIX = "mock-access-token";
+const REFRESH_TOKEN_PREFIX = "mock-refresh-token";
 export const REFRESH_TOKEN_COOKIE_NAME = "token";
 
 const PAGE_SIZE = 10;
 
-function isAuthorizedHeader(authorization: string | null) {
-  return authorization?.startsWith("Bearer ") ?? false;
+function createAccessToken(email: string) {
+  return `${ACCESS_TOKEN_PREFIX}:${email}`;
+}
+
+function createRefreshToken(email: string) {
+  return `${REFRESH_TOKEN_PREFIX}:${email}`;
+}
+
+function parseAccessToken(accessToken: string | null) {
+  if (!accessToken?.startsWith(`${ACCESS_TOKEN_PREFIX}:`)) {
+    return null;
+  }
+
+  return accessToken.slice(`${ACCESS_TOKEN_PREFIX}:`.length) || null;
+}
+
+function parseRefreshToken(refreshToken: string | null) {
+  if (!refreshToken?.startsWith(`${REFRESH_TOKEN_PREFIX}:`)) {
+    return null;
+  }
+
+  return refreshToken.slice(`${REFRESH_TOKEN_PREFIX}:`.length) || null;
+}
+
+function getBearerToken(request: Request) {
+  const authorization = request.headers.get("Authorization");
+
+  if (!authorization?.startsWith("Bearer ")) {
+    return null;
+  }
+
+  return authorization.slice("Bearer ".length);
+}
+
+export function getAuthorizedEmail(request: Request) {
+  return parseAccessToken(getBearerToken(request));
 }
 
 export function isAuthorizedRequest(request: Request) {
-  return isAuthorizedHeader(request.headers.get("Authorization"));
+  return Boolean(getAuthorizedEmail(request));
+}
+
+export function getRefreshTokenEmail(request: Request) {
+  const cookie = request.headers.get("cookie");
+  const refreshToken = cookie
+    ?.split(";")
+    .map((value) => value.trim())
+    .find((value) => value.startsWith(`${REFRESH_TOKEN_COOKIE_NAME}=`))
+    ?.slice(`${REFRESH_TOKEN_COOKIE_NAME}=`.length);
+
+  return parseRefreshToken(refreshToken ?? null);
 }
 
 export function hasValidRefreshTokenCookie(request: Request) {
-  const cookie = request.headers.get("cookie");
-
-  return cookie?.includes(`${REFRESH_TOKEN_COOKIE_NAME}=${REFRESH_TOKEN}`) ?? false;
+  return Boolean(getRefreshTokenEmail(request));
 }
 
 export function isValidSignIn(payload: SignInRequest) {
@@ -43,10 +85,10 @@ export function isValidSignIn(payload: SignInRequest) {
   );
 }
 
-export function getAuthTokens(): AuthTokenResponse {
+export function getAuthTokens(email: string): AuthTokenResponse {
   return {
-    accessToken: ACCESS_TOKEN,
-    refreshToken: REFRESH_TOKEN,
+    accessToken: createAccessToken(email),
+    refreshToken: createRefreshToken(email),
   };
 }
 
@@ -68,8 +110,10 @@ export function getInvalidCredentialsError(): ErrorResponse {
   };
 }
 
-export function getUser(): UserResponse {
-  return userFixture;
+export function getUser(email: string): UserResponse {
+  return {
+    email,
+  };
 }
 
 export function getDashboard(): DashboardResponse {
