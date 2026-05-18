@@ -21,6 +21,7 @@ export function SignInPage() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorOpen, setIsErrorOpen] = useState(false);
+  const [isSigningIn, setIsSigningIn] = useState(false);
   const {
     register,
     handleSubmit,
@@ -50,10 +51,12 @@ export function SignInPage() {
   async function onSubmit(values: SignInFormValues) {
     try {
       const response = await signIn(values);
+      setIsSigningIn(true);
       setAccessToken(response.accessToken);
       router.push("/");
       router.refresh();
     } catch (error) {
+      setIsSigningIn(false);
       setErrorMessage(
         error instanceof ApiError
           ? error.message
@@ -62,6 +65,8 @@ export function SignInPage() {
       setIsErrorOpen(true);
     }
   }
+
+  const isLoginPending = isSubmitting || isSigningIn;
 
   return (
     <>
@@ -82,7 +87,7 @@ export function SignInPage() {
             </ButtonLink>
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-text">
-            계정에 로그인
+            로그인
           </h1>
           <p className="mt-3 text-sm leading-6 text-text-muted">
             유효성 검증과 실패 모달 동작을 포함한 로그인 폼 시작점입니다.
@@ -116,14 +121,43 @@ export function SignInPage() {
             </div>
             <Button
               type="submit"
-              className="w-full"
-              disabled={!isValid || isSubmitting}
+              className={[
+                "w-full",
+                isLoginPending
+                  ? "disabled:border-primary disabled:bg-primary disabled:text-white disabled:shadow-[0_12px_28px_rgba(252,175,24,0.18)]"
+                  : "",
+              ].join(" ")}
+              disabled={!isValid || isLoginPending}
             >
-              {isSubmitting ? "로그인 중..." : "제출"}
+              제출
             </Button>
           </form>
         </section>
       </main>
+
+      {isLoginPending ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172033]/18 backdrop-blur-[3px]">
+          <div
+            role="status"
+            aria-live="polite"
+            className="surface-card w-[calc(100%-2rem)] max-w-md rounded-[28px] border border-border/80 px-6 py-5"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <strong className="text-base font-semibold text-text">
+                로그인 중입니다.
+              </strong>
+              <span className="text-xs font-medium tracking-[0.16em] text-text-muted uppercase">
+                loading...
+              </span>
+            </div>
+            <div className="mt-4 h-2 overflow-hidden rounded-full bg-surface-muted">
+              <div className="relative h-full">
+                <span className="absolute inset-y-0 left-0 w-1/3 rounded-full bg-primary animate-[loading-overlay-bar_1.15s_ease-in-out_infinite]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <dialog
         ref={dialogRef}

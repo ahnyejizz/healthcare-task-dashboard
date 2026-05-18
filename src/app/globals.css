@@ -85,3 +85,17 @@ textarea {
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(18px);
 }
+
+@keyframes loading-overlay-bar {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  55% {
+    transform: translateX(80%);
+  }
+
+  100% {
+    transform: translateX(260%);
+  }
+}
