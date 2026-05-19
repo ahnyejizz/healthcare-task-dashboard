@@ -1,4 +1,8 @@
-import { ACCESS_TOKEN_COOKIE_NAME } from "@/shared/api/mock-backend";
+import type { AuthTokenResponse } from "@/shared/api/contracts";
+import {
+  ACCESS_TOKEN_COOKIE_NAME,
+  REFRESH_TOKEN_COOKIE_NAME,
+} from "@/shared/api/mock-backend";
 
 const AUTH_STATE_CHANGE_EVENT = "healthcare-task-dashboard-auth-state-change";
 const AUTH_REDIRECT_EVENT = "healthcare-task-dashboard-auth-redirect-change";
@@ -39,6 +43,20 @@ function readCookie(cookieName: string) {
   return cookie.slice(`${cookieName}=`.length) || null;
 }
 
+function writeCookie(cookieName: string, value: string, maxAge?: number) {
+  if (typeof document === "undefined") {
+    return;
+  }
+
+  const attributes = ["Path=/", "SameSite=Lax"];
+
+  if (typeof maxAge === "number") {
+    attributes.push(`Max-Age=${maxAge}`);
+  }
+
+  document.cookie = `${cookieName}=${value}; ${attributes.join("; ")}`;
+}
+
 export function hasAccessTokenCookie() {
   return Boolean(readCookie(ACCESS_TOKEN_COOKIE_NAME));
 }
@@ -47,12 +65,27 @@ export function getIsAuthenticated() {
   return authState ?? hasAccessTokenCookie();
 }
 
-export function markSignedIn() {
+export function syncAuthCookies(tokens: AuthTokenResponse) {
+  writeCookie(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken);
+  writeCookie(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken);
+}
+
+export function clearAuthCookies() {
+  writeCookie(ACCESS_TOKEN_COOKIE_NAME, "", 0);
+  writeCookie(REFRESH_TOKEN_COOKIE_NAME, "", 0);
+}
+
+export function markSignedIn(tokens?: AuthTokenResponse) {
+  if (tokens) {
+    syncAuthCookies(tokens);
+  }
+
   authState = true;
   notifyAuthStateChange();
 }
 
 export function markSignedOut() {
+  clearAuthCookies();
   authState = false;
   notifyAuthStateChange();
 }

@@ -47,9 +47,9 @@ export function SignInPage() {
 
   async function onSubmit(values: SignInFormValues) {
     try {
-      await signIn(values);
+      const tokens = await signIn(values);
       setIsSigningIn(true);
-      markSignedIn();
+      markSignedIn(tokens);
       router.replace(routes.dashboard);
       router.refresh();
     } catch (error) {

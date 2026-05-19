@@ -67,6 +67,10 @@ export function getRefreshTokenEmail(request: Request) {
   return parseRefreshToken(getCookieValue(request, REFRESH_TOKEN_COOKIE_NAME) ?? null);
 }
 
+export function hasRefreshTokenCookie(request: Request) {
+  return Boolean(getCookieValue(request, REFRESH_TOKEN_COOKIE_NAME));
+}
+
 export function hasValidRefreshTokenCookie(request: Request) {
   return Boolean(getRefreshTokenEmail(request));
 }
@@ -94,6 +98,12 @@ export function getUnauthorizedError(): ErrorResponse {
 export function getInvalidRefreshTokenError(): ErrorResponse {
   return {
     errorMessage: "리프레시 토큰이 유효하지 않습니다.",
+  };
+}
+
+export function getMissingRefreshTokenError(): ErrorResponse {
+  return {
+    errorMessage: "리프레시 토큰이 없습니다.",
   };
 }
 

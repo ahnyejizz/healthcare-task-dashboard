@@ -1,7 +1,9 @@
-import type { ErrorResponse } from "@/shared/api/contracts";
+import type { AuthTokenResponse, ErrorResponse } from "@/shared/api/contracts";
+import { markSignedIn, markSignedOut } from "@/shared/api/auth-storage";
 
 type RequestOptions = RequestInit & {
   isPublic?: boolean;
+  _retriedAfterRefresh?: boolean;
 };
 
 export class ApiError extends Error {
@@ -14,10 +16,7 @@ export class ApiError extends Error {
   }
 }
 
-export async function apiRequest<T>(
-  path: string,
-  options: RequestOptions = {},
-) {
+async function sendRequest(path: string, options: RequestOptions = {}) {
   const headers = new Headers(options.headers);
 
   if (options.body && !headers.has("Content-Type")) {
@@ -37,6 +36,51 @@ export async function apiRequest<T>(
       "네트워크 요청에 실패했습니다. 개발 환경에서는 MSW 설정을 확인해주세요.",
       0,
     );
+  }
+
+  return response;
+}
+
+async function refreshAccessToken() {
+  const response = await fetch("/api/refresh", {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    const errorBody = (await response.json().catch(() => null)) as
+      | ErrorResponse
+      | null;
+
+    markSignedOut();
+
+    throw new ApiError(
+      errorBody?.errorMessage ?? "인증 갱신에 실패했습니다.",
+      response.status,
+    );
+  }
+
+  const tokens = (await response.json()) as AuthTokenResponse;
+  markSignedIn(tokens);
+}
+
+export async function apiRequest<T>(
+  path: string,
+  options: RequestOptions = {},
+) {
+  let response = await sendRequest(path, options);
+
+  if (
+    response.status === 401 &&
+    !options.isPublic &&
+    !options._retriedAfterRefresh &&
+    path !== "/refresh"
+  ) {
+    await refreshAccessToken();
+    response = await sendRequest(path, {
+      ...options,
+      _retriedAfterRefresh: true,
+    });
   }
 
   if (!response.ok) {

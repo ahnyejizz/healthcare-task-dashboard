@@ -9,12 +9,14 @@ import {
   getDeleteTaskNotFoundError,
   getInvalidCredentialsError,
   getInvalidRefreshTokenError,
+  getMissingRefreshTokenError,
   getRefreshTokenEmail,
   getTaskDetail,
   getTaskNotFoundError,
   getTaskPage,
   getUnauthorizedError,
   getUser,
+  hasRefreshTokenCookie,
   hasValidRefreshTokenCookie,
   isAuthorizedRequest,
   isValidSignIn,
@@ -50,6 +52,10 @@ export const handlers = [
   http.post("/api/refresh", async ({ request }) => {
     await delay(250);
 
+    if (!hasRefreshTokenCookie(request)) {
+      return HttpResponse.json(getMissingRefreshTokenError(), { status: 400 });
+    }
+
     if (!hasValidRefreshTokenCookie(request)) {
       return HttpResponse.json(getInvalidRefreshTokenError(), { status: 401 });
     }
@@ -61,12 +67,20 @@ export const handlers = [
     }
 
     const tokens = getAuthTokens(email);
+    const headers = new Headers();
+
+    headers.append(
+      "Set-Cookie",
+      `${ACCESS_TOKEN_COOKIE_NAME}=${tokens.accessToken}; Path=/; SameSite=Lax`,
+    );
+    headers.append(
+      "Set-Cookie",
+      `${REFRESH_TOKEN_COOKIE_NAME}=${tokens.refreshToken}; Path=/; SameSite=Lax`,
+    );
 
     return HttpResponse.json(tokens, {
       status: 200,
-      headers: {
-        "Set-Cookie": `${ACCESS_TOKEN_COOKIE_NAME}=${tokens.accessToken}; Path=/; SameSite=Lax`,
-      },
+      headers,
     });
   }),
   http.get("/api/user", async ({ request }) => {

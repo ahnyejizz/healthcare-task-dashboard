@@ -8,11 +8,7 @@ type ProvidersProps = {
 };
 
 function shouldEnableMocking() {
-  if (process.env.NODE_ENV !== "development") {
-    return process.env.NEXT_PUBLIC_ENABLE_MSW === "true";
-  }
-
-  return process.env.NEXT_PUBLIC_ENABLE_MSW !== "false";
+  return process.env.NEXT_PUBLIC_ENABLE_MSW === "true";
 }
 
 export function Providers({ children }: ProvidersProps) {
