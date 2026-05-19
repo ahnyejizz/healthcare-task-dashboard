@@ -5,6 +5,7 @@ import { ApiError } from "@/shared/api/http";
 import { getUser } from "@/shared/api/user";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button";
+import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
 
@@ -16,16 +17,7 @@ export function UserProfileSection() {
   });
 
   if (isLoading) {
-    return (
-      <Panel
-        title="회원정보"
-        description="회원 이메일을 확인할 수 있는 화면입니다."
-      >
-        <div className="rounded-[24px] border border-border bg-white p-5 text-sm text-text-muted">
-          회원정보를 불러오는 중입니다.
-        </div>
-      </Panel>
-    );
+    return <LoadingOverlay message="회원정보를 불러오는 중입니다." />;
   }
 
   if (error || !data) {
