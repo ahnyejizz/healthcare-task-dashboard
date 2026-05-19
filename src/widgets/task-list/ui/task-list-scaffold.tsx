@@ -29,6 +29,8 @@ export function TaskListScaffold({
 
     return groupedRows;
   }, [tasks]);
+  // TanStack Virtual 훅은 React Compiler의 incompatible-library 경고 대상이라
+  // 가상 스크롤 구현이 필요한 이 지점에서만 예외 처리합니다.
   // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
