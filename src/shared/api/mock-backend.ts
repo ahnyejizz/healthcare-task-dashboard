@@ -9,8 +9,6 @@ import type {
   UserResponse,
 } from "@/shared/api/contracts";
 import {
-  dashboardFixture,
-  getTaskDetailFixture,
   mockCredentials,
   tasksFixture,
   userFixtureByEmail,
@@ -22,6 +20,12 @@ export const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 export const REFRESH_TOKEN_COOKIE_NAME = "token";
 
 const PAGE_SIZE = 10;
+const taskStore = tasksFixture.map((task, index) => ({
+  ...task,
+  registerDatetime: new Date(
+    Date.UTC(2026, 4, (index % 28) + 1, 9 + (index % 5), 10),
+  ).toISOString(),
+}));
 
 function createAccessToken(email: string) {
   return `${ACCESS_TOKEN_PREFIX}:${email}`;
@@ -124,7 +128,11 @@ export function getUser(email: string): UserResponse {
 }
 
 export function getDashboard(): DashboardResponse {
-  return dashboardFixture;
+  return {
+    numOfTask: taskStore.length,
+    numOfRestTask: taskStore.filter((task) => task.status === "TODO").length,
+    numOfDoneTask: taskStore.filter((task) => task.status === "DONE").length,
+  };
 }
 
 export function getTaskPage(page: number): TaskListResponse {
@@ -133,21 +141,38 @@ export function getTaskPage(page: number): TaskListResponse {
   const end = start + PAGE_SIZE;
 
   return {
-    data: tasksFixture.slice(start, end),
-    hasNext: end < tasksFixture.length,
+    data: taskStore.slice(start, end).map((task) => ({
+      id: task.id,
+      title: task.title,
+      memo: task.memo,
+      status: task.status,
+    })),
+    hasNext: end < taskStore.length,
   };
 }
 
 export function getTaskDetail(id: string): TaskDetailResponse | null {
-  return getTaskDetailFixture(id);
-}
-
-export function deleteTaskById(id: string): DeleteTaskResponse | null {
-  const task = getTaskDetailFixture(id);
+  const task = taskStore.find((item) => item.id === id);
 
   if (!task) {
     return null;
   }
+
+  return {
+    title: task.title,
+    memo: task.memo,
+    registerDatetime: task.registerDatetime,
+  };
+}
+
+export function deleteTaskById(id: string): DeleteTaskResponse | null {
+  const taskIndex = taskStore.findIndex((task) => task.id === id);
+
+  if (taskIndex === -1) {
+    return null;
+  }
+
+  taskStore.splice(taskIndex, 1);
 
   return {
     success: true,

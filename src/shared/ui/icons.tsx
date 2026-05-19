@@ -78,3 +78,11 @@ export function ArrowLeftIcon(props: IconProps) {
     </BaseIcon>
   );
 }
+
+export function CheckIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="m5 12 4.5 4.5L19 7" />
+    </BaseIcon>
+  );
+}
