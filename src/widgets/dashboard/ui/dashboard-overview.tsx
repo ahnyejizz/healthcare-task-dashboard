@@ -12,6 +12,7 @@ export function DashboardOverview({ metrics }: DashboardOverviewProps) {
     <Panel
       title={pageMeta.dashboard.title}
       description={pageMeta.dashboard.description}
+      className="h-full"
     >
       <div className="grid gap-4 md:grid-cols-3">
         <MetricCard caption="일" tone="primary" value={metrics.numOfTask} />
