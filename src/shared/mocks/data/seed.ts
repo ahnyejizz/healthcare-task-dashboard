@@ -3,6 +3,7 @@ import type {
   SignInRequest,
   TaskDetailResponse,
   TaskItem,
+  UserResponse,
 } from "@/shared/api/contracts";
 
 const TOTAL_TASKS = 80;
@@ -10,6 +11,13 @@ const TOTAL_TASKS = 80;
 export const mockCredentials: SignInRequest = {
   email: "test@naver.com",
   password: "frontend2026",
+};
+
+export const userFixtureByEmail: Record<string, UserResponse> = {
+  "test@naver.com": {
+    name: "안예지",
+    memo: "건강 루틴을 꾸준히 관리할 수 있는 화면 흐름을 점검 중입니다.",
+  },
 };
 
 export const tasksFixture: TaskItem[] = Array.from(

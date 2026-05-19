@@ -68,9 +68,15 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
         ) : null}
         <div className="grid gap-4">
           <article className="rounded-[24px] border border-border bg-white p-5">
-            <p className="text-sm font-medium text-text-muted">이메일</p>
+            <p className="text-sm font-medium text-text-muted">이름</p>
             <strong className="mt-3 block text-2xl font-semibold text-text">
-              {user.email}
+              {user.name}
+            </strong>
+          </article>
+          <article className="rounded-[24px] border border-border bg-white p-5">
+            <p className="text-sm font-medium text-text-muted">메모</p>
+            <strong className="mt-3 block text-xl font-semibold leading-8 text-text">
+              {user.memo}
             </strong>
           </article>
         </div>

@@ -13,6 +13,7 @@ import {
   getTaskDetailFixture,
   mockCredentials,
   tasksFixture,
+  userFixtureByEmail,
 } from "@/shared/mocks/data/seed";
 
 const ACCESS_TOKEN_PREFIX = "mock-access-token";
@@ -114,9 +115,12 @@ export function getInvalidCredentialsError(): ErrorResponse {
 }
 
 export function getUser(email: string): UserResponse {
-  return {
-    email,
-  };
+  return (
+    userFixtureByEmail[email] ?? {
+      name: "-",
+      memo: `${email} 계정의 회원정보가 아직 준비되지 않았습니다.`,
+    }
+  );
 }
 
 export function getDashboard(): DashboardResponse {
