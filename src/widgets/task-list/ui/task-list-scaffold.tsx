@@ -37,7 +37,7 @@ export function TaskListScaffold({
   // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 190,
+    estimateSize: () => 200,
     getScrollElement: () => scrollRef.current,
     overscan: 5,
   });
@@ -54,7 +54,7 @@ export function TaskListScaffold({
     >
       <div
         ref={scrollRef}
-        className="content-scrollbar h-full min-h-0 max-h-full flex-1 overflow-y-auto pr-3"
+        className="content-scrollbar h-full min-h-0 max-h-full flex-1 overflow-y-auto px-2 pt-3"
         onScroll={(event) => {
           if (!hasNextPage || isFetchingNextPage) {
             return;
@@ -81,7 +81,7 @@ export function TaskListScaffold({
             return (
               <div
                 key={virtualRow.key}
-                className="absolute left-0 top-0 w-full px-0"
+                className="absolute left-0 top-0 w-full"
                 style={{
                   transform: `translateY(${virtualRow.start}px)`,
                 }}

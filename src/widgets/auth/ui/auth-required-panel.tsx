@@ -28,15 +28,13 @@ export function AuthRequiredPanel() {
                 이 화면은 로그인 후 이용할 수 있습니다.
               </h2>
               <p className="mt-3 text-sm leading-7 text-text-muted">
-                현재는 비로그인 상태라 오른쪽 콘텐츠만 잠겨 있습니다. 
-                <br/>
-                로그인하면 대시보드, 할 일 목록, 회원정보가 같은 레이아웃 안에서 바로 열립니다.
+                로그인 후 대시보드, 할 일 목록, 회원정보 화면을 이용할 수 있습니다.
               </p>
             </div>
           </div>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
-              <p className="text-xs font-semibold tracking-[0.14em] text-text-muted uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                 Dashboard
               </p>
               <p className="mt-2 text-sm leading-6 text-text">
@@ -44,7 +42,7 @@ export function AuthRequiredPanel() {
               </p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
-              <p className="text-xs font-semibold tracking-[0.14em] text-text-muted uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                 Tasks
               </p>
               <p className="mt-2 text-sm leading-6 text-text">
@@ -52,7 +50,7 @@ export function AuthRequiredPanel() {
               </p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
-              <p className="text-xs font-semibold tracking-[0.14em] text-text-muted uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                 Account
               </p>
               <p className="mt-2 text-sm leading-6 text-text">

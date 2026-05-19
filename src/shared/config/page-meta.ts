@@ -3,7 +3,7 @@ import { routes } from "@/shared/config/routes";
 export const pageMeta = {
   dashboard: {
     title: "대시보드",
-    description: "할 일 현황을 대시보드 형태로 한눈에 확인할 수 있는 화면입니다.",
+    description: "태스크 현황을 대시보드 형태로 한눈에 확인할 수 있는 화면입니다.",
   },
   taskList: {
     title: "할 일 목록",

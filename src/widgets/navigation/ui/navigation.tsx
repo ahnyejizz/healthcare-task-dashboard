@@ -57,10 +57,10 @@ export function Navigation() {
               key={item.href}
               href={item.href}
               className={[
-                "focus-ring flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors",
+                "focus-ring flex h-13 items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
                 isActive
-                  ? "bg-surface-muted text-text"
-                  : "text-text-muted hover:bg-surface-muted hover:text-text",
+                  ? "border-primary/30 bg-surface-muted text-text"
+                  : "border-border/80 text-text-muted",
               ].join(" ")}
             >
               <Icon className="size-5" />
@@ -70,15 +70,17 @@ export function Navigation() {
         })}
       </nav>
 
-      <div className="mt-6 rounded-[24px] bg-white p-4">
-        <p className="text-xs font-semibold tracking-[0.16em] text-text-muted uppercase">
+      <div className="mt-6 rounded-[24px] bg-white px-0 pb-0 pt-4">
+        <p className="px-4 text-xs font-semibold tracking-[0.16em] text-primary uppercase">
           Account
         </p>
         <Link
           href={accountHref}
           className={[
-            "focus-ring mt-3 flex items-center gap-3 rounded-2xl border border-border/80 px-4 py-3 text-sm font-semibold text-text transition-colors",
-            isAccountActive ? "bg-surface-muted" : "bg-white",
+            "focus-ring mt-3 flex h-13 w-full items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
+            isAccountActive
+              ? "border-primary/30 bg-surface-muted text-text"
+              : "border-border/80 bg-white text-text-muted",
           ].join(" ")}
         >
           <AccountIcon
