@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
@@ -41,23 +41,6 @@ export function TaskListScaffold({
   const virtualRows = rowVirtualizer.getVirtualItems();
   const totalHeight =
     rowVirtualizer.getTotalSize() + (isFetchingNextPage ? 56 : 0);
-  const requestNextPage = useEffectEvent(() => {
-    if (hasNextPage && !isFetchingNextPage) {
-      onEndReached();
-    }
-  });
-
-  useEffect(() => {
-    const lastVisibleRow = virtualRows.at(-1);
-
-    if (!lastVisibleRow || rows.length === 0) {
-      return;
-    }
-
-    if (lastVisibleRow.index >= rows.length - 3) {
-      requestNextPage();
-    }
-  }, [rows.length, virtualRows]);
 
   return (
     <Panel
@@ -69,6 +52,19 @@ export function TaskListScaffold({
       <div
         ref={scrollRef}
         className="content-scrollbar h-full min-h-0 max-h-full flex-1 overflow-y-auto pr-3"
+        onScroll={(event) => {
+          if (!hasNextPage || isFetchingNextPage) {
+            return;
+          }
+
+          const { clientHeight, scrollHeight, scrollTop } = event.currentTarget;
+          const remainingScroll = scrollHeight - scrollTop - clientHeight;
+
+          // 스크롤이 실제 하단 근처에 왔을 때만 다음 페이지 API를 호출
+          if (remainingScroll <= 320) {
+            onEndReached();
+          }
+        }}
       >
         <div
           className="relative"
