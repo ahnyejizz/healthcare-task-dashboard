@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { protectedPageMeta } from "@/shared/config/page-meta";
+import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getTaskDetail } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
@@ -70,8 +70,8 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
 
     return (
       <Panel
-        title={protectedPageMeta.taskDetail.title}
-        description={protectedPageMeta.taskDetail.description}
+        title={pageMeta.taskDetail.title}
+        description={pageMeta.taskDetail.description}
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

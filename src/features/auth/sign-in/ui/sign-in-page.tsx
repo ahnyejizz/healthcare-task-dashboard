@@ -10,6 +10,7 @@ import {
   getIsAuthenticated,
   markSignedIn,
 } from "@/shared/api/auth-storage";
+import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { ApiError } from "@/shared/api/http";
 import { Button, ButtonLink } from "@/shared/ui/button";
@@ -84,10 +85,10 @@ export function SignInPage() {
             </ButtonLink>
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-text">
-            로그인
+            {pageMeta.signIn.title}
           </h1>
           <p className="mt-3 text-sm leading-6 text-text-muted">
-            유효성 검증과 실패 모달 동작을 포함한 로그인 폼 시작점입니다.
+            {pageMeta.signIn.description}
           </p>
 
           <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>

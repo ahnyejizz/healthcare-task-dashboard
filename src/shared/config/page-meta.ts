@@ -1,6 +1,6 @@
 import { routes } from "@/shared/config/routes";
 
-export const protectedPageMeta = {
+export const pageMeta = {
   dashboard: {
     title: "대시보드",
     description: "할 일 현황을 대시보드 형태로 한눈에 확인할 수 있는 화면입니다.",
@@ -17,20 +17,28 @@ export const protectedPageMeta = {
     title: "회원정보",
     description: "회원 정보를 확인할 수 있는 화면입니다.",
   },
+  signIn: {
+    title: "로그인",
+    description: "MSW 기반의 테스트 계정으로 이메일과 비밀번호를 입력해 로그인할 수 있는 화면입니다.",
+  },
 } as const;
 
-export function resolveProtectedPageMeta(pathname: string) {
+export function resolvePageMeta(pathname: string) {
+  if (pathname.startsWith(routes.signIn)) {
+    return pageMeta.signIn;
+  }
+
   if (pathname.startsWith(routes.user)) {
-    return protectedPageMeta.user;
+    return pageMeta.user;
   }
 
   if (pathname.startsWith("/task/")) {
-    return protectedPageMeta.taskDetail;
+    return pageMeta.taskDetail;
   }
 
   if (pathname.startsWith(routes.taskList)) {
-    return protectedPageMeta.taskList;
+    return pageMeta.taskList;
   }
 
-  return protectedPageMeta.dashboard;
+  return pageMeta.dashboard;
 }

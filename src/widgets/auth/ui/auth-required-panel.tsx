@@ -2,14 +2,14 @@
 
 import { usePathname } from "next/navigation";
 import { routes } from "@/shared/config/routes";
-import { resolveProtectedPageMeta } from "@/shared/config/page-meta";
+import { resolvePageMeta } from "@/shared/config/page-meta";
 import { ButtonLink } from "@/shared/ui/button";
 import { LoginIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 
 export function AuthRequiredPanel() {
   const pathname = usePathname();
-  const { title, description } = resolveProtectedPageMeta(pathname);
+  const { title, description } = resolvePageMeta(pathname);
 
   return (
     <Panel title={title} description={description}>

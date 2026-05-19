@@ -4,7 +4,7 @@ import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
-import { protectedPageMeta } from "@/shared/config/page-meta";
+import { pageMeta } from "@/shared/config/page-meta";
 import { Panel } from "@/shared/ui/panel";
 
 type TaskListScaffoldProps = {
@@ -47,8 +47,8 @@ export function TaskListScaffold({
 
   return (
     <Panel
-      title={protectedPageMeta.taskList.title}
-      description={protectedPageMeta.taskList.description}
+      title={pageMeta.taskList.title}
+      description={pageMeta.taskList.description}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
     >

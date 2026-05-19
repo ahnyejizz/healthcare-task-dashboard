@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { protectedPageMeta } from "@/shared/config/page-meta";
+import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getUser } from "@/shared/api/user";
 import { routes } from "@/shared/config/routes";
@@ -30,8 +30,8 @@ export function UserProfileSection() {
 
     return (
       <Panel
-        title={protectedPageMeta.user.title}
-        description={protectedPageMeta.user.description}
+        title={pageMeta.user.title}
+        description={pageMeta.user.description}
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

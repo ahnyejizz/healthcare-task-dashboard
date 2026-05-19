@@ -1,5 +1,5 @@
 import type { DashboardResponse } from "@/shared/api/contracts";
-import { protectedPageMeta } from "@/shared/config/page-meta";
+import { pageMeta } from "@/shared/config/page-meta";
 import { MetricCard } from "@/shared/ui/metric-card";
 import { Panel } from "@/shared/ui/panel";
 
@@ -10,8 +10,8 @@ type DashboardOverviewProps = {
 export function DashboardOverview({ metrics }: DashboardOverviewProps) {
   return (
     <Panel
-      title={protectedPageMeta.dashboard.title}
-      description={protectedPageMeta.dashboard.description}
+      title={pageMeta.dashboard.title}
+      description={pageMeta.dashboard.description}
     >
       <div className="grid gap-4 md:grid-cols-3">
         <MetricCard caption="일" tone="primary" value={metrics.numOfTask} />

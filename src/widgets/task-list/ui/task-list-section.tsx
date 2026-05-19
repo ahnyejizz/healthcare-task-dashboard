@@ -2,7 +2,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { protectedPageMeta } from "@/shared/config/page-meta";
+import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getTaskPage } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
@@ -50,8 +50,8 @@ export function TaskListSection({ initialPage }: TaskListSectionProps) {
 
     return (
       <Panel
-        title={protectedPageMeta.taskList.title}
-        description={protectedPageMeta.taskList.description}
+        title={pageMeta.taskList.title}
+        description={pageMeta.taskList.description}
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

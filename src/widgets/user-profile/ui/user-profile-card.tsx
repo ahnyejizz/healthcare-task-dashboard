@@ -10,7 +10,7 @@ import {
 import { signOut } from "@/shared/api/auth";
 import type { UserResponse } from "@/shared/api/contracts";
 import { routes } from "@/shared/config/routes";
-import { protectedPageMeta } from "@/shared/config/page-meta";
+import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { Button } from "@/shared/ui/button";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
@@ -49,8 +49,8 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   return (
     <>
       <Panel
-        title={protectedPageMeta.user.title}
-        description={protectedPageMeta.user.description}
+        title={pageMeta.user.title}
+        description={pageMeta.user.description}
         action={
           <Button
             variant="secondary"
