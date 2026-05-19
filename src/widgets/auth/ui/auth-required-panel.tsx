@@ -1,14 +1,18 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { routes } from "@/shared/config/routes";
+import { resolveProtectedPageMeta } from "@/shared/config/page-meta";
 import { ButtonLink } from "@/shared/ui/button";
 import { LoginIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 
 export function AuthRequiredPanel() {
+  const pathname = usePathname();
+  const { title, description } = resolveProtectedPageMeta(pathname);
+
   return (
-    <Panel
-      title="이 화면은 로그인 후 이용할 수 있습니다."
-      description="LNB 구조는 그대로 유지하고, 콘텐츠 영역만 로그인 여부에 따라 분기처리 하였습니다."
-    >
+    <Panel title={title} description={description}>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
         <article className="relative overflow-hidden rounded-[28px] border border-border bg-white px-6 py-7 lg:px-8">
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
@@ -18,7 +22,7 @@ export function AuthRequiredPanel() {
             </div>
             <div>
               <h2 className="text-2xl font-semibold tracking-tight text-text">
-                로그인하면 대시보드와 할 일 화면을 바로 이어서 볼 수 있어요.
+                이 화면은 로그인 후 이용할 수 있습니다.
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-text-muted">
                 현재는 비로그인 상태라 오른쪽 콘텐츠만 잠겨 있습니다. 
@@ -56,9 +60,6 @@ export function AuthRequiredPanel() {
         </article>
 
         <aside className="rounded-[28px] border border-border bg-[linear-gradient(180deg,rgba(255,245,221,0.92),rgba(255,255,255,0.98))] p-6 lg:p-7">
-          <p className="text-xs font-semibold tracking-[0.16em] text-text-muted uppercase">
-            Quick Access
-          </p>
           <h3 className="mt-3 text-xl font-semibold tracking-tight text-text">
             로그인 후 전체 기능을 사용할 수 있습니다.
           </h3>

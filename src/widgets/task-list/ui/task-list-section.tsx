@@ -2,6 +2,7 @@
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { protectedPageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getTaskPage } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
@@ -49,8 +50,8 @@ export function TaskListSection({ initialPage }: TaskListSectionProps) {
 
     return (
       <Panel
-        title="할 일 목록"
-        description="등록된 할 일을 목록으로 확인할 수 있는 화면입니다."
+        title={protectedPageMeta.taskList.title}
+        description={protectedPageMeta.taskList.description}
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

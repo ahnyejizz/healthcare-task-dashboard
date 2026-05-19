@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { protectedPageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getUser } from "@/shared/api/user";
 import { routes } from "@/shared/config/routes";
@@ -29,8 +30,8 @@ export function UserProfileSection() {
 
     return (
       <Panel
-        title="회원정보"
-        description="회원 이메일을 확인할 수 있는 화면입니다."
+        title={protectedPageMeta.user.title}
+        description={protectedPageMeta.user.description}
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

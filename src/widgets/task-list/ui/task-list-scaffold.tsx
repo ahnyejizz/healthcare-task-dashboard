@@ -4,6 +4,7 @@ import { useMemo, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
+import { protectedPageMeta } from "@/shared/config/page-meta";
 import { Panel } from "@/shared/ui/panel";
 
 type TaskListScaffoldProps = {
@@ -46,8 +47,8 @@ export function TaskListScaffold({
 
   return (
     <Panel
-      title="할 일 목록"
-      description="스크롤 영역 안에서 필요한 카드만 렌더링하고, 목록 끝에 가까워지면 다음 페이지를 이어서 불러옵니다."
+      title={protectedPageMeta.taskList.title}
+      description={protectedPageMeta.taskList.description}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
     >

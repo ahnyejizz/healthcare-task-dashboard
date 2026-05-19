@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { protectedPageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getTaskDetail } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
@@ -69,8 +70,8 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
 
     return (
       <Panel
-        title="할 일 상세"
-        description="선택한 할 일의 내용을 확인할 수 있는 화면입니다."
+        title={protectedPageMeta.taskDetail.title}
+        description={protectedPageMeta.taskDetail.description}
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

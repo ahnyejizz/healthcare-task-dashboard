@@ -1,5 +1,6 @@
 import type { TaskDetailResponse } from "@/shared/api/contracts";
 import { DeleteTaskDialog } from "@/features/task/delete-task/ui/delete-task-dialog";
+import { protectedPageMeta } from "@/shared/config/page-meta";
 import { Panel } from "@/shared/ui/panel";
 
 type TaskDetailViewProps = {
@@ -18,7 +19,7 @@ export function TaskDetailView({ id, task }: TaskDetailViewProps) {
   return (
     <Panel
       title={task.title}
-      description="상세 페이지의 404 처리, 삭제 플로우, 등록일 노출 구조를 먼저 구성한 상태입니다."
+      description={protectedPageMeta.taskDetail.description}
     >
       <dl className="grid gap-6">
         <div className="rounded-[24px] border border-border bg-white p-5">

@@ -10,6 +10,7 @@ import {
 import { signOut } from "@/shared/api/auth";
 import type { UserResponse } from "@/shared/api/contracts";
 import { routes } from "@/shared/config/routes";
+import { protectedPageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { Button } from "@/shared/ui/button";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
@@ -48,8 +49,8 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   return (
     <>
       <Panel
-        title="회원정보"
-        description="현재 로그인 되어있는 회원 이메일을 확인할 수 있는 화면입니다."
+        title={protectedPageMeta.user.title}
+        description={protectedPageMeta.user.description}
         action={
           <Button
             variant="secondary"
