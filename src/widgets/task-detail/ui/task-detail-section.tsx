@@ -8,6 +8,7 @@ import { ApiError } from "@/shared/api/http";
 import { getTaskDetail } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button";
+import { ArrowLeftIcon } from "@/shared/ui/icons";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { TaskDetailView } from "@/widgets/task-detail/ui/task-detail-view";
@@ -51,20 +52,31 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
 
     if (isNotFound) {
       return (
-        <section className="surface-card rounded-[28px] p-8">
-          <p className="text-sm font-semibold tracking-[0.16em] text-danger uppercase">
-            404
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold text-text">
-            존재하지 않는 할 일입니다.
-          </h1>
-          <p className="mt-4 max-w-xl text-base leading-7 text-text-muted">
-            요청한 리소스를 찾을 수 없습니다. 목록으로 돌아가 다시 확인해주세요.
-          </p>
-          <div className="mt-8">
-            <ButtonLink href="/task">목록으로 돌아가기</ButtonLink>
+        <Panel
+          title="존재하지 않는 할 일입니다."
+          description="요청한 리소스를 찾을 수 없습니다. 목록으로 돌아가 다시 확인해주세요."
+          className="h-full"
+          action={
+            <ButtonLink
+              href={routes.taskList}
+              variant="ghost"
+              aria-label="목록으로 돌아가기"
+              title="목록으로 돌아가기"
+              className="h-12 w-12 rounded-[20px] bg-surface-muted px-0 py-0 text-text"
+            >
+              <ArrowLeftIcon className="size-7" />
+            </ButtonLink>
+          }
+        >
+          <div className="rounded-[24px] border border-border bg-white p-5">
+            <p className="text-sm font-semibold tracking-[0.16em] text-danger uppercase">
+              404 Not Found
+            </p>
+            <p className="mt-3 text-sm leading-6 text-text-muted">
+              선택한 할 일을 찾을 수 없어 상세 내용을 표시하지 못했습니다.
+            </p>
           </div>
-        </section>
+        </Panel>
       );
     }
 
