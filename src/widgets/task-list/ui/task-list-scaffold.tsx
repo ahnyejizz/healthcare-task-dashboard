@@ -13,6 +13,8 @@ type TaskListScaffoldProps = {
   tasks: TaskItem[];
 };
 
+const NEXT_PAGE_FETCH_THRESHOLD = 320;
+
 export function TaskListScaffold({
   hasNextPage,
   isFetchingNextPage,
@@ -61,7 +63,7 @@ export function TaskListScaffold({
           const remainingScroll = scrollHeight - scrollTop - clientHeight;
 
           // 스크롤이 실제 하단 근처에 왔을 때만 다음 페이지 API를 호출
-          if (remainingScroll <= 320) {
+          if (remainingScroll <= NEXT_PAGE_FETCH_THRESHOLD) {
             onEndReached();
           }
         }}
