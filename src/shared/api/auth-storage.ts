@@ -135,3 +135,31 @@ export function subscribeToAuthRedirectChange(onChange: (value: boolean) => void
     window.removeEventListener(AUTH_REDIRECT_EVENT, handleChange);
   };
 }
+
+export function subscribeAuthState(onStoreChange: () => void) {
+  return subscribeToAuthStateChange(() => {
+    onStoreChange();
+  });
+}
+
+export function subscribeAuthRedirectState(onStoreChange: () => void) {
+  return subscribeToAuthRedirectChange(() => {
+    onStoreChange();
+  });
+}
+
+export function getAuthStateSnapshot() {
+  return getIsAuthenticated();
+}
+
+export function getAuthRedirectSnapshot() {
+  return getIsAuthRedirecting();
+}
+
+export function getAuthStateServerSnapshot() {
+  return false;
+}
+
+export function getAuthRedirectServerSnapshot() {
+  return false;
+}

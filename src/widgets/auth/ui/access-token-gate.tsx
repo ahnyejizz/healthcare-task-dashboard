@@ -1,12 +1,14 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import {
-  getIsAuthRedirecting,
-  getIsAuthenticated,
-  subscribeToAuthRedirectChange,
-  subscribeToAuthStateChange,
+  getAuthRedirectServerSnapshot,
+  getAuthRedirectSnapshot,
+  getAuthStateServerSnapshot,
+  getAuthStateSnapshot,
+  subscribeAuthRedirectState,
+  subscribeAuthState,
 } from "@/shared/api/auth-storage";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
@@ -16,27 +18,16 @@ type AccessTokenGateProps = {
 };
 
 export function AccessTokenGate({ children }: AccessTokenGateProps) {
-  const [hasAccessToken, setHasAccessToken] = useState(() =>
-    getIsAuthenticated(),
+  const hasAccessToken = useSyncExternalStore(
+    subscribeAuthState,
+    getAuthStateSnapshot,
+    getAuthStateServerSnapshot,
   );
-  const [isAuthRedirecting, setIsAuthRedirecting] = useState(() =>
-    getIsAuthRedirecting(),
+  const isAuthRedirecting = useSyncExternalStore(
+    subscribeAuthRedirectState,
+    getAuthRedirectSnapshot,
+    getAuthRedirectServerSnapshot,
   );
-
-  useEffect(() => {
-    const unsubscribeAuthState = subscribeToAuthStateChange((value) => {
-      setHasAccessToken(value);
-    });
-
-    const unsubscribeAuthRedirect = subscribeToAuthRedirectChange((value) => {
-      setIsAuthRedirecting(value);
-    });
-
-    return () => {
-      unsubscribeAuthState();
-      unsubscribeAuthRedirect();
-    };
-  }, []);
 
   if (isAuthRedirecting) {
     return <LoadingOverlay message="로그아웃 중입니다." />;

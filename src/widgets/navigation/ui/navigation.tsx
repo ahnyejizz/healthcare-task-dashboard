@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import {
-  getIsAuthenticated,
-  subscribeToAuthStateChange,
+  getAuthStateServerSnapshot,
+  getAuthStateSnapshot,
+  subscribeAuthState,
 } from "@/shared/api/auth-storage";
 import { primaryNavigation, routes } from "@/shared/config/routes";
 import {
@@ -21,15 +22,11 @@ function resolveIcon(icon: (typeof primaryNavigation)[number]["icon"]) {
 
 export function Navigation() {
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState(() =>
-    getIsAuthenticated(),
+  const isAuthenticated = useSyncExternalStore(
+    subscribeAuthState,
+    getAuthStateSnapshot,
+    getAuthStateServerSnapshot,
   );
-
-  useEffect(() => {
-    return subscribeToAuthStateChange((value) => {
-      setIsAuthenticated(value);
-    });
-  }, []);
 
   const accountHref = isAuthenticated ? routes.user : routes.signIn;
   const AccountIcon = isAuthenticated ? UserIcon : LoginIcon;
