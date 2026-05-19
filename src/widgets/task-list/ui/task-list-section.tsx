@@ -1,6 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { ApiError } from "@/shared/api/http";
 import { getTaskPage } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
@@ -9,17 +10,32 @@ import { Panel } from "@/shared/ui/panel";
 import { TaskListScaffold } from "@/widgets/task-list/ui/task-list-scaffold";
 
 type TaskListSectionProps = {
-  page: number;
+  initialPage: number;
 };
 
-export function TaskListSection({ page }: TaskListSectionProps) {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["tasks", page],
-    queryFn: () => getTaskPage(page),
+export function TaskListSection({ initialPage }: TaskListSectionProps) {
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery({
+    initialPageParam: initialPage,
+    queryKey: ["tasks", initialPage],
+    queryFn: ({ pageParam }) => getTaskPage(pageParam),
+    getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+      lastPage.hasNext ? lastPageParam + 1 : undefined,
     retry: false,
   });
 
-  if (isLoading) {
+  const tasks = useMemo(
+    () => data?.pages.flatMap((pageData) => pageData.data) ?? [],
+    [data],
+  );
+
+  if (isLoading && tasks.length === 0) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172033]/18 px-4 backdrop-blur-[3px]">
         <div
@@ -69,5 +85,14 @@ export function TaskListSection({ page }: TaskListSectionProps) {
     );
   }
 
-  return <TaskListScaffold tasks={data.data} />;
+  return (
+    <TaskListScaffold
+      tasks={tasks}
+      hasNextPage={Boolean(hasNextPage)}
+      isFetchingNextPage={isFetchingNextPage}
+      onEndReached={() => {
+        void fetchNextPage();
+      }}
+    />
+  );
 }

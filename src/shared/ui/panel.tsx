@@ -3,13 +3,29 @@ import type { ReactNode } from "react";
 type PanelProps = {
   action?: ReactNode;
   children: ReactNode;
+  className?: string;
+  contentClassName?: string;
   description?: string;
   title?: string;
 };
 
-export function Panel({ action, children, description, title }: PanelProps) {
+export function Panel({
+  action,
+  children,
+  className,
+  contentClassName,
+  description,
+  title,
+}: PanelProps) {
   return (
-    <section className="surface-card rounded-[28px] p-6 lg:p-8">
+    <section
+      className={[
+        "surface-card rounded-[28px] p-6 lg:p-8",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       {title ? (
         <header className="mb-6 flex items-start justify-between gap-4">
           <div>
@@ -25,7 +41,7 @@ export function Panel({ action, children, description, title }: PanelProps) {
           {action ? <div className="shrink-0">{action}</div> : null}
         </header>
       ) : null}
-      {children}
+      <div className={contentClassName}>{children}</div>
     </section>
   );
 }

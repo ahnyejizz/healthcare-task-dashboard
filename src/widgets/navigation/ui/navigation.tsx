@@ -37,7 +37,7 @@ export function Navigation() {
   const isAccountActive = pathname.startsWith(accountHref);
 
   return (
-    <aside className="surface-card flex h-full flex-col rounded-[32px] p-6 lg:min-h-[calc(100vh-3rem)]">
+    <aside className="surface-card flex h-full flex-col rounded-[32px] p-6">
       <Link href={routes.dashboard} className="focus-ring rounded-2xl p-2">
         <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
           healthcare-task-dashboard

@@ -25,5 +25,5 @@ export default async function TaskListPage({
 }: TaskListPageProps) {
   const { page } = await searchParams;
 
-  return <TaskListSection page={resolvePageParam(page)} />;
+  return <TaskListSection initialPage={resolvePageParam(page)} />;
 }

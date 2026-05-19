@@ -5,7 +5,7 @@ import type {
   TaskItem,
 } from "@/shared/api/contracts";
 
-const TOTAL_TASKS = 48;
+const TOTAL_TASKS = 80;
 
 export const mockCredentials: SignInRequest = {
   email: "test@naver.com",

@@ -1,21 +1,112 @@
+"use client";
+
+import { useEffect, useEffectEvent, useMemo, useRef } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { Panel } from "@/shared/ui/panel";
 
 type TaskListScaffoldProps = {
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  onEndReached: () => void;
   tasks: TaskItem[];
 };
 
-export function TaskListScaffold({ tasks }: TaskListScaffoldProps) {
+export function TaskListScaffold({
+  hasNextPage,
+  isFetchingNextPage,
+  onEndReached,
+  tasks,
+}: TaskListScaffoldProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const rows = useMemo(() => {
+    const groupedRows: TaskItem[][] = [];
+
+    for (let index = 0; index < tasks.length; index += 2) {
+      groupedRows.push(tasks.slice(index, index + 2));
+    }
+
+    return groupedRows;
+  }, [tasks]);
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const rowVirtualizer = useVirtualizer({
+    count: rows.length,
+    estimateSize: () => 190,
+    getScrollElement: () => scrollRef.current,
+    overscan: 5,
+  });
+  const virtualRows = rowVirtualizer.getVirtualItems();
+  const totalHeight =
+    rowVirtualizer.getTotalSize() + (isFetchingNextPage ? 56 : 0);
+  const requestNextPage = useEffectEvent(() => {
+    if (hasNextPage && !isFetchingNextPage) {
+      onEndReached();
+    }
+  });
+
+  useEffect(() => {
+    const lastVisibleRow = virtualRows.at(-1);
+
+    if (!lastVisibleRow || rows.length === 0) {
+      return;
+    }
+
+    if (lastVisibleRow.index >= rows.length - 3) {
+      requestNextPage();
+    }
+  }, [rows.length, virtualRows]);
+
   return (
     <Panel
       title="할 일 목록"
-      description="카드 UI, 라우팅 연결, 상태 배지 구조를 먼저 잡아둔 단계입니다. 다음 구현 단계에서 가상 스크롤과 무한 스크롤을 완성합니다."
+      description="스크롤 영역 안에서 필요한 카드만 렌더링하고, 목록 끝에 가까워지면 다음 페이지를 이어서 불러옵니다."
+      className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
+      contentClassName="min-h-0 flex-1"
     >
-      <div className="grid gap-4 md:grid-cols-2">
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+      <div
+        ref={scrollRef}
+        className="content-scrollbar h-full min-h-0 max-h-full flex-1 overflow-y-auto pr-3"
+      >
+        <div
+          className="relative"
+          style={{
+            height: `${totalHeight}px`,
+          }}
+        >
+          {virtualRows.map((virtualRow) => {
+            const rowTasks = rows[virtualRow.index];
+
+            return (
+              <div
+                key={virtualRow.key}
+                className="absolute left-0 top-0 w-full px-0"
+                style={{
+                  transform: `translateY(${virtualRow.start}px)`,
+                }}
+              >
+                <div className="grid gap-4 pb-4 md:grid-cols-2">
+                  {rowTasks.map((task) => (
+                    <TaskCard key={task.id} task={task} />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          {isFetchingNextPage ? (
+            <div
+              className="absolute left-0 w-full"
+              style={{
+                top: `${rowVirtualizer.getTotalSize()}px`,
+              }}
+            >
+              <div className="flex items-center justify-center py-4 text-sm text-text-muted">
+                다음 목록을 불러오는 중입니다.
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
     </Panel>
   );
