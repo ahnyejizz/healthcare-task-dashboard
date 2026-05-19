@@ -1,4 +1,3 @@
-import { getAccessToken } from "@/shared/api/auth-storage";
 import type { ErrorResponse } from "@/shared/api/contracts";
 
 type RequestOptions = RequestInit & {
@@ -23,14 +22,6 @@ export async function apiRequest<T>(
 
   if (options.body && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
-  }
-
-  if (!options.isPublic) {
-    const accessToken = getAccessToken();
-
-    if (accessToken) {
-      headers.set("Authorization", `Bearer ${accessToken}`);
-    }
   }
 
   let response: Response;

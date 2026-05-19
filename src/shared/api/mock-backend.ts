@@ -17,6 +17,7 @@ import {
 
 const ACCESS_TOKEN_PREFIX = "mock-access-token";
 const REFRESH_TOKEN_PREFIX = "mock-refresh-token";
+export const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 export const REFRESH_TOKEN_COOKIE_NAME = "token";
 
 const PAGE_SIZE = 10;
@@ -45,18 +46,17 @@ function parseRefreshToken(refreshToken: string | null) {
   return refreshToken.slice(`${REFRESH_TOKEN_PREFIX}:`.length) || null;
 }
 
-function getBearerToken(request: Request) {
-  const authorization = request.headers.get("Authorization");
-
-  if (!authorization?.startsWith("Bearer ")) {
-    return null;
-  }
-
-  return authorization.slice("Bearer ".length);
+function getCookieValue(request: Request, cookieName: string) {
+  return request.headers
+    .get("cookie")
+    ?.split(";")
+    .map((value) => value.trim())
+    .find((value) => value.startsWith(`${cookieName}=`))
+    ?.slice(`${cookieName}=`.length);
 }
 
 export function getAuthorizedEmail(request: Request) {
-  return parseAccessToken(getBearerToken(request));
+  return parseAccessToken(getCookieValue(request, ACCESS_TOKEN_COOKIE_NAME) ?? null);
 }
 
 export function isAuthorizedRequest(request: Request) {
@@ -64,14 +64,7 @@ export function isAuthorizedRequest(request: Request) {
 }
 
 export function getRefreshTokenEmail(request: Request) {
-  const cookie = request.headers.get("cookie");
-  const refreshToken = cookie
-    ?.split(";")
-    .map((value) => value.trim())
-    .find((value) => value.startsWith(`${REFRESH_TOKEN_COOKIE_NAME}=`))
-    ?.slice(`${REFRESH_TOKEN_COOKIE_NAME}=`.length);
-
-  return parseRefreshToken(refreshToken ?? null);
+  return parseRefreshToken(getCookieValue(request, REFRESH_TOKEN_COOKIE_NAME) ?? null);
 }
 
 export function hasValidRefreshTokenCookie(request: Request) {

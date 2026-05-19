@@ -1,6 +1,7 @@
 import { delay, http, HttpResponse } from "msw";
 import type { SignInRequest } from "@/shared/api/contracts";
 import {
+  ACCESS_TOKEN_COOKIE_NAME,
   deleteTaskById,
   getAuthTokens,
   getAuthorizedEmail,
@@ -30,12 +31,20 @@ export const handlers = [
     }
 
     const tokens = getAuthTokens(payload.email);
+    const headers = new Headers();
+
+    headers.append(
+      "Set-Cookie",
+      `${ACCESS_TOKEN_COOKIE_NAME}=${tokens.accessToken}; Path=/; SameSite=Lax`,
+    );
+    headers.append(
+      "Set-Cookie",
+      `${REFRESH_TOKEN_COOKIE_NAME}=${tokens.refreshToken}; Path=/; SameSite=Lax`,
+    );
 
     return HttpResponse.json(tokens, {
       status: 200,
-      headers: {
-        "Set-Cookie": `${REFRESH_TOKEN_COOKIE_NAME}=${tokens.refreshToken}; Path=/; SameSite=Lax`,
-      },
+      headers,
     });
   }),
   http.post("/api/refresh", async ({ request }) => {
@@ -51,7 +60,14 @@ export const handlers = [
       return HttpResponse.json(getInvalidRefreshTokenError(), { status: 401 });
     }
 
-    return HttpResponse.json(getAuthTokens(email));
+    const tokens = getAuthTokens(email);
+
+    return HttpResponse.json(tokens, {
+      status: 200,
+      headers: {
+        "Set-Cookie": `${ACCESS_TOKEN_COOKIE_NAME}=${tokens.accessToken}; Path=/; SameSite=Lax`,
+      },
+    });
   }),
   http.get("/api/user", async ({ request }) => {
     await delay(250);
@@ -118,5 +134,27 @@ export const handlers = [
     }
 
     return HttpResponse.json(result);
+  }),
+  http.post("/api/sign-out", async () => {
+    await delay(150);
+
+    const headers = new Headers();
+
+    headers.append(
+      "Set-Cookie",
+      `${ACCESS_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`,
+    );
+    headers.append(
+      "Set-Cookie",
+      `${REFRESH_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`,
+    );
+
+    return HttpResponse.json(
+      { success: true },
+      {
+        status: 200,
+        headers,
+      },
+    );
   }),
 ];

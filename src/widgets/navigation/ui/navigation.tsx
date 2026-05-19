@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
-  getAccessToken,
-  subscribeToAccessTokenChange,
+  getIsAuthenticated,
+  subscribeToAuthStateChange,
 } from "@/shared/api/auth-storage";
 import { primaryNavigation, routes } from "@/shared/config/routes";
 import {
@@ -22,12 +22,12 @@ function resolveIcon(icon: (typeof primaryNavigation)[number]["icon"]) {
 export function Navigation() {
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(() =>
-    Boolean(getAccessToken()),
+    getIsAuthenticated(),
   );
 
   useEffect(() => {
-    return subscribeToAccessTokenChange((token) => {
-      setIsAuthenticated(Boolean(token));
+    return subscribeToAuthStateChange((value) => {
+      setIsAuthenticated(value);
     });
   }, []);
 

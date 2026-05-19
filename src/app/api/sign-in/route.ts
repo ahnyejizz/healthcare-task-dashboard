@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { SignInRequest } from "@/shared/api/contracts";
 import {
+  ACCESS_TOKEN_COOKIE_NAME,
   getAuthTokens,
   getInvalidCredentialsError,
   isValidSignIn,
@@ -19,6 +20,10 @@ export async function POST(request: Request) {
   const tokens = getAuthTokens(payload.email);
   const response = NextResponse.json(tokens);
 
+  response.cookies.set(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken, {
+    path: "/",
+    sameSite: "lax",
+  });
   response.cookies.set(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken, {
     path: "/",
     sameSite: "lax",

@@ -1,5 +1,4 @@
-import { hasAuthenticatedSession } from "@/shared/api/server-auth";
-import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
+import { AccessTokenGate } from "@/widgets/auth/ui/access-token-gate";
 import { AppShell } from "@/widgets/navigation/ui/app-shell";
 
 type ProtectedLayoutProps = {
@@ -9,7 +8,5 @@ type ProtectedLayoutProps = {
 export default async function ProtectedLayout({
   children,
 }: ProtectedLayoutProps) {
-  const isAuthenticated = await hasAuthenticatedSession();
-
-  return <AppShell>{isAuthenticated ? children : <AuthRequiredPanel />}</AppShell>;
+  return <AppShell><AccessTokenGate>{children}</AccessTokenGate></AppShell>;
 }

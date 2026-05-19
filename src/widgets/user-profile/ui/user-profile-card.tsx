@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { clearAccessToken } from "@/shared/api/auth-storage";
+import {
+  finishAuthRedirect,
+  markSignedOut,
+  startAuthRedirect,
+} from "@/shared/api/auth-storage";
 import { signOut } from "@/shared/api/auth";
 import type { UserResponse } from "@/shared/api/contracts";
 import { routes } from "@/shared/config/routes";
@@ -22,20 +26,21 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   async function handleSignOut() {
     setErrorMessage("");
     setIsSigningOut(true);
+    startAuthRedirect();
 
     try {
       await signOut();
-      clearAccessToken();
+      markSignedOut();
       router.replace(routes.signIn);
       router.refresh();
     } catch (error) {
+      finishAuthRedirect();
+      setIsSigningOut(false);
       setErrorMessage(
         error instanceof ApiError
           ? error.message
           : "로그아웃 처리 중 오류가 발생했습니다.",
       );
-    } finally {
-      setIsSigningOut(false);
     }
   }
 

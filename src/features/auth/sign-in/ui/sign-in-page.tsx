@@ -1,11 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/shared/api/auth";
-import { setAccessToken } from "@/shared/api/auth-storage";
+import {
+  finishAuthRedirect,
+  getIsAuthenticated,
+  markSignedIn,
+} from "@/shared/api/auth-storage";
 import { routes } from "@/shared/config/routes";
 import { ApiError } from "@/shared/api/http";
 import { Button, ButtonLink } from "@/shared/ui/button";
@@ -18,9 +22,7 @@ import {
 
 export function SignInPage() {
   const router = useRouter();
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isErrorOpen, setIsErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSigningIn, setIsSigningIn] = useState(false);
   const {
     register,
@@ -36,33 +38,27 @@ export function SignInPage() {
   });
 
   useEffect(() => {
-    if (!dialogRef.current) {
-      return;
-    }
+    finishAuthRedirect();
 
-    if (isErrorOpen) {
-      dialogRef.current.showModal();
-      return;
+    if (getIsAuthenticated()) {
+      router.replace(routes.dashboard);
     }
-
-    dialogRef.current.close();
-  }, [isErrorOpen]);
+  }, [router]);
 
   async function onSubmit(values: SignInFormValues) {
     try {
-      const response = await signIn(values);
+      await signIn(values);
       setIsSigningIn(true);
-      setAccessToken(response.accessToken);
-      router.push("/");
+      markSignedIn();
+      router.replace(routes.dashboard);
       router.refresh();
     } catch (error) {
       setIsSigningIn(false);
-      setErrorMessage(
+      const nextErrorMessage =
         error instanceof ApiError
           ? error.message
-          : "로그인 처리 중 오류가 발생했습니다.",
-      );
-      setIsErrorOpen(true);
+          : "로그인 처리 중 오류가 발생했습니다.";
+      setErrorMessage(nextErrorMessage);
     }
   }
 
@@ -159,26 +155,39 @@ export function SignInPage() {
         </div>
       ) : null}
 
-      <dialog
-        ref={dialogRef}
-        className="fixed inset-0 m-auto w-[calc(100%-2rem)] max-w-md rounded-[28px] border border-border bg-white p-0 shadow-2xl backdrop:bg-[#172033]/35"
-      >
-        <div className="p-6">
-          <h2 className="text-xl font-semibold text-text">로그인 실패</h2>
-          <p className="mt-3 text-sm leading-6 text-text-muted">
-            {errorMessage}
-          </p>
-          <div className="mt-6 flex justify-end">
-            <Button
-              onClick={() => {
-                setIsErrorOpen(false);
-              }}
+      {errorMessage ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172033]/35 px-4 backdrop-blur-[3px]">
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="sign-in-error-title"
+            aria-describedby="sign-in-error-description"
+            className="w-full max-w-md rounded-[28px] border border-border bg-white p-6 shadow-2xl"
+          >
+            <h2
+              id="sign-in-error-title"
+              className="text-xl font-semibold text-text"
             >
-              확인
-            </Button>
+              로그인 실패
+            </h2>
+            <p
+              id="sign-in-error-description"
+              className="mt-3 min-h-[3rem] text-sm leading-6 text-text-muted"
+            >
+              {errorMessage}
+            </p>
+            <div className="mt-6 flex justify-end">
+              <Button
+                onClick={() => {
+                  setErrorMessage(null);
+                }}
+              >
+                확인
+              </Button>
+            </div>
           </div>
         </div>
-      </dialog>
+      ) : null}
     </>
   );
 }
