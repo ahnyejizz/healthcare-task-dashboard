@@ -69,3 +69,12 @@ export function LoginIcon(props: IconProps) {
     </BaseIcon>
   );
 }
+
+export function ArrowLeftIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M19 12H5" />
+      <path d="m12 19-7-7 7-7" />
+    </BaseIcon>
+  );
+}

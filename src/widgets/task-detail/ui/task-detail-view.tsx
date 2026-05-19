@@ -1,6 +1,9 @@
 import type { TaskDetailResponse } from "@/shared/api/contracts";
 import { DeleteTaskDialog } from "@/features/task/delete-task/ui/delete-task-dialog";
 import { pageMeta } from "@/shared/config/page-meta";
+import { routes } from "@/shared/config/routes";
+import { ButtonLink } from "@/shared/ui/button";
+import { ArrowLeftIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 
 type TaskDetailViewProps = {
@@ -20,6 +23,18 @@ export function TaskDetailView({ id, task }: TaskDetailViewProps) {
     <Panel
       title={task.title}
       description={pageMeta.taskDetail.description}
+      className="h-full"
+      action={
+        <ButtonLink
+          href={routes.taskList}
+          variant="ghost"
+          aria-label="목록으로 돌아가기"
+          title="목록으로 돌아가기"
+          className="h-12 w-12 rounded-[20px] bg-surface-muted px-0 py-0 text-text"
+        >
+          <ArrowLeftIcon className="size-7" />
+        </ButtonLink>
+      }
     >
       <dl className="grid gap-6">
         <div className="rounded-[24px] border border-border bg-white p-5">
