@@ -1,12 +1,9 @@
 import type {
   AuthTokenResponse,
   SignInRequest,
+  SuccessResponse,
 } from "@/shared/api/contracts";
 import { apiRequest } from "@/shared/api/http";
-
-type SuccessResponse = {
-  success: true;
-};
 
 export function signIn(payload: SignInRequest) {
   return apiRequest<AuthTokenResponse>("/sign-in", {
