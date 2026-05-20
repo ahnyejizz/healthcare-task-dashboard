@@ -21,7 +21,7 @@ export function TaskCard({ task }: TaskCardProps) {
     <Link
       href={`/task/${task.id}`}
       className={[
-        "group block rounded-[24px] border p-5 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)]",
+        "group block rounded-[24px] border p-9 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)]",
         cardClass,
       ].join(" ")}
     >
