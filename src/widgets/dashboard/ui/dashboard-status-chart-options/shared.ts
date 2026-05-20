@@ -92,16 +92,10 @@ export function createDashboardChartOptionContext(
   };
 }
 
-export function createDashboardTooltipConfig(
-  context: DashboardChartOptionContext,
-) {
+export function createDashboardTooltipConfig() {
   return {
-    backgroundColor: context.surface,
-    borderColor: context.border,
-    borderWidth: 1,
-    textStyle: { color: context.text },
-    extraCssText:
-      "box-shadow: 0 12px 28px rgba(23, 32, 51, 0.12); border-radius: 14px; padding: 0;",
+    show: false,
+    triggerOn: "none",
   };
 }
 
