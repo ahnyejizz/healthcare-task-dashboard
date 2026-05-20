@@ -81,12 +81,12 @@ export function TaskListScaffold({
             return (
               <div
                 key={virtualRow.key}
-                className="absolute left-0 top-0 w-full"
+                className="absolute left-0 top-0 w-full overflow-visible"
                 style={{
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
-                <div className="grid gap-4 pb-4 md:grid-cols-2">
+                <div className="grid gap-4 overflow-visible pb-4 md:grid-cols-2">
                   {rowTasks.map((task) => (
                     <TaskCard key={task.id} task={task} />
                   ))}

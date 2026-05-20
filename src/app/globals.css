@@ -108,6 +108,17 @@ a[href] {
   background: var(--surface-highlight-gradient);
 }
 
+.line-clamp-3 {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  max-height: 4.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .content-scrollbar {
   scrollbar-color: rgba(252, 175, 24, 0.72) rgba(255, 245, 221, 0.92);
   scrollbar-width: thin;
