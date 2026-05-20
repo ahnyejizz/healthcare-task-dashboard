@@ -1,0 +1,50 @@
+import type { EChartsOption } from "echarts";
+import type { DashboardResponse } from "@/shared/api/contracts";
+import { createComparisonCountOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/comparison-count-option";
+import { createComparisonRatioOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/comparison-ratio-option";
+import { createCompletionGaugeOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/completion-gauge-option";
+import { createDistributionOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/distribution-option";
+import {
+  createDashboardChartOptionContext,
+  type DashboardChartOptionContext,
+} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+
+export type DashboardChartCardMeta = {
+  description: string;
+  title: string;
+};
+
+export const dashboardChartCards: DashboardChartCardMeta[] = [
+  {
+    title: "카운트 비교",
+    description: "전체 할 일, 남은 일, 완료한 일을 한눈에 비교할 수 있습니다.",
+  },
+  {
+    title: "완료/잔여 비중",
+    description: "전체 할 일 중 잔여 비중과 완료 비중을 도넛 차트로 확인합니다.",
+  },
+  {
+    title: "완료율",
+    description: "현재 진행률을 게이지로 빠르게 파악합니다.",
+  },
+  {
+    title: "분포도",
+    description: "남은 일과 완료한 일이 어느정도 비중을 차지하는지 보여줍니다.",
+  },
+];
+
+const chartOptionFactories: Array<
+  (context: DashboardChartOptionContext) => EChartsOption
+> = [
+  createComparisonCountOption,
+  createComparisonRatioOption,
+  createCompletionGaugeOption,
+  createDistributionOption,
+];
+
+export function createDashboardChartOptions(
+  metrics: DashboardResponse,
+): EChartsOption[] {
+  const context = createDashboardChartOptionContext(metrics);
+  return chartOptionFactories.map((createOption) => createOption(context));
+}
