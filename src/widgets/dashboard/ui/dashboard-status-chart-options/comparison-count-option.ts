@@ -11,7 +11,6 @@ export function createComparisonCountOption(
     metrics,
     primary,
     primarySurface,
-    text,
     textMuted,
     todoStrong,
     todoSurface,
@@ -46,9 +45,9 @@ export function createComparisonCountOption(
       axisTick: { show: false },
       axisLine: { show: false },
       axisLabel: {
-        color: text,
         fontWeight: 600,
         fontSize: 11,
+        color: textMuted,
       },
     },
     series: [
