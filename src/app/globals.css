@@ -78,6 +78,11 @@ textarea {
   font: inherit;
 }
 
+button:not(:disabled),
+a[href] {
+  cursor: pointer;
+}
+
 ::selection {
   background: rgba(252, 175, 24, 0.24);
 }

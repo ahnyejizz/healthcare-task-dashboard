@@ -60,7 +60,7 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
         action={
           <Button
             variant="secondary"
-            className="h-12 w-12 rounded-[18px] p-0"
+            className="h-12 w-12 rounded-[18px] p-0 text-text hover:text-text"
             onClick={() => {
               void handleSignOut();
             }}
