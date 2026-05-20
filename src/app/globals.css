@@ -6,6 +6,8 @@
   --color-background-accent: #ffe2a1;
   --color-surface: #ffffff;
   --color-surface-muted: #fff5dd;
+  --surface-highlight-gradient:
+    linear-gradient(180deg, rgba(255, 248, 232, 0.98), rgba(255, 236, 184, 0.3));
   --color-border: #ead8b1;
   --color-primary: #fcaf18;
   --color-primary-strong: #d88a00;
@@ -30,6 +32,7 @@
   --color-background-accent: var(--color-background-accent);
   --color-surface: var(--color-surface);
   --color-surface-muted: var(--color-surface-muted);
+  --surface-highlight-gradient: var(--surface-highlight-gradient);
   --color-border: var(--color-border);
   --color-primary: var(--color-primary);
   --color-primary-strong: var(--color-primary-strong);
@@ -99,6 +102,10 @@ a[href] {
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(18px);
+}
+
+.surface-highlight {
+  background: var(--surface-highlight-gradient);
 }
 
 .content-scrollbar {

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -12,10 +13,18 @@ import { CheckIcon } from "@/shared/ui/icons";
 import { Input } from "@/shared/ui/input";
 
 type DeleteTaskDialogProps = {
+  buttonClassName?: string;
   id: string;
+  trigger?: ReactNode;
+  triggerVariant?: "primary" | "secondary" | "ghost" | "danger";
 };
 
-export function DeleteTaskDialog({ id }: DeleteTaskDialogProps) {
+export function DeleteTaskDialog({
+  buttonClassName,
+  id,
+  trigger,
+  triggerVariant = "danger",
+}: DeleteTaskDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -49,12 +58,13 @@ export function DeleteTaskDialog({ id }: DeleteTaskDialogProps) {
   return (
     <>
       <Button
-        variant="danger"
+        variant={triggerVariant}
+        className={buttonClassName}
         onClick={() => {
           dialogRef.current?.showModal();
         }}
       >
-        삭제
+        {trigger ?? "삭제"}
       </Button>
       <dialog
         ref={dialogRef}

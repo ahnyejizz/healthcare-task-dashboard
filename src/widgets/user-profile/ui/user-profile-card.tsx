@@ -76,7 +76,7 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
           <p className="mb-4 text-sm text-danger">{errorMessage}</p>
         ) : null}
         <div className="grid w-full flex-1 gap-4">
-          <article className="relative overflow-hidden rounded-[28px] border border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,245,221,0.92))] p-6 shadow-[0_24px_48px_rgba(252,175,24,0.14)]">
+          <article className="surface-highlight relative overflow-hidden rounded-[28px] border border-border p-6 shadow-[0_24px_48px_rgba(252,175,24,0.14)]">
             <div className="absolute -top-12 right-[-10px] h-32 w-32 rounded-full bg-primary/12 blur-2xl" />
             <div className="absolute bottom-[-28px] left-[-20px] h-28 w-28 rounded-full bg-primary/10 blur-2xl" />
             <div className="relative flex h-full flex-col gap-6">
@@ -94,21 +94,13 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
                 </div>
               </div>
 
-              <div className="grid gap-3 md:grid-cols-2">
-                <div className="rounded-[20px] border border-white/70 bg-white/80 p-4 backdrop-blur">
-                  <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
-                    Name
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-text">{user.name}</p>
-                </div>
-                <div className="rounded-[20px] border border-white/70 bg-white/80 p-4 backdrop-blur">
-                  <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
-                    Email
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-text">
-                    {user.email}
-                  </p>
-                </div>
+              <div className="rounded-[20px] border border-white/70 bg-white/80 p-4 backdrop-blur">
+                <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
+                  Email
+                </p>
+                <p className="mt-2 text-lg font-semibold text-text">
+                  {user.email}
+                </p>
               </div>
 
               <div className="rounded-[22px] border border-white/70 bg-white/78 p-5 backdrop-blur">

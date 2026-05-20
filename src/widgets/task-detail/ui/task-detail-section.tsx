@@ -55,7 +55,7 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
         <Panel
           title="존재하지 않는 할 일입니다."
           description="요청한 리소스를 찾을 수 없습니다. 목록으로 돌아가 다시 확인해주세요."
-          className="h-full"
+          className="flex h-full min-h-0 flex-col"
           action={
             <ButtonLink
               href={routes.taskList}
@@ -68,7 +68,7 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
             </ButtonLink>
           }
         >
-          <div className="rounded-[24px] border border-border bg-white p-5">
+          <div className="rounded-[24px] border border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,245,221,0.92))] p-5 shadow-[0_16px_36px_rgba(23,32,51,0.06)]">
             <p className="text-sm font-semibold tracking-[0.16em] text-danger uppercase">
               404 Not Found
             </p>
@@ -84,8 +84,9 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
       <Panel
         title={pageMeta.taskDetail.title}
         description={pageMeta.taskDetail.description}
+        className="flex h-full min-h-0 flex-col"
       >
-        <div className="rounded-[24px] border border-border bg-white p-5">
+        <div className="rounded-[24px] border border-border bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,245,221,0.92))] p-5 shadow-[0_16px_36px_rgba(23,32,51,0.06)]">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>
         </div>
       </Panel>
