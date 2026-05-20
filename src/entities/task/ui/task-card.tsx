@@ -2,17 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { createPortal } from "react-dom";
 import type { TaskItem } from "@/shared/api/contracts";
+import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 
 type TaskCardProps = {
   task: TaskItem;
-};
-
-type TooltipPosition = {
-  left: number;
-  top: number;
-  width: number;
 };
 
 const TASK_MEMO_PREVIEW_MAX_LENGTH = 80;
@@ -111,35 +105,18 @@ export function TaskCard({ task }: TaskCardProps) {
         </div>
       </Link>
 
-      {shouldShowMemoTooltip &&
-      isMemoTooltipOpen &&
-      tooltipPosition &&
-      typeof document !== "undefined"
-        ? createPortal(
-            <div
-              className="fixed z-[9999] cursor-pointer"
-              onMouseEnter={() => {
-                setIsMemoTooltipOpen(true);
-              }}
-              onMouseLeave={() => {
-                closeMemoTooltip();
-              }}
-              style={{
-                left: tooltipPosition.left,
-                top: tooltipPosition.top,
-                width: tooltipPosition.width,
-                transform: "translateY(-100%)",
-                cursor: "pointer",
-              }}
-            >
-              <div className="relative rounded-[18px] border border-[#151a23] bg-[#151a23] px-4 py-3 text-sm leading-6 text-white shadow-[0_18px_40px_rgba(0,0,0,0.32)]">
-                {task.memo}
-                <span className="absolute left-6 top-full h-3 w-3 -translate-y-1/2 rotate-45 border-r border-b border-[#151a23] bg-[#151a23]" />
-              </div>
-            </div>,
-            document.body,
-          )
-        : null}
+      <Tooltip
+        isOpen={shouldShowMemoTooltip && isMemoTooltipOpen}
+        position={tooltipPosition}
+        onMouseEnter={() => {
+          setIsMemoTooltipOpen(true);
+        }}
+        onMouseLeave={() => {
+          closeMemoTooltip();
+        }}
+      >
+        {task.memo}
+      </Tooltip>
     </div>
   );
 }
