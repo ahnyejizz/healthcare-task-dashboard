@@ -1,10 +1,5 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
-import {
-  createDashboardTooltipConfig,
-  renderDashboardTooltip,
-  resolveDashboardTooltipItem,
-} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
 
 export function createCompletionGaugeOption(
   context: DashboardChartOptionContext,
@@ -23,15 +18,6 @@ export function createCompletionGaugeOption(
 
   return {
     animationDuration: 500,
-    tooltip: {
-      ...createDashboardTooltipConfig(context),
-      trigger: "item",
-      formatter: (params) =>
-        renderDashboardTooltip(
-          resolveDashboardTooltipItem(String(params.name), context),
-          context,
-        ),
-    },
     series: [
       {
         type: "pie",

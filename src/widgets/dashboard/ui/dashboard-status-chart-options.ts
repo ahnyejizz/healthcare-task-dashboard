@@ -9,10 +9,21 @@ import {
   type DashboardChartOptionContext,
 } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
 
+export type DashboardChartLegendItem = {
+  colorKey: "todoStrong" | "doneStrong" | "primary";
+  label: string;
+};
+
 export type DashboardChartCardMeta = {
   description: string;
+  legendItems?: DashboardChartLegendItem[];
   title: string;
 };
+
+const progressLegendItems: DashboardChartLegendItem[] = [
+  { colorKey: "todoStrong", label: "해야할 일" },
+  { colorKey: "doneStrong", label: "한 일" },
+];
 
 export const dashboardChartCards: DashboardChartCardMeta[] = [
   {
@@ -22,10 +33,12 @@ export const dashboardChartCards: DashboardChartCardMeta[] = [
   {
     title: "완료/잔여 비중",
     description: "전체 할 일 중 잔여 비중과 완료 비중을 도넛 차트로 확인합니다.",
+    legendItems: progressLegendItems,
   },
   {
     title: "완료율",
     description: "현재 진행률을 게이지로 빠르게 파악합니다.",
+    legendItems: progressLegendItems,
   },
   {
     title: "분포도",

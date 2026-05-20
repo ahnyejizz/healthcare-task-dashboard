@@ -1,10 +1,5 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
-import {
-  createDashboardTooltipConfig,
-  renderDashboardTooltip,
-  resolveDashboardTooltipItem,
-} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
 
 export function createComparisonCountOption(
   context: DashboardChartOptionContext,
@@ -54,25 +49,6 @@ export function createComparisonCountOption(
         color: text,
         fontWeight: 600,
         fontSize: 11,
-      },
-    },
-    tooltip: {
-      ...createDashboardTooltipConfig(context),
-      trigger: "axis",
-      axisPointer: { type: "shadow" },
-      formatter: (params) => {
-        const firstParam = Array.isArray(params) ? params[0] : params;
-        const label =
-          typeof firstParam?.name === "string"
-            ? firstParam.name
-            : typeof firstParam?.axisValueLabel === "string"
-              ? firstParam.axisValueLabel
-              : "";
-
-        return renderDashboardTooltip(
-          resolveDashboardTooltipItem(label, context),
-          context,
-        );
       },
     },
     series: [

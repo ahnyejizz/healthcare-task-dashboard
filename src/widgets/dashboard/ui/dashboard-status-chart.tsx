@@ -7,6 +7,7 @@ import type { DashboardResponse } from "@/shared/api/contracts";
 import { Spinner } from "@/shared/ui/spinner";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 import { DashboardChartCard } from "@/widgets/dashboard/ui/dashboard-chart-card";
+import { DashboardChartLegend } from "@/widgets/dashboard/ui/dashboard-chart-legend";
 import {
   createDashboardChartOptions,
   dashboardChartCards,
@@ -155,8 +156,28 @@ export function DashboardStatusChart({ metrics }: DashboardStatusChartProps) {
             <DashboardChartCard
               title={card.title}
               description={card.description}
+              legend={
+                card.legendItems ? (
+                  <DashboardChartLegend
+                    items={card.legendItems.map((item) => ({
+                      color:
+                        item.colorKey === "todoStrong"
+                          ? tooltipContext.todoStrong
+                          : item.colorKey === "doneStrong"
+                            ? tooltipContext.doneStrong
+                            : tooltipContext.primary,
+                      label: item.label,
+                    }))}
+                  />
+                ) : undefined
+              }
             />
-            <div className="relative mt-3 min-h-[210px] flex-1">
+            <div
+              className={[
+                "relative mt-3 min-h-[210px]",
+                "flex-1",
+              ].join(" ")}
+            >
               {readyCharts[index] ? null : (
                 <div className="absolute inset-0 z-10 flex items-center justify-center rounded-[20px] bg-white/78">
                   <Spinner label={`${card.title} 차트를 불러오는 중입니다.`} />
