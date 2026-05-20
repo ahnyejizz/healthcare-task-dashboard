@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { TaskItem } from "@/shared/api/contracts";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
@@ -49,6 +49,24 @@ export function TaskCard({ task }: TaskCardProps) {
   function closeMemoTooltip() {
     setIsMemoTooltipOpen(false);
   }
+
+  useEffect(() => {
+    if (!isMemoTooltipOpen) {
+      return;
+    }
+
+    const handleViewportChange = () => {
+      closeMemoTooltip();
+    };
+
+    window.addEventListener("scroll", handleViewportChange, true);
+    window.addEventListener("resize", handleViewportChange);
+
+    return () => {
+      window.removeEventListener("scroll", handleViewportChange, true);
+      window.removeEventListener("resize", handleViewportChange);
+    };
+  }, [isMemoTooltipOpen]);
 
   return (
     <div className="relative h-full cursor-pointer" style={{ cursor: "pointer" }}>

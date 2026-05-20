@@ -179,7 +179,6 @@ export function DashboardStatusChart({ metrics }: DashboardStatusChartProps) {
         isOpen={Boolean(tooltipState)}
         position={tooltipState?.position ?? null}
         transform="translate(-50%, -100%)"
-        arrowLeft="calc(50% - 0.375rem)"
         bubbleClassName="border border-[#151a23] bg-[#151a23] px-3 py-2.5"
       >
         {tooltipState ? (

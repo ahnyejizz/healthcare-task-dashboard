@@ -21,7 +21,7 @@ type TooltipProps = {
 };
 
 export function Tooltip({
-  arrowLeft = "1.5rem",
+  arrowLeft = "calc(50% - 0.375rem)", // 툴팁 꼬리 중앙
   bubbleClassName,
   children,
   isOpen,
