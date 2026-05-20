@@ -11,6 +11,7 @@ import {
   getInvalidRefreshTokenError,
   getMissingRefreshTokenError,
   getRefreshTokenEmail,
+  getSession,
   getTaskDetail,
   getTaskNotFoundError,
   getTaskPage,
@@ -24,6 +25,7 @@ import {
 } from "@/shared/api/mock-backend";
 
 export const handlers = [
+  // sign-in
   http.post("/api/sign-in", async ({ request }) => {
     await delay(400);
     const payload = (await request.json()) as SignInRequest;
@@ -49,6 +51,8 @@ export const handlers = [
       headers,
     });
   }),
+
+  // refresh
   http.post("/api/refresh", async ({ request }) => {
     await delay(250);
 
@@ -83,6 +87,8 @@ export const handlers = [
       headers,
     });
   }),
+
+  // user
   http.get("/api/user", async ({ request }) => {
     await delay(250);
 
@@ -98,6 +104,25 @@ export const handlers = [
 
     return HttpResponse.json(getUser(email));
   }),
+
+  // session
+  http.get("/api/session", async ({ request }) => {
+    await delay(250);
+
+    if (!isAuthorizedRequest(request)) {
+      return HttpResponse.json(getUnauthorizedError(), { status: 401 });
+    }
+
+    const email = getAuthorizedEmail(request);
+
+    if (!email) {
+      return HttpResponse.json(getUnauthorizedError(), { status: 401 });
+    }
+
+    return HttpResponse.json(getSession(email));
+  }),
+
+  // dashboard
   http.get("/api/dashboard", async ({ request }) => {
     await delay(250);
 
@@ -107,6 +132,8 @@ export const handlers = [
 
     return HttpResponse.json(getDashboard());
   }),
+
+  // task
   http.get("/api/task", async ({ request }) => {
     await delay(350);
 
@@ -119,6 +146,8 @@ export const handlers = [
 
     return HttpResponse.json(getTaskPage(page));
   }),
+
+  // task/:id - get
   http.get("/api/task/:id", async ({ params, request }) => {
     await delay(250);
 
@@ -134,6 +163,8 @@ export const handlers = [
 
     return HttpResponse.json(task);
   }),
+
+  // task/:id - delete
   http.delete("/api/task/:id", async ({ params, request }) => {
     await delay(250);
 
@@ -149,6 +180,8 @@ export const handlers = [
 
     return HttpResponse.json(result);
   }),
+
+  // sign-out
   http.post("/api/sign-out", async () => {
     await delay(150);
 

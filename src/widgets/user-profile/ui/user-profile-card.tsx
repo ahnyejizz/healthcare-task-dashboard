@@ -18,10 +18,11 @@ import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 
 type UserProfileCardProps = {
+  email: string;
   user: UserResponse;
 };
 
-export function UserProfileCard({ user }: UserProfileCardProps) {
+export function UserProfileCard({ email, user }: UserProfileCardProps) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSigningOut, setIsSigningOut] = useState(false);
@@ -98,16 +99,14 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
                 <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                   Email
                 </p>
-                <p className="mt-2 text-lg font-semibold text-text">
-                  {user.email}
-                </p>
+                <p className="mt-2 font-medium">{email}</p>
               </div>
 
               <div className="rounded-[22px] border border-white/70 bg-white/78 p-5 backdrop-blur">
                 <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
                   Memo
                 </p>
-                <p className="mt-3 text-base font-medium leading-7 text-text">
+                <p className="mt-2 font-medium">
                   {memoFallback}
                 </p>
               </div>

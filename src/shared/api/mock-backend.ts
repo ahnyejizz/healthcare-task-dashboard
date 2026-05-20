@@ -3,6 +3,7 @@ import type {
   DashboardResponse,
   DeleteTaskResponse,
   ErrorResponse,
+  SessionResponse,
   SignInRequest,
   TaskDetailResponse,
   TaskListResponse,
@@ -118,10 +119,15 @@ export function getInvalidCredentialsError(): ErrorResponse {
   };
 }
 
+export function getSession(email: string): SessionResponse {
+  return {
+    email,
+  };
+}
+
 export function getUser(email: string): UserResponse {
   return (
     userFixtureByEmail[email] ?? {
-      email,
       name: "-",
       memo: `${email} 계정의 회원정보가 아직 준비되지 않았습니다.`,
     }

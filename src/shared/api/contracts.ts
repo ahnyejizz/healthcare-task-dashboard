@@ -15,7 +15,6 @@ export type ErrorResponse = {
 };
 
 export type UserResponse = {
-  email: string;
   name: string;
   memo: string;
 };
@@ -46,4 +45,9 @@ export type TaskDetailResponse = {
 
 export type DeleteTaskResponse = {
   success: true;
+};
+
+// 별도 추가
+export type SessionResponse = {
+  email: string;
 };
