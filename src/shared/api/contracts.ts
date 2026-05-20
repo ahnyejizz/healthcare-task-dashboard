@@ -15,6 +15,7 @@ export type ErrorResponse = {
 };
 
 export type UserResponse = {
+  email: string;
   name: string;
   memo: string;
 };

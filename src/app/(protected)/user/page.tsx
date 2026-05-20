@@ -6,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function UserPage() {
-  return <UserProfileSection />;
+  return (
+    <div className="h-full min-h-0">
+      <UserProfileSection />
+    </div>
+  );
 }

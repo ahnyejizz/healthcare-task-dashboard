@@ -32,6 +32,8 @@ export function UserProfileSection() {
       <Panel
         title={pageMeta.user.title}
         description={pageMeta.user.description}
+        className="flex h-full min-h-0 flex-col"
+        contentClassName="flex-1"
       >
         <div className="rounded-[24px] border border-border bg-white p-5">
           <p className="text-sm leading-6 text-text-muted">{errorMessage}</p>

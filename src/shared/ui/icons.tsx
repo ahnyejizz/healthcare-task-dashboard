@@ -70,6 +70,16 @@ export function LoginIcon(props: IconProps) {
   );
 }
 
+export function LogoutIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M9 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3" />
+      <path d="M14 17l5-5-5-5" />
+      <path d="M19 12H9" />
+    </BaseIcon>
+  );
+}
+
 export function ArrowLeftIcon(props: IconProps) {
   return (
     <BaseIcon {...props}>

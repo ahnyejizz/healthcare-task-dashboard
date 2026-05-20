@@ -94,7 +94,7 @@ export function DashboardStatusChart({ metrics }: DashboardStatusChartProps) {
       {dashboardChartCards.map((card, index) => (
         <div
           key={card.title}
-          className="flex h-full flex-col rounded-[24px] border border-border bg-white p-4"
+          className="flex h-full flex-col rounded-[24px] border border-border bg-white p-4 text-primary"
         >
           <DashboardChartCard
             title={card.title}

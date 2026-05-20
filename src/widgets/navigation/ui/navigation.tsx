@@ -35,7 +35,7 @@ export function Navigation() {
 
   return (
     <aside className="surface-card flex h-full flex-col rounded-[32px] p-6">
-      <Link href={routes.dashboard} className="focus-ring rounded-2xl p-2">
+      <Link href={routes.dashboard} className="focus-ring hover:cursor-pointer rounded-2xl p-2">
         <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
           healthcare-task-dashboard
         </p>
@@ -57,7 +57,7 @@ export function Navigation() {
               key={item.href}
               href={item.href}
               className={[
-                "focus-ring flex h-13 items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
+                "focus-ring hover:cursor-pointer flex h-13 items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
                 isActive
                   ? "border-primary/30 bg-surface-muted text-text"
                   : "border-border/80 text-text-muted",
@@ -77,7 +77,7 @@ export function Navigation() {
         <Link
           href={accountHref}
           className={[
-            "focus-ring mt-3 flex h-13 w-full items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
+            "focus-ring hover:cursor-pointer mt-3 flex h-13 w-full items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
             isAccountActive
               ? "border-primary/30 bg-surface-muted text-text"
               : "border-border/80 bg-white text-text-muted",
