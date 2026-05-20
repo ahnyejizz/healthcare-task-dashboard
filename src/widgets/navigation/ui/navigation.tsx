@@ -11,6 +11,7 @@ import {
 import { primaryNavigation, routes } from "@/shared/config/routes";
 import {
   DashboardIcon,
+  HealthcareLogoIcon,
   LoginIcon,
   TasksIcon,
   UserIcon,
@@ -35,13 +36,29 @@ export function Navigation() {
 
   return (
     <aside className="surface-card flex h-full flex-col rounded-[32px] p-6">
-      <Link href={routes.dashboard} className="focus-ring rounded-2xl p-2">
-        <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
-          healthcare-task-dashboard
-        </p>
-        <strong className="mt-2 block text-xl font-semibold tracking-tight text-text">
-          Task Dashboard
-        </strong>
+      <Link
+        href={routes.dashboard}
+        className="focus-ring rounded-[28px] border border-primary/35 bg-[linear-gradient(145deg,rgba(255,255,255,0.98),rgba(255,243,210,0.92))] p-4 shadow-[0_16px_36px_rgba(252,175,24,0.14)]"
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-[20px] bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.96),rgba(255,214,124,0.98))] shadow-[inset_0_1px_0_rgba(255,255,255,0.88),0_14px_24px_rgba(252,175,24,0.28)]">
+            <span className="absolute inset-[7px] rounded-[16px] border border-white/70" />
+            <span className="absolute inset-0 rounded-[20px] bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.4),transparent_58%)]" />
+            <HealthcareLogoIcon className="relative z-10 size-7 text-primary-strong" />
+          </div>
+
+          <div className="min-w-0 overflow-hidden">
+            <p className="whitespace-nowrap text-[10px] font-bold tracking-[0.22em] text-primary uppercase">
+              Healthcare Task
+            </p>
+            <strong className="mt-1 block whitespace-nowrap text-[1.1rem] leading-none font-semibold tracking-[-0.03em] text-text">
+              Task Dashboard
+            </strong>
+            <p className="mt-1 whitespace-nowrap text-[10px] font-medium tracking-[0.12em] text-text-muted/90 uppercase">
+              Routine Insights
+            </p>
+          </div>
+        </div>
       </Link>
 
       <nav className="mt-10 flex flex-1 flex-col gap-2" aria-label="주요 메뉴">

@@ -108,3 +108,12 @@ export function TrashIcon(props: IconProps) {
     </BaseIcon>
   );
 }
+
+export function HealthcareLogoIcon(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M12 21s-6.8-4.1-8.7-8.3C1.8 9.4 3.5 5.8 7 5.2c2-.3 3.6.5 5 2.2 1.4-1.7 3-2.5 5-2.2 3.5.6 5.2 4.2 3.7 7.5C18.8 16.9 12 21 12 21Z" />
+      <path d="M8 12h2.1l1.2-2.1 1.5 4.2 1.2-2.1H16" />
+    </BaseIcon>
+  );
+}
