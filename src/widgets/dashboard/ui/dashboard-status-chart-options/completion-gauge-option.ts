@@ -10,7 +10,6 @@ export function createCompletionGaugeOption(
   context: DashboardChartOptionContext,
 ): EChartsOption {
   const {
-    border,
     doneRate,
     doneStrong,
     doneSurface,

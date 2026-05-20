@@ -1,7 +1,6 @@
 import type {
   DashboardResponse,
   SignInRequest,
-  TaskDetailResponse,
   TaskItem,
   UserResponse,
 } from "@/shared/api/contracts";
@@ -36,20 +35,3 @@ export const dashboardFixture: DashboardResponse = {
   numOfRestTask: tasksFixture.filter((task) => task.status === "TODO").length,
   numOfDoneTask: tasksFixture.filter((task) => task.status === "DONE").length,
 };
-
-export function getTaskDetailFixture(id: string): TaskDetailResponse | null {
-  const taskIndex = tasksFixture.findIndex((task) => task.id === id);
-  const task = tasksFixture[taskIndex];
-
-  if (!task) {
-    return null;
-  }
-
-  return {
-    title: task.title,
-    memo: task.memo,
-    registerDatetime: new Date(
-      Date.UTC(2026, 4, (taskIndex % 28) + 1, 9 + (taskIndex % 5), 10),
-    ).toISOString(),
-  };
-}

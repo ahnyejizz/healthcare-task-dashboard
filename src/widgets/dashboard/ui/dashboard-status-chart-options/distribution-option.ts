@@ -11,13 +11,10 @@ export function createDistributionOption(
   context: DashboardChartOptionContext,
 ): EChartsOption {
   const {
-    border,
     doneRate,
     doneStrong,
     doneSurface,
     metrics,
-    surface,
-    text,
     textMuted,
     todoRate,
     todoStrong,

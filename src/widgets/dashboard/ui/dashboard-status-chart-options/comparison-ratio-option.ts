@@ -10,7 +10,6 @@ export function createComparisonRatioOption(
   context: DashboardChartOptionContext,
 ): EChartsOption {
   const {
-    border,
     doneRate,
     doneStrong,
     doneSurface,

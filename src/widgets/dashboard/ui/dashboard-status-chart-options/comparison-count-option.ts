@@ -20,7 +20,6 @@ export function createComparisonCountOption(
     textMuted,
     todoStrong,
     todoSurface,
-    surface,
   } = context;
 
   return {
