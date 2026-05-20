@@ -16,6 +16,18 @@ export type DashboardChartOptionContext = {
   todoSurface: string;
 };
 
+type DashboardTooltipItem = {
+  color: string;
+  label: string;
+  value: number;
+};
+
+type TooltipParamLike = {
+  axisValue?: unknown;
+  axisValueLabel?: unknown;
+  name?: unknown;
+};
+
 function readColorToken(name: string) {
   return getComputedStyle(document.documentElement)
     .getPropertyValue(name)
@@ -78,4 +90,91 @@ export function createDashboardChartOptionContext(
     todoStrong,
     todoSurface: toRgba(todoStrong, 0.4),
   };
+}
+
+export function createDashboardTooltipConfig(
+  context: DashboardChartOptionContext,
+) {
+  return {
+    backgroundColor: context.surface,
+    borderColor: context.border,
+    borderWidth: 1,
+    textStyle: { color: context.text },
+    extraCssText:
+      "box-shadow: 0 12px 28px rgba(23, 32, 51, 0.12); border-radius: 14px; padding: 0;",
+  };
+}
+
+export function resolveDashboardTooltipItem(
+  label: string,
+  context: DashboardChartOptionContext,
+): DashboardTooltipItem | null {
+  if (label === "전체") {
+    return {
+      color: context.primary,
+      label,
+      value: context.metrics.numOfTask,
+    };
+  }
+
+  if (label === "해야할 일") {
+    return {
+      color: context.todoStrong,
+      label,
+      value: context.metrics.numOfRestTask,
+    };
+  }
+
+  if (label === "한 일") {
+    return {
+      color: context.doneStrong,
+      label,
+      value: context.metrics.numOfDoneTask,
+    };
+  }
+
+  return null;
+}
+
+export function renderDashboardTooltip(
+  item: DashboardTooltipItem | null,
+  context: DashboardChartOptionContext,
+) {
+  if (!item) {
+    return "";
+  }
+
+  return [
+    `<div style="display:flex;align-items:center;gap:10px;min-width:122px;padding:10px 12px;">`,
+    `<span style="width:10px;height:10px;border-radius:999px;background:${item.color};box-shadow:0 0 0 3px ${toRgba(item.color, 0.18)};"></span>`,
+    `<span style="flex:1;color:${context.textMuted};font-size:13px;font-weight:600;line-height:1;">${item.label}</span>`,
+    `<strong style="color:${context.text};font-size:20px;font-weight:700;line-height:1;">${item.value}</strong>`,
+    `</div>`,
+  ].join("");
+}
+
+export function resolveDashboardTooltipLabel(params: unknown) {
+  if (Array.isArray(params)) {
+    return resolveDashboardTooltipLabel(params[0]);
+  }
+
+  if (!params || typeof params !== "object") {
+    return "";
+  }
+
+  const tooltipParam = params as TooltipParamLike;
+
+  if (typeof tooltipParam.name === "string") {
+    return tooltipParam.name;
+  }
+
+  if (typeof tooltipParam.axisValueLabel === "string") {
+    return tooltipParam.axisValueLabel;
+  }
+
+  if (typeof tooltipParam.axisValue === "string") {
+    return tooltipParam.axisValue;
+  }
+
+  return "";
 }

@@ -1,5 +1,10 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+import {
+  createDashboardTooltipConfig,
+  renderDashboardTooltip,
+  resolveDashboardTooltipItem,
+} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
 
 export function createComparisonRatioOption(
   context: DashboardChartOptionContext,
@@ -20,11 +25,13 @@ export function createComparisonRatioOption(
   return {
     animationDuration: 500,
     tooltip: {
+      ...createDashboardTooltipConfig(context),
       trigger: "item",
-      backgroundColor: surface,
-      borderColor: border,
-      borderWidth: 1,
-      textStyle: { color: text },
+      formatter: (params) =>
+        renderDashboardTooltip(
+          resolveDashboardTooltipItem(String(params.name), context),
+          context,
+        ),
     },
     legend: {
       bottom: 0,

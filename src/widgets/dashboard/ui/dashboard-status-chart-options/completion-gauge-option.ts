@@ -1,5 +1,10 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+import {
+  createDashboardTooltipConfig,
+  renderDashboardTooltip,
+  resolveDashboardTooltipItem,
+} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
 
 export function createCompletionGaugeOption(
   context: DashboardChartOptionContext,
@@ -20,25 +25,13 @@ export function createCompletionGaugeOption(
   return {
     animationDuration: 500,
     tooltip: {
+      ...createDashboardTooltipConfig(context),
       trigger: "item",
-      backgroundColor: surface,
-      borderColor: border,
-      borderWidth: 1,
-      textStyle: { color: text },
-      formatter: (params) => {
-        if (Array.isArray(params)) {
-          return "";
-        }
-
-        const { name } = params;
-        if (name === "한 일") {
-          return `한 일 ${metrics.numOfDoneTask}`;
-        }
-        if (name === "해야할 일") {
-          return `해야할 일 ${metrics.numOfRestTask}`;
-        }
-        return "";
-      },
+      formatter: (params) =>
+        renderDashboardTooltip(
+          resolveDashboardTooltipItem(String(params.name), context),
+          context,
+        ),
     },
     series: [
       {

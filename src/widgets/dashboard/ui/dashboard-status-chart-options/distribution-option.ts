@@ -1,6 +1,11 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
-import { toRgba } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+import {
+  createDashboardTooltipConfig,
+  renderDashboardTooltip,
+  resolveDashboardTooltipItem,
+  toRgba,
+} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
 
 export function createDistributionOption(
   context: DashboardChartOptionContext,
@@ -38,11 +43,13 @@ export function createDistributionOption(
       show: false,
     },
     tooltip: {
+      ...createDashboardTooltipConfig(context),
       trigger: "item",
-      backgroundColor: surface,
-      borderColor: border,
-      borderWidth: 1,
-      textStyle: { color: text },
+      formatter: (params) =>
+        renderDashboardTooltip(
+          resolveDashboardTooltipItem(String(params.name), context),
+          context,
+        ),
     },
     series: [
       {
