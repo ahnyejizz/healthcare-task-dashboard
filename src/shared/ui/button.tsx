@@ -20,7 +20,7 @@ type ButtonLinkProps = ComponentProps<typeof Link> & {
 function resolveVariant(variant: ButtonVariant) {
   switch (variant) {
     case "secondary":
-      return "border border-border bg-surface text-text hover:border-primary/30 hover:text-primary";
+      return "border border-border bg-surface text-text hover:border-primary/30 hover:text-text";
     case "ghost":
       return "border border-transparent bg-transparent text-text-muted hover:text-text";
     case "danger":

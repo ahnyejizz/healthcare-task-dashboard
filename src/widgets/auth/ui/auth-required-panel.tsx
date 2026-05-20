@@ -38,7 +38,7 @@ export function AuthRequiredPanel() {
                 Dashboard
               </p>
               <p className="mt-2 text-sm leading-6 text-text">
-                전체 할 일 현황 확인
+                태스크 현황 확인
               </p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
@@ -46,7 +46,7 @@ export function AuthRequiredPanel() {
                 Tasks
               </p>
               <p className="mt-2 text-sm leading-6 text-text">
-                목록과 상세 화면 이동
+                할 일 목록 카드와 할 일 상세 확인
               </p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
@@ -54,7 +54,7 @@ export function AuthRequiredPanel() {
                 Account
               </p>
               <p className="mt-2 text-sm leading-6 text-text">
-                회원 이메일 확인
+                회원 정보 확인
               </p>
             </div>
           </div>
