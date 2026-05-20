@@ -54,6 +54,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  # 자체적으로 별도 추가
   /api/sign-out:
     post:
       summary: Sign out
@@ -78,6 +79,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  # 자체적으로 별도 추가
+  /api/session:
+    get:
+      summary: Get current session
+      operationId: getSession
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Current session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
         '401':
           description: Unauthorized
           content:
@@ -311,6 +332,15 @@ components:
         success:
           type: boolean
           const: true
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - errorMessage
+      properties:
+        errorMessage:
+          type: string
+    # 자체적으로 별도 추가
     SuccessResponse:
       type: object
       additionalProperties: false
@@ -320,11 +350,13 @@ components:
         success:
           type: boolean
           const: true
-    ErrorResponse:
+    # 자체적으로 별도 추가
+    SessionResponse:
       type: object
       additionalProperties: false
       required:
-        - errorMessage
+        - email
       properties:
-        errorMessage:
+        email:
           type: string
+          format: email
