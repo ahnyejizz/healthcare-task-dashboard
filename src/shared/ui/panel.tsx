@@ -6,6 +6,7 @@ type PanelProps = {
   className?: string;
   contentClassName?: string;
   description?: string;
+  paddingClassName?: string;
   title?: string;
 };
 
@@ -15,12 +16,14 @@ export function Panel({
   className,
   contentClassName,
   description,
+  paddingClassName,
   title,
 }: PanelProps) {
   return (
     <section
       className={[
-        "surface-card rounded-[28px] p-6 lg:p-8",
+        "surface-card rounded-[28px]",
+        paddingClassName ?? "p-6 lg:p-8",
         className,
       ]
         .filter(Boolean)

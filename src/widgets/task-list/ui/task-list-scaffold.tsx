@@ -6,6 +6,7 @@ import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
 import { Panel } from "@/shared/ui/panel";
+import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
 
 type TaskListScaffoldProps = {
   hasNextPage: boolean;
@@ -49,6 +50,7 @@ export function TaskListScaffold({
     <Panel
       title={pageMeta.taskList.title}
       description={pageMeta.taskList.description}
+      paddingClassName={pagePanelSpacing.paddingClassName}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
     >

@@ -16,6 +16,7 @@ import { Button } from "@/shared/ui/button";
 import { LogoutIcon } from "@/shared/ui/icons";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
+import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
 
 type UserProfileCardProps = {
   email: string;
@@ -56,6 +57,7 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
       <Panel
         title={pageMeta.user.title}
         description={pageMeta.user.description}
+        paddingClassName={pagePanelSpacing.paddingClassName}
         className="flex h-full min-h-0 flex-col"
         contentClassName="flex-1"
         action={

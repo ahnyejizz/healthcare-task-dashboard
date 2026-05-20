@@ -2,6 +2,7 @@ import type { DashboardResponse } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
 import { MetricCard } from "@/shared/ui/metric-card";
 import { Panel } from "@/shared/ui/panel";
+import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
 import { DashboardStatusChart } from "@/widgets/dashboard/ui/dashboard-status-chart";
 
 type DashboardOverviewProps = {
@@ -13,7 +14,8 @@ export function DashboardOverview({ metrics }: DashboardOverviewProps) {
     <Panel
       title={pageMeta.dashboard.title}
       description={pageMeta.dashboard.description}
-      className="flex h-full flex-col !p-5 lg:!p-6"
+      paddingClassName={pagePanelSpacing.paddingClassName}
+      className="flex h-full flex-col"
       contentClassName="h-full"
     >
       <div className="grid h-full min-h-0 grid-rows-[auto_1fr] gap-3">

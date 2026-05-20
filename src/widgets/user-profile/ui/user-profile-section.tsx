@@ -8,6 +8,7 @@ import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
+import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
 import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
 
 export function UserProfileSection() {
@@ -38,6 +39,7 @@ export function UserProfileSection() {
       <Panel
         title={pageMeta.user.title}
         description={pageMeta.user.description}
+        paddingClassName={pagePanelSpacing.paddingClassName}
         className="flex h-full min-h-0 flex-col"
         contentClassName="flex-1"
       >
