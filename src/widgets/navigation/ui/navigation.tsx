@@ -49,14 +49,14 @@ export function Navigation() {
 
           <div className="min-w-0 overflow-hidden">
             <p className="whitespace-nowrap text-[10px] font-bold tracking-[0.22em] text-primary uppercase">
-              Healthcare Task
+              Healthcare
+            </p>
+            <p className="whitespace-nowrap text-[10px] font-bold tracking-[0.22em] text-primary uppercase">
+              Routine Insights
             </p>
             <strong className="mt-1 block whitespace-nowrap text-[1.1rem] leading-none font-semibold tracking-[-0.03em] text-text">
               Task Dashboard
             </strong>
-            <p className="mt-1 whitespace-nowrap text-[10px] font-medium tracking-[0.12em] text-text-muted/90 uppercase">
-              Routine Insights
-            </p>
           </div>
         </div>
       </Link>
