@@ -26,7 +26,28 @@ export function createCompletionGaugeOption(
         startAngle: 210,
         clockwise: true,
         avoidLabelOverlap: false,
-        label: { show: false },
+        label: {
+          show: true,
+          position: "center",
+          formatter: `{label|완료율}\n{value|${doneRate}%}`,
+          rich: {
+            label: {
+              color: textMuted,
+              fontSize: 15,
+              fontWeight: 700,
+              fontFamily: "Pretendard Variable, Pretendard",
+              lineHeight: 20,
+            },
+            value: {
+              color: text,
+              fontSize: 28,
+              fontWeight: 700,
+              fontFamily: "Pretendard Variable, Pretendard",
+              lineHeight: 36,
+            },
+          },
+        },
+        labelLine: { show: false },
         itemStyle: {
           borderColor: surface,
           borderWidth: 4,
@@ -58,6 +79,9 @@ export function createCompletionGaugeOption(
           {
             value: metrics.numOfTask / 2,
             name: "hidden",
+            label: {
+              show: false,
+            },
             itemStyle: {
               color: "transparent",
               borderColor: "transparent",
@@ -68,32 +92,6 @@ export function createCompletionGaugeOption(
             },
           },
         ],
-      },
-    ],
-    graphic: [
-      {
-        type: "text",
-        left: "center",
-        top: "50%",
-        style: {
-          text: "완료율",
-          fill: textMuted,
-          fontSize: 11,
-          fontWeight: 700,
-          fontFamily: "Pretendard Variable, Pretendard",
-        },
-      },
-      {
-        type: "text",
-        left: "center",
-        top: "58%",
-        style: {
-          text: `${doneRate}%`,
-          fill: text,
-          fontSize: 28,
-          fontWeight: 700,
-          fontFamily: "Pretendard Variable, Pretendard",
-        },
       },
     ],
   };

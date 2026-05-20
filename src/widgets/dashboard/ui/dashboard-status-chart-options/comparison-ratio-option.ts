@@ -5,12 +5,10 @@ export function createComparisonRatioOption(
   context: DashboardChartOptionContext,
 ): EChartsOption {
   const {
-    doneRate,
     doneStrong,
     doneSurface,
     metrics,
     surface,
-    text,
     textMuted,
     todoStrong,
     todoSurface,
@@ -22,13 +20,22 @@ export function createComparisonRatioOption(
       {
         type: "pie",
         radius: ["54%", "74%"],
-        center: ["50%", "42%"],
+        center: ["50%", "50%"],
         itemStyle: {
           borderColor: surface,
           borderWidth: 5,
           borderRadius: 12,
         },
-        label: { show: false },
+        label: {
+          show: true,
+          position: "center",
+          formatter: "비중",
+          color: textMuted,
+          fontSize: 15,
+          fontWeight: 700,
+          fontFamily: "Pretendard Variable, Pretendard",
+        },
+        labelLine: { show: false },
         data: [
           {
             value: metrics.numOfRestTask,
@@ -49,32 +56,6 @@ export function createComparisonRatioOption(
             },
           },
         ],
-      },
-    ],
-    graphic: [
-      {
-        type: "text",
-        left: "center",
-        top: "35%",
-        style: {
-          text: "비중",
-          fill: textMuted,
-          fontSize: 11,
-          fontWeight: 700,
-          fontFamily: "Pretendard Variable, Pretendard",
-        },
-      },
-      {
-        type: "text",
-        left: "center",
-        top: "43%",
-        style: {
-          text: `${doneRate}%`,
-          fill: text,
-          fontSize: 28,
-          fontWeight: 700,
-          fontFamily: "Pretendard Variable, Pretendard",
-        },
       },
     ],
   };
