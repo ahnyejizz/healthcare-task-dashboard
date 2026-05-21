@@ -175,6 +175,36 @@ export function SortIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
+export function SortDirectionIcon({
+  className,
+  direction,
+  ...props
+}: IconSpanProps & { direction: "asc" | "desc" }) {
+  const isAscending = direction === "asc";
+
+  return (
+    <span
+      className={[
+        "relative block h-[18px] w-[18px] shrink-0",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    >
+      <span className="absolute left-1/2 top-[2px] h-[14px] w-[2px] -translate-x-1/2 rounded-full bg-current/85" />
+      <span
+        className={[
+          "absolute left-1/2 h-[5px] w-[5px] -translate-x-1/2 rotate-45 border-current/85",
+          isAscending
+            ? "top-[2px] border-t-[2px] border-l-[2px]"
+            : "top-[10px] border-r-[2px] border-b-[2px]",
+        ].join(" ")}
+      />
+    </span>
+  );
+}
+
 export function CardViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span

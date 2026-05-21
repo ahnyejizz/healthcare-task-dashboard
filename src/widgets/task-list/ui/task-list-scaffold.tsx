@@ -5,7 +5,13 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
-import { CardViewIcon, FilterIcon, ListViewIcon, SortIcon } from "@/shared/ui/icons";
+import {
+  CardViewIcon,
+  FilterIcon,
+  ListViewIcon,
+  SortDirectionIcon,
+  SortIcon,
+} from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 import { SelectOptionList } from "@/shared/ui/select-option-list";
 import { StatusBadge } from "@/shared/ui/status-badge";
@@ -22,6 +28,9 @@ const NEXT_PAGE_FETCH_THRESHOLD = 320;
 type TaskFilter = "ALL" | "DONE" | "TODO";
 type TaskListViewMode = "card" | "list";
 type TaskSort = "TASK_ID" | "TASK_NAME";
+type TaskSortOrder = "asc" | "desc";
+const DEFAULT_TASK_SORT: TaskSort = "TASK_ID";
+const DEFAULT_TASK_SORT_ORDER: TaskSortOrder = "asc";
 const taskFilterOptions = [
   { value: "ALL", label: "전체" },
   { value: "TODO", label: "TODO" },
@@ -61,10 +70,14 @@ export function TaskListScaffold({
   const [taskFilter, setTaskFilter] = useState<TaskFilter>("ALL");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [taskSort, setTaskSort] = useState<TaskSort>("TASK_ID");
+  const [taskSortOrder, setTaskSortOrder] =
+    useState<TaskSortOrder>(DEFAULT_TASK_SORT_ORDER);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
   const columnCount = viewMode === "card" ? 2 : 1;
+  const isCustomSortActive =
+    taskSort !== DEFAULT_TASK_SORT || taskSortOrder !== DEFAULT_TASK_SORT_ORDER;
   const filteredTasks = useMemo(() => {
     if (taskFilter === "ALL") {
       return tasks;
@@ -75,21 +88,26 @@ export function TaskListScaffold({
 
   const sortedTasks = useMemo(() => {
     const nextTasks = [...filteredTasks];
+    const sortDirection = taskSortOrder === "asc" ? 1 : -1;
 
     if (taskSort === "TASK_ID") {
-      nextTasks.sort((left, right) => left.id.localeCompare(right.id, "ko-KR"));
+      nextTasks.sort(
+        (left, right) =>
+          left.id.localeCompare(right.id, "ko-KR") * sortDirection,
+      );
       return nextTasks;
     }
 
     if (taskSort === "TASK_NAME") {
-      nextTasks.sort((left, right) =>
-        left.title.localeCompare(right.title, "ko-KR"),
+      nextTasks.sort(
+        (left, right) =>
+          left.title.localeCompare(right.title, "ko-KR") * sortDirection,
       );
       return nextTasks;
     }
 
     return nextTasks;
-  }, [filteredTasks, taskSort]);
+  }, [filteredTasks, taskSort, taskSortOrder]);
 
   const rows = useMemo(() => {
     const groupedRows: TaskItem[][] = [];
@@ -125,12 +143,24 @@ export function TaskListScaffold({
   }, [isFilterOpen, isSortOpen]);
 
   useEffect(() => {
-    if (taskFilter === "ALL" || !hasNextPage || isFetchingNextPage) {
+    if (
+      (!isCustomSortActive && taskFilter === "ALL") ||
+      !hasNextPage ||
+      isFetchingNextPage
+    ) {
       return;
     }
 
     onEndReached();
-  }, [hasNextPage, isFetchingNextPage, onEndReached, taskFilter, tasks.length]);
+  }, [
+    hasNextPage,
+    isCustomSortActive,
+    isFetchingNextPage,
+    onEndReached,
+    taskFilter,
+    tasks.length,
+  ]);
+
   // TanStack Virtual 훅은 React Compiler의 incompatible-library 경고 대상이라
   // 가상 스크롤 구현이 필요한 이 지점에서만 예외 처리합니다.
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -140,7 +170,9 @@ export function TaskListScaffold({
     getScrollElement: () => scrollRef.current,
     overscan: 5,
   });
+
   const virtualRows = rowVirtualizer.getVirtualItems();
+  
   const totalHeight =
     rowVirtualizer.getTotalSize() + (isFetchingNextPage ? 56 : 0);
 
@@ -207,6 +239,23 @@ export function TaskListScaffold({
               />
             ) : null}
           </div>
+
+          {/* 정렬 기준 (오름차순/내림차순) 버튼 */}
+          <ViewToggleButton
+            activeClassName="border-primary/40 bg-white text-primary"
+            isActive={taskSortOrder === "desc"}
+            inactiveClassName="bg-white text-text-muted hover:text-text"
+            label={
+              taskSortOrder === "desc" ? "내림차순 정렬" : "오름차순 정렬"
+            }
+            onClick={() => {
+              setTaskSortOrder((current) =>
+                current === "asc" ? "desc" : "asc",
+              );
+            }}
+          >
+            <SortDirectionIcon direction={taskSortOrder} />
+          </ViewToggleButton>
         </div>
       }
       rightComponents={
