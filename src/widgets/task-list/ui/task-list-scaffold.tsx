@@ -26,6 +26,37 @@ const taskFilterOptions = [
   { value: "DONE", label: "DONE" },
 ] as const;
 
+function renderTaskFilterLabel(option: {
+  label: string;
+  value: TaskFilter;
+}) {
+  if (option.value === "ALL") {
+    return (
+      <span className="inline-flex rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em] text-text-muted">
+        전체
+      </span>
+    );
+  }
+
+  if (option.value === "TODO") {
+    return (
+      <span className="inline-flex rounded-full border border-status-todo-strong/20 bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em] text-status-todo-strong">
+        TODO
+      </span>
+    );
+  }
+
+  if (option.value === "DONE") {
+    return (
+      <span className="inline-flex rounded-full border border-status-done-strong/20 bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em] text-status-done-strong">
+        DONE
+      </span>
+    );
+  }
+
+  return option.label;
+}
+
 export function TaskListScaffold({
   hasNextPage,
   isFetchingNextPage,
@@ -121,6 +152,7 @@ export function TaskListScaffold({
                 <div className="absolute top-full right-0 z-20 mt-2 w-36">
                   <SelectOptionList
                     options={taskFilterOptions}
+                    renderLabel={renderTaskFilterLabel}
                     selectedValue={taskFilter}
                     onSelect={(value) => {
                       setTaskFilter(value);
