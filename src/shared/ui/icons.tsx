@@ -1,9 +1,9 @@
 import type { ComponentProps, SVGProps } from "react";
 
-type IconProps = SVGProps<SVGSVGElement>;
+type IconSvgProps = SVGProps<SVGSVGElement>;
 type IconSpanProps = ComponentProps<"span">;
 
-function BaseIcon(props: IconProps) {
+function BaseIcon(props: IconSvgProps) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -18,7 +18,7 @@ function BaseIcon(props: IconProps) {
   );
 }
 
-export function DashboardIcon(props: IconProps) {
+export function DashboardIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M4 13h6v7H4z" />
@@ -29,7 +29,7 @@ export function DashboardIcon(props: IconProps) {
   );
 }
 
-export function HomeIcon(props: IconProps) {
+export function HomeIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M3 10.5 12 3l9 7.5" />
@@ -39,7 +39,7 @@ export function HomeIcon(props: IconProps) {
   );
 }
 
-export function TasksIcon(props: IconProps) {
+export function TasksIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="m8 7 2 2 4-4" />
@@ -52,7 +52,7 @@ export function TasksIcon(props: IconProps) {
   );
 }
 
-export function UserIcon(props: IconProps) {
+export function UserIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M20 21a8 8 0 0 0-16 0" />
@@ -61,7 +61,7 @@ export function UserIcon(props: IconProps) {
   );
 }
 
-export function LoginIcon(props: IconProps) {
+export function LoginIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M15 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3" />
@@ -71,7 +71,7 @@ export function LoginIcon(props: IconProps) {
   );
 }
 
-export function LogoutIcon(props: IconProps) {
+export function LogoutIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M9 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3" />
@@ -81,7 +81,7 @@ export function LogoutIcon(props: IconProps) {
   );
 }
 
-export function ArrowLeftIcon(props: IconProps) {
+export function ArrowLeftIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M19 12H5" />
@@ -90,7 +90,7 @@ export function ArrowLeftIcon(props: IconProps) {
   );
 }
 
-export function CheckIcon(props: IconProps) {
+export function CheckIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="m5 12 4.5 4.5L19 7" />
@@ -98,7 +98,7 @@ export function CheckIcon(props: IconProps) {
   );
 }
 
-export function TrashIcon(props: IconProps) {
+export function TrashIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M3 6h18" />
@@ -128,7 +128,7 @@ export function DownloadIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
-export function HealthcareLogoIcon(props: IconProps) {
+export function HealthcareLogoIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
       <path d="M12 21s-6.8-4.1-8.7-8.3C1.8 9.4 3.5 5.8 7 5.2c2-.3 3.6.5 5 2.2 1.4-1.7 3-2.5 5-2.2 3.5.6 5.2 4.2 3.7 7.5C18.8 16.9 12 21 12 21Z" />
