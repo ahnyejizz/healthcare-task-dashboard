@@ -5,7 +5,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
-import { CardViewIcon, FilterIcon, ListViewIcon } from "@/shared/ui/icons";
+import { CardViewIcon, FilterIcon, ListViewIcon, SortIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 import { SelectOptionList } from "@/shared/ui/select-option-list";
 import { StatusBadge } from "@/shared/ui/status-badge";
@@ -21,10 +21,15 @@ type TaskListScaffoldProps = {
 const NEXT_PAGE_FETCH_THRESHOLD = 320;
 type TaskFilter = "ALL" | "DONE" | "TODO";
 type TaskListViewMode = "card" | "list";
+type TaskSort = "TASK_ID" | "TASK_NAME";
 const taskFilterOptions = [
   { value: "ALL", label: "전체" },
   { value: "TODO", label: "TODO" },
   { value: "DONE", label: "DONE" },
+] as const;
+const taskSortOptions = [
+  { value: "TASK_ID", label: "태스크ID" },
+  { value: "TASK_NAME", label: "태스크명" }
 ] as const;
 
 function renderTaskFilterLabel(option: {
@@ -55,8 +60,10 @@ export function TaskListScaffold({
   const [viewMode, setViewMode] = useState<TaskListViewMode>("card");
   const [taskFilter, setTaskFilter] = useState<TaskFilter>("ALL");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [taskSort, setTaskSort] = useState<TaskSort>("TASK_ID");
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const filterRef = useRef<HTMLDivElement>(null);
+  const controlsRef = useRef<HTMLDivElement>(null);
   const columnCount = viewMode === "card" ? 2 : 1;
   const filteredTasks = useMemo(() => {
     if (taskFilter === "ALL") {
@@ -66,28 +73,47 @@ export function TaskListScaffold({
     return tasks.filter((task) => task.status === taskFilter);
   }, [taskFilter, tasks]);
 
+  const sortedTasks = useMemo(() => {
+    const nextTasks = [...filteredTasks];
+
+    if (taskSort === "TASK_ID") {
+      nextTasks.sort((left, right) => left.id.localeCompare(right.id, "ko-KR"));
+      return nextTasks;
+    }
+
+    if (taskSort === "TASK_NAME") {
+      nextTasks.sort((left, right) =>
+        left.title.localeCompare(right.title, "ko-KR"),
+      );
+      return nextTasks;
+    }
+
+    return nextTasks;
+  }, [filteredTasks, taskSort]);
+
   const rows = useMemo(() => {
     const groupedRows: TaskItem[][] = [];
 
-    for (let index = 0; index < filteredTasks.length; index += columnCount) {
-      groupedRows.push(filteredTasks.slice(index, index + columnCount));
+    for (let index = 0; index < sortedTasks.length; index += columnCount) {
+      groupedRows.push(sortedTasks.slice(index, index + columnCount));
     }
 
     return groupedRows;
-  }, [columnCount, filteredTasks]);
+  }, [columnCount, sortedTasks]);
 
   useEffect(() => {
-    if (!isFilterOpen) {
+    if (!isFilterOpen && !isSortOpen) {
       return;
     }
 
     function handlePointerDown(event: PointerEvent) {
       if (
-        filterRef.current &&
+        controlsRef.current &&
         event.target instanceof Node &&
-        !filterRef.current.contains(event.target)
+        !controlsRef.current.contains(event.target)
       ) {
         setIsFilterOpen(false);
+        setIsSortOpen(false);
       }
     }
 
@@ -96,7 +122,7 @@ export function TaskListScaffold({
     return () => {
       window.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [isFilterOpen]);
+  }, [isFilterOpen, isSortOpen]);
 
   useEffect(() => {
     if (taskFilter === "ALL" || !hasNextPage || isFetchingNextPage) {
@@ -122,11 +148,11 @@ export function TaskListScaffold({
     <Panel
       title={pageMeta.taskList.title}
       description={
-        <div className="flex items-center gap-2">
+        <div ref={controlsRef} className="flex items-center gap-2">
           <span>{pageMeta.taskList.description}</span>
-          
-          {/* 필터링 버튼 */}
-          <div ref={filterRef} className="relative ml-5">
+
+          <div className="relative ml-5">
+            {/* 필터링 버튼 */}
             <ViewToggleButton
               activeClassName="border-primary/40 bg-white text-primary"
               isActive={taskFilter !== "ALL"}
@@ -134,29 +160,58 @@ export function TaskListScaffold({
               label="필터링"
               onClick={() => {
                 setIsFilterOpen((current) => !current);
+                setIsSortOpen(false);
               }}
             >
               <FilterIcon />
             </ViewToggleButton>
+
+            {/* 필터링 드롭다운리스트 */}
             {isFilterOpen ? (
-              <div className="absolute top-full right-0 z-20 mt-2 w-36">
-                <SelectOptionList
-                  options={taskFilterOptions}
-                  renderLabel={renderTaskFilterLabel}
-                  selectedValue={taskFilter}
-                  onSelect={(value) => {
-                    setTaskFilter(value);
-                    setIsFilterOpen(false);
-                  }}
-                />
-              </div>
+              <SelectOptionList
+                options={taskFilterOptions}
+                renderLabel={renderTaskFilterLabel}
+                selectedValue={taskFilter}
+                onSelect={(value) => {
+                  setTaskFilter(value);
+                  setIsFilterOpen(false);
+                }}
+              />
+            ) : null}
+          </div>
+
+          <div className="relative">
+            {/* 정렬 버튼 */}
+            <ViewToggleButton
+              activeClassName="border-primary/40 bg-white text-primary"
+              isActive={isSortOpen || taskSort !== "TASK_ID"}
+              inactiveClassName="bg-white text-text-muted hover:text-text"
+              label="정렬"
+              onClick={() => {
+                setIsSortOpen((current) => !current);
+                setIsFilterOpen(false);
+              }}
+            >
+              <SortIcon />
+            </ViewToggleButton>
+
+            {/* 정렬 드롭다운리스트 */}
+            {isSortOpen ? (
+              <SelectOptionList
+                options={taskSortOptions}
+                selectedValue={taskSort}
+                onSelect={(value) => {
+                  setTaskSort(value);
+                  setIsSortOpen(false);
+                }}
+              />
             ) : null}
           </div>
         </div>
       }
       rightComponents={
-        // 카드형/리스트형 view 모드 토글 버튼
         <div className="inline-flex items-center gap-2">
+          {/* 카드형 view 모드 토글 버튼 */}
           <ViewToggleButton
             isActive={viewMode === "card"}
             label="카드형 보기"
@@ -166,6 +221,8 @@ export function TaskListScaffold({
           >
             <CardViewIcon />
           </ViewToggleButton>
+
+          {/* 리스트형 view 모드 토글 버튼 */}
           <ViewToggleButton
             isActive={viewMode === "list"}
             label="리스트형 보기"

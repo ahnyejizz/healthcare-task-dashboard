@@ -155,6 +155,26 @@ export function FilterIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
+export function SortIcon({ className, ...props }: IconSpanProps) {
+  return (
+    <span
+      className={[
+        "relative block h-[18px] w-[18px] shrink-0",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    >
+      <span className="absolute left-[2px] top-[3px] h-[2px] w-[11px] rounded-full bg-current/85" />
+      <span className="absolute left-[2px] top-[8px] h-[2px] w-[8px] rounded-full bg-current/85" />
+      <span className="absolute left-[2px] top-[13px] h-[2px] w-[5px] rounded-full bg-current/85" />
+      <span className="absolute right-[3px] top-[3px] h-[12px] w-[2px] rounded-full bg-current/85" />
+      <span className="absolute right-[1px] top-[11px] h-[5px] w-[5px] rotate-45 border-r-[2px] border-b-[2px] border-current/85" />
+    </span>
+  );
+}
+
 export function CardViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
