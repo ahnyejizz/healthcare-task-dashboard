@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
+import { useForm } from "react-hook-form";
 import { deleteTask } from "@/shared/api/tasks";
 import { ApiError } from "@/shared/api/http";
 import { routes } from "@/shared/config/routes";
@@ -19,6 +20,10 @@ type DeleteTaskDialogProps = {
   triggerVariant?: "primary" | "secondary" | "ghost" | "danger";
 };
 
+type DeleteTaskFormValues = {
+  confirmValue: string;
+};
+
 export function DeleteTaskDialog({
   buttonClassName,
   id,
@@ -28,21 +33,27 @@ export function DeleteTaskDialog({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [confirmValue, setConfirmValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isPending, setIsPending] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting, isValid },
+  } = useForm<DeleteTaskFormValues>({
+    mode: "onChange",
+    defaultValues: {
+      confirmValue: "",
+    },
+  });
 
-  const isMatch = confirmValue === id;
-
-  async function handleDelete() {
-    setIsPending(true);
+  async function onSubmit() {
     setErrorMessage("");
 
     try {
       await deleteTask(id);
       dialogRef.current?.close();
-      setConfirmValue("");
+      reset();
       queryClient.removeQueries({ queryKey: ["tasks"] });
       queryClient.removeQueries({ queryKey: ["task-detail", id] });
       setIsSuccessOpen(true);
@@ -50,8 +61,6 @@ export function DeleteTaskDialog({
       setErrorMessage(
         error instanceof ApiError ? error.message : "삭제 처리에 실패했습니다.",
       );
-    } finally {
-      setIsPending(false);
     }
   }
 
@@ -61,6 +70,8 @@ export function DeleteTaskDialog({
         variant={triggerVariant}
         className={buttonClassName}
         onClick={() => {
+          reset();
+          setErrorMessage("");
           dialogRef.current?.showModal();
         }}
       >
@@ -70,7 +81,7 @@ export function DeleteTaskDialog({
         ref={dialogRef}
         className="fixed inset-0 m-auto w-[calc(100%-2rem)] max-w-xl rounded-[28px] border border-border bg-white p-0 shadow-2xl backdrop:bg-[#172033]/35"
       >
-        <div className="p-6">
+        <form className="p-6" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-xl font-semibold text-text">삭제 확인</h2>
           <p className="mt-3 text-sm leading-6 text-text-muted">
             삭제를 진행하려면 아래 입력창에 정확한 ID를 입력해주세요.
@@ -79,10 +90,12 @@ export function DeleteTaskDialog({
             <Input
               id="delete-task-id"
               label={`할 일 ID (${id})`}
-              value={confirmValue}
-              onChange={(event) => {
-                setConfirmValue(event.target.value);
-              }}
+              errorMessage={errors.confirmValue?.message}
+              {...register("confirmValue", {
+                required: "할 일 ID를 입력해주세요.",
+                validate: (value) =>
+                  value === id || "정확한 할 일 ID를 입력해주세요.",
+              })}
             />
           </div>
           {errorMessage ? (
@@ -91,19 +104,20 @@ export function DeleteTaskDialog({
           <div className="mt-6 flex justify-end gap-3">
             <Button
               variant="secondary"
+              type="button"
               onClick={() => {
                 dialogRef.current?.close();
-                setConfirmValue("");
+                reset();
                 setErrorMessage("");
               }}
             >
               취소
             </Button>
-            <Button disabled={!isMatch || isPending} onClick={handleDelete}>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
               제출
             </Button>
           </div>
-        </div>
+        </form>
       </dialog>
       {typeof document !== "undefined" && isSuccessOpen
         ? createPortal(
