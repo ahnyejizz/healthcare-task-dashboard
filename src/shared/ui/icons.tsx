@@ -110,6 +110,24 @@ export function TrashIcon(props: IconProps) {
   );
 }
 
+export function DownloadIcon({ className, ...props }: IconSpanProps) {
+  return (
+    <span
+      className={[
+        "relative block h-[18px] w-[18px] shrink-0",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    >
+      <span className="absolute left-1/2 top-[1px] h-[10px] w-[2px] -translate-x-1/2 rounded-full bg-current" />
+      <span className="absolute left-1/2 top-[8px] h-[7px] w-[7px] -translate-x-1/2 rotate-45 border-r-[2px] border-b-[2px] border-current" />
+      <span className="absolute bottom-[1px] left-1/2 h-[2px] w-[12px] -translate-x-1/2 rounded-full bg-current" />
+    </span>
+  );
+}
+
 export function HealthcareLogoIcon(props: IconProps) {
   return (
     <BaseIcon {...props}>

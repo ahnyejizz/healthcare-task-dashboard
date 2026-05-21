@@ -4,6 +4,9 @@ import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
 import type { DashboardResponse } from "@/shared/api/contracts";
+import { downloadElementAsImage } from "@/shared/lib/download-element-as-image";
+import { Button } from "@/shared/ui/button";
+import { DownloadIcon } from "@/shared/ui/icons";
 import { Spinner } from "@/shared/ui/spinner";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 import { DashboardChartCard } from "@/widgets/dashboard/ui/dashboard-chart-card";
@@ -31,6 +34,7 @@ type ChartTooltipState = {
 
 export function DashboardStatusChart({ metrics }: DashboardStatusChartProps) {
   const chartRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [readyCharts, setReadyCharts] = useState<boolean[]>(() =>
     dashboardChartCards.map(() => false),
   );
@@ -145,17 +149,50 @@ export function DashboardStatusChart({ metrics }: DashboardStatusChartProps) {
     };
   }, [metrics, tooltipContext]);
 
+  async function handleDownloadChartCard(index: number) {
+    const target = cardRefs.current[index];
+
+    if (!target) {
+      return;
+    }
+
+    const fileName = dashboardChartCards[index].title
+      .replace(/\s*\/\s*/g, "／")
+      .replace(/\//g, "／");
+
+    await downloadElementAsImage({
+      element: target,
+      fileName: `${fileName}.png`,
+    });
+  }
+
   return (
     <>
       <div className="grid h-full min-h-0 auto-rows-fr gap-3 lg:grid-cols-2">
         {dashboardChartCards.map((card, index) => (
           <div
             key={card.title}
-            className="flex h-full flex-col rounded-[24px] border border-border bg-white p-4 text-primary"
+            ref={(node) => {
+              cardRefs.current[index] = node;
+            }}
+            className="group/chart-card flex h-full flex-col rounded-[24px] border border-border bg-white p-4 text-primary"
           >
             <DashboardChartCard
               title={card.title}
               description={card.description}
+              action={
+                <Button
+                  variant="secondary"
+                  className="pointer-events-none h-9 w-9 rounded-xl p-0 text-text-muted opacity-0 shadow-[0_10px_24px_rgba(23,32,51,0.08)] transition-[opacity,color,border-color] duration-200 hover:text-text group-hover/chart-card:pointer-events-auto group-hover/chart-card:opacity-100"
+                  onClick={() => {
+                    void handleDownloadChartCard(index);
+                  }}
+                  aria-label={`${card.title} 차트 다운로드`}
+                  title={`${card.title} 차트 다운로드`}
+                >
+                  <DownloadIcon className="h-[18px] w-[18px] stroke-[2px]" />
+                </Button>
+              }
               legend={
                 card.legendItems ? (
                   <DashboardChartLegend
