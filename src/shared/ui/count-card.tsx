@@ -1,10 +1,10 @@
-type MetricCardProps = {
+type CountCardProps = {
   caption: string;
   tone: "primary" | "success" | "warning";
   value: number;
 };
 
-export function MetricCard({ caption, tone, value }: MetricCardProps) {
+export function CountCard({ caption, tone, value }: CountCardProps) {
   const toneClass =
     tone === "success"
       ? "text-success"

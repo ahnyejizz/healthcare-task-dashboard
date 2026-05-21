@@ -1,6 +1,6 @@
 import type { DashboardResponse } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
-import { MetricCard } from "@/shared/ui/metric-card";
+import { CountCard } from "@/shared/ui/count-card";
 import { Panel } from "@/shared/ui/panel";
 import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
 import { DashboardStatusChart } from "@/widgets/dashboard/ui/dashboard-status-chart";
@@ -20,13 +20,18 @@ export function DashboardOverview({ metrics }: DashboardOverviewProps) {
     >
       <div className="grid h-full min-h-0 grid-rows-[auto_1fr] gap-3">
         <div className="grid gap-3 md:grid-cols-3">
-          <MetricCard caption="전체" tone="primary" value={metrics.numOfTask} />
-          <MetricCard
+          {/* 전체 */}
+          <CountCard caption="전체" tone="primary" value={metrics.numOfTask} />
+          
+          {/* 해야할 일 */}
+          <CountCard
             caption="해야할 일"
             tone="warning"
             value={metrics.numOfRestTask}
           />
-          <MetricCard
+
+          {/* 한 일 */}
+          <CountCard
             caption="한 일"
             tone="success"
             value={metrics.numOfDoneTask}
