@@ -7,11 +7,12 @@ import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 
 type TaskCardProps = {
   task: TaskItem;
+  variant?: "card" | "list";
 };
 
 const TASK_MEMO_PREVIEW_MAX_LENGTH = 80;
 
-export function TaskCard({ task }: TaskCardProps) {
+export function TaskCard({ task, variant = "card" }: TaskCardProps) {
   const [isMemoTooltipOpen, setIsMemoTooltipOpen] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition | null>(
     null,
@@ -31,6 +32,7 @@ export function TaskCard({ task }: TaskCardProps) {
       : "border border-status-todo-strong/20 bg-white text-status-todo-strong";
   const idClass =
     task.status === "DONE" ? "text-status-done-strong" : "text-status-todo-strong";
+  const isList = variant === "list";
 
   function openMemoTooltip(target: HTMLDivElement) {
     if (!shouldShowMemoTooltip) {
@@ -73,7 +75,9 @@ export function TaskCard({ task }: TaskCardProps) {
       <Link
         href={`/task/${task.id}`}
         className={[
-          "flex h-[180px] min-h-[180px] max-h-[180px] cursor-pointer flex-col rounded-[24px] border p-9 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer",
+          isList
+            ? "flex h-[118px] min-h-[118px] max-h-[118px] cursor-pointer flex-col rounded-[22px] border px-6 py-5 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer"
+            : "flex h-[180px] min-h-[180px] max-h-[180px] cursor-pointer flex-col rounded-[24px] border p-9 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer",
           cardClass,
         ].join(" ")}
         style={{ cursor: "pointer" }}
@@ -99,7 +103,7 @@ export function TaskCard({ task }: TaskCardProps) {
           </span>
         </div>
 
-        <div className="mt-4 min-h-0 flex-1 overflow-hidden">
+        <div className={isList ? "mt-3 min-h-0 flex-1 overflow-hidden" : "mt-4 min-h-0 flex-1 overflow-hidden"}>
           {shouldShowMemoTooltip ? (
             <div
               className="h-full cursor-pointer"
@@ -111,12 +115,22 @@ export function TaskCard({ task }: TaskCardProps) {
                 closeMemoTooltip();
               }}
             >
-              <p className="min-h-0 overflow-hidden break-words text-sm leading-6 text-text-muted">
+              <p
+                className={[
+                  "min-h-0 overflow-hidden break-words text-sm text-text-muted",
+                  isList ? "line-clamp-2 leading-5" : "leading-6",
+                ].join(" ")}
+              >
                 {memoPreview}
               </p>
             </div>
           ) : (
-            <p className="line-clamp-3 min-h-0 overflow-hidden text-sm leading-6 text-text-muted">
+            <p
+              className={[
+                "min-h-0 overflow-hidden text-sm text-text-muted",
+                isList ? "line-clamp-2 leading-5" : "line-clamp-3 leading-6",
+              ].join(" ")}
+            >
               {task.memo}
             </p>
           )}

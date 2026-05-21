@@ -1,6 +1,7 @@
-import type { SVGProps } from "react";
+import type { ComponentProps, SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
+type IconSpanProps = ComponentProps<"span">;
 
 function BaseIcon(props: IconProps) {
   return (
@@ -115,5 +116,37 @@ export function HealthcareLogoIcon(props: IconProps) {
       <path d="M12 21s-6.8-4.1-8.7-8.3C1.8 9.4 3.5 5.8 7 5.2c2-.3 3.6.5 5 2.2 1.4-1.7 3-2.5 5-2.2 3.5.6 5.2 4.2 3.7 7.5C18.8 16.9 12 21 12 21Z" />
       <path d="M8 12h2.1l1.2-2.1 1.5 4.2 1.2-2.1H16" />
     </BaseIcon>
+  );
+}
+
+export function CardViewIcon({ className, ...props }: IconSpanProps) {
+  return (
+    <span
+      className={["grid h-4 w-4 shrink-0 grid-cols-2 grid-rows-2 gap-[2px] leading-none", className]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    >
+      <span className="block h-full w-full rounded-[1px] border-[1.6px] border-current" />
+      <span className="block h-full w-full rounded-[1px] border-[1.6px] border-current" />
+      <span className="block h-full w-full rounded-[1px] border-[1.6px] border-current" />
+      <span className="block h-full w-full rounded-[1px] border-[1.6px] border-current" />
+    </span>
+  );
+}
+
+export function ListViewIcon({ className, ...props }: IconSpanProps) {
+  return (
+    <span
+      className={["grid h-4 w-4 shrink-0 grid-rows-4 items-center gap-[2px] leading-none", className]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    >
+      <span className="block h-px w-full rounded-full bg-current/75" />
+      <span className="block h-px w-full rounded-full bg-current/75" />
+      <span className="block h-px w-full rounded-full bg-current/75" />
+      <span className="block h-px w-full rounded-full bg-current/75" />
+    </span>
   );
 }

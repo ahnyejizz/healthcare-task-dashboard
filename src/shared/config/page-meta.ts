@@ -7,7 +7,7 @@ export const pageMeta = {
   },
   taskList: {
     title: "할 일 목록",
-    description: "할 일을 카드 형태로 확인할 수 있는 화면입니다.",
+    description: "할 일을 카드 형태 또는 리스트 형태로 확인할 수 있는 화면입니다.",
   },
   taskDetail: {
     title: "할 일 상세",

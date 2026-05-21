@@ -1,12 +1,14 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
+import { CardViewIcon, ListViewIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
+import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
 
 type TaskListScaffoldProps = {
   hasNextPage: boolean;
@@ -16,6 +18,7 @@ type TaskListScaffoldProps = {
 };
 
 const NEXT_PAGE_FETCH_THRESHOLD = 320;
+type TaskListViewMode = "card" | "list";
 
 export function TaskListScaffold({
   hasNextPage,
@@ -23,22 +26,24 @@ export function TaskListScaffold({
   onEndReached,
   tasks,
 }: TaskListScaffoldProps) {
+  const [viewMode, setViewMode] = useState<TaskListViewMode>("card");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const columnCount = viewMode === "card" ? 2 : 1;
   const rows = useMemo(() => {
     const groupedRows: TaskItem[][] = [];
 
-    for (let index = 0; index < tasks.length; index += 2) {
-      groupedRows.push(tasks.slice(index, index + 2));
+    for (let index = 0; index < tasks.length; index += columnCount) {
+      groupedRows.push(tasks.slice(index, index + columnCount));
     }
 
     return groupedRows;
-  }, [tasks]);
+  }, [columnCount, tasks]);
   // TanStack Virtual 훅은 React Compiler의 incompatible-library 경고 대상이라
   // 가상 스크롤 구현이 필요한 이 지점에서만 예외 처리합니다.
   // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 200,
+    estimateSize: () => (viewMode === "card" ? 200 : 138),
     getScrollElement: () => scrollRef.current,
     overscan: 5,
   });
@@ -49,7 +54,31 @@ export function TaskListScaffold({
   return (
     <Panel
       title={pageMeta.taskList.title}
-      description={pageMeta.taskList.description}
+      description={
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <span>{pageMeta.taskList.description}</span>
+          <div className="inline-flex items-center gap-2">
+            <ViewToggleButton
+              isActive={viewMode === "card"}
+              label="카드형 보기"
+              onClick={() => {
+                setViewMode("card");
+              }}
+            >
+              <CardViewIcon />
+            </ViewToggleButton>
+            <ViewToggleButton
+              isActive={viewMode === "list"}
+              label="리스트형 보기"
+              onClick={() => {
+                setViewMode("list");
+              }}
+            >
+              <ListViewIcon />
+            </ViewToggleButton>
+          </div>
+        </div>
+      }
       paddingClassName={pagePanelSpacing.paddingClassName}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
@@ -88,9 +117,16 @@ export function TaskListScaffold({
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
-                <div className="grid gap-4 overflow-visible pb-4 md:grid-cols-2">
+                <div
+                  className={[
+                    "overflow-visible pb-4",
+                    viewMode === "card"
+                      ? "grid gap-4 md:grid-cols-2"
+                      : "flex flex-col gap-3",
+                  ].join(" ")}
+                >
                   {rowTasks.map((task) => (
-                    <TaskCard key={task.id} task={task} />
+                    <TaskCard key={task.id} task={task} variant={viewMode} />
                   ))}
                 </div>
               </div>

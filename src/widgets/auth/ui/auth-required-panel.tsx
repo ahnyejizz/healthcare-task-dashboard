@@ -46,7 +46,7 @@ export function AuthRequiredPanel() {
                 Tasks
               </p>
               <p className="mt-2 text-sm leading-6 text-text">
-                할 일 목록 카드와 할 일 상세 확인
+                할 일 목록과 할 일 상세 확인
               </p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">

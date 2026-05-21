@@ -5,7 +5,7 @@ type PanelProps = {
   children: ReactNode;
   className?: string;
   contentClassName?: string;
-  description?: string;
+  description?: ReactNode;
   paddingClassName?: string;
   title?: string;
 };
@@ -36,9 +36,9 @@ export function Panel({
               {title}
             </h1>
             {description ? (
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-text-muted">
+              <div className="mt-2 max-w-3xl text-sm leading-6 text-text-muted">
                 {description}
-              </p>
+              </div>
             ) : null}
           </div>
           {action ? <div className="shrink-0">{action}</div> : null}
