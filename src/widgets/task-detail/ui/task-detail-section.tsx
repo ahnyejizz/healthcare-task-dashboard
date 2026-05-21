@@ -56,7 +56,7 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
           title="존재하지 않는 할 일입니다."
           description="요청한 리소스를 찾을 수 없습니다. 목록으로 돌아가 다시 확인해주세요."
           className="flex h-full min-h-0 flex-col"
-          action={
+          rightComponents={
             <ButtonLink
               href={routes.taskList}
               variant="ghost"

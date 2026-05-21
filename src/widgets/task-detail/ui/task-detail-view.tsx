@@ -25,7 +25,7 @@ export function TaskDetailView({ id, task }: TaskDetailViewProps) {
       description={pageMeta.taskDetail.description}
       className="flex h-full min-h-0 flex-col"
       contentClassName="flex-1"
-      action={
+      rightComponents={
         <div className="flex items-center">
           <ButtonLink
             href={routes.taskList}

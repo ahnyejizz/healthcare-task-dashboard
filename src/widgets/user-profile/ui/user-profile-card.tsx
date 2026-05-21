@@ -58,7 +58,7 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
         description={pageMeta.user.description}
         className="flex h-full min-h-0 flex-col"
         contentClassName="flex-1"
-        action={
+        rightComponents={
           <ConfirmDialog
             title="로그아웃 하시겠습니까?"
             description="현재 세션이 종료되며 로그인 화면으로 이동합니다."

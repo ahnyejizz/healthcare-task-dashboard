@@ -122,54 +122,59 @@ export function TaskListScaffold({
     <Panel
       title={pageMeta.taskList.title}
       description={
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
           <span>{pageMeta.taskList.description}</span>
-          <div className="inline-flex items-center gap-2">
-            <div ref={filterRef} className="relative">
-              <ViewToggleButton
-                activeClassName="border-primary/40 bg-white text-primary"
-                isActive={taskFilter !== "ALL"}
-                inactiveClassName="bg-white text-text-muted hover:text-text"
-                label="할 일 상태 필터"
-                onClick={() => {
-                  setIsFilterOpen((current) => !current);
-                }}
-              >
-                <FilterIcon />
-              </ViewToggleButton>
-              {isFilterOpen ? (
-                <div className="absolute top-full right-0 z-20 mt-2 w-36">
-                  <SelectOptionList
-                    options={taskFilterOptions}
-                    renderLabel={renderTaskFilterLabel}
-                    selectedValue={taskFilter}
-                    onSelect={(value) => {
-                      setTaskFilter(value);
-                      setIsFilterOpen(false);
-                    }}
-                  />
-                </div>
-              ) : null}
-            </div>
+          
+          {/* 필터링 버튼 */}
+          <div ref={filterRef} className="relative ml-5">
             <ViewToggleButton
-              isActive={viewMode === "card"}
-              label="카드형 보기"
+              activeClassName="border-primary/40 bg-white text-primary"
+              isActive={taskFilter !== "ALL"}
+              inactiveClassName="bg-white text-text-muted hover:text-text"
+              label="필터링"
               onClick={() => {
-                setViewMode("card");
+                setIsFilterOpen((current) => !current);
               }}
             >
-              <CardViewIcon />
+              <FilterIcon />
             </ViewToggleButton>
-            <ViewToggleButton
-              isActive={viewMode === "list"}
-              label="리스트형 보기"
-              onClick={() => {
-                setViewMode("list");
-              }}
-            >
-              <ListViewIcon />
-            </ViewToggleButton>
+            {isFilterOpen ? (
+              <div className="absolute top-full right-0 z-20 mt-2 w-36">
+                <SelectOptionList
+                  options={taskFilterOptions}
+                  renderLabel={renderTaskFilterLabel}
+                  selectedValue={taskFilter}
+                  onSelect={(value) => {
+                    setTaskFilter(value);
+                    setIsFilterOpen(false);
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
+        </div>
+      }
+      rightComponents={
+        // 카드형/리스트형 view 모드 토글 버튼
+        <div className="inline-flex items-center gap-2">
+          <ViewToggleButton
+            isActive={viewMode === "card"}
+            label="카드형 보기"
+            onClick={() => {
+              setViewMode("card");
+            }}
+          >
+            <CardViewIcon />
+          </ViewToggleButton>
+          <ViewToggleButton
+            isActive={viewMode === "list"}
+            label="리스트형 보기"
+            onClick={() => {
+              setViewMode("list");
+            }}
+          >
+            <ListViewIcon />
+          </ViewToggleButton>
         </div>
       }
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"

@@ -1,22 +1,22 @@
 import type { ReactNode } from "react";
 
 type PanelProps = {
-  action?: ReactNode;
   children: ReactNode;
   className?: string;
   contentClassName?: string;
   description?: ReactNode;
   paddingClassName?: string;
+  rightComponents?: ReactNode;
   title?: string;
 };
 
 export function Panel({
-  action,
   children,
   className,
   contentClassName,
   description,
   paddingClassName,
+  rightComponents,
   title,
 }: PanelProps) {
   return (
@@ -30,7 +30,7 @@ export function Panel({
         .join(" ")}
     >
       {title ? (
-        <header className="mb-6 flex items-start justify-between gap-4">
+        <header className="mb-6 flex items-end justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-text">
               {title}
@@ -41,7 +41,7 @@ export function Panel({
               </div>
             ) : null}
           </div>
-          {action ? <div className="shrink-0">{action}</div> : null}
+          {rightComponents ? <div className="shrink-0">{rightComponents}</div> : null}
         </header>
       ) : null}
       <div className={contentClassName}>{children}</div>
