@@ -137,6 +137,24 @@ export function HealthcareLogoIcon(props: IconSvgProps) {
   );
 }
 
+export function FilterIcon({ className, ...props }: IconSpanProps) {
+  return (
+    <span
+      className={[
+        "relative block h-[18px] w-[18px] shrink-0",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      {...props}
+    >
+      <span className="absolute left-1/2 top-[2px] h-[2px] w-[14px] -translate-x-1/2 rounded-full bg-current" />
+      <span className="absolute left-1/2 top-[5px] h-0 w-0 -translate-x-1/2 border-t-[7px] border-r-[5px] border-l-[5px] border-t-current border-r-transparent border-l-transparent" />
+      <span className="absolute left-1/2 top-[12px] h-[5px] w-[3px] -translate-x-1/2 rounded-b-[2px] bg-current" />
+    </span>
+  );
+}
+
 export function CardViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span

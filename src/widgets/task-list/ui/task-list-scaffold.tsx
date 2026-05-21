@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
-import { CardViewIcon, ListViewIcon } from "@/shared/ui/icons";
+import { CardViewIcon, FilterIcon, ListViewIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
+import { SelectOptionList } from "@/shared/ui/select-option-list";
 import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
 
 type TaskListScaffoldProps = {
@@ -17,7 +18,13 @@ type TaskListScaffoldProps = {
 };
 
 const NEXT_PAGE_FETCH_THRESHOLD = 320;
+type TaskFilter = "ALL" | "DONE" | "TODO";
 type TaskListViewMode = "card" | "list";
+const taskFilterOptions = [
+  { value: "ALL", label: "전체" },
+  { value: "TODO", label: "TODO" },
+  { value: "DONE", label: "DONE" },
+] as const;
 
 export function TaskListScaffold({
   hasNextPage,
@@ -26,17 +33,58 @@ export function TaskListScaffold({
   tasks,
 }: TaskListScaffoldProps) {
   const [viewMode, setViewMode] = useState<TaskListViewMode>("card");
+  const [taskFilter, setTaskFilter] = useState<TaskFilter>("ALL");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
   const columnCount = viewMode === "card" ? 2 : 1;
+  const filteredTasks = useMemo(() => {
+    if (taskFilter === "ALL") {
+      return tasks;
+    }
+
+    return tasks.filter((task) => task.status === taskFilter);
+  }, [taskFilter, tasks]);
+
   const rows = useMemo(() => {
     const groupedRows: TaskItem[][] = [];
 
-    for (let index = 0; index < tasks.length; index += columnCount) {
-      groupedRows.push(tasks.slice(index, index + columnCount));
+    for (let index = 0; index < filteredTasks.length; index += columnCount) {
+      groupedRows.push(filteredTasks.slice(index, index + columnCount));
     }
 
     return groupedRows;
-  }, [columnCount, tasks]);
+  }, [columnCount, filteredTasks]);
+
+  useEffect(() => {
+    if (!isFilterOpen) {
+      return;
+    }
+
+    function handlePointerDown(event: PointerEvent) {
+      if (
+        filterRef.current &&
+        event.target instanceof Node &&
+        !filterRef.current.contains(event.target)
+      ) {
+        setIsFilterOpen(false);
+      }
+    }
+
+    window.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isFilterOpen]);
+
+  useEffect(() => {
+    if (taskFilter === "ALL" || !hasNextPage || isFetchingNextPage) {
+      return;
+    }
+
+    onEndReached();
+  }, [hasNextPage, isFetchingNextPage, onEndReached, taskFilter, tasks.length]);
   // TanStack Virtual 훅은 React Compiler의 incompatible-library 경고 대상이라
   // 가상 스크롤 구현이 필요한 이 지점에서만 예외 처리합니다.
   // eslint-disable-next-line react-hooks/incompatible-library
@@ -57,6 +105,31 @@ export function TaskListScaffold({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span>{pageMeta.taskList.description}</span>
           <div className="inline-flex items-center gap-2">
+            <div ref={filterRef} className="relative">
+              <ViewToggleButton
+                activeClassName="border-primary/40 bg-white text-primary"
+                isActive={taskFilter !== "ALL"}
+                inactiveClassName="bg-white text-text-muted hover:text-text"
+                label="할 일 상태 필터"
+                onClick={() => {
+                  setIsFilterOpen((current) => !current);
+                }}
+              >
+                <FilterIcon />
+              </ViewToggleButton>
+              {isFilterOpen ? (
+                <div className="absolute top-full right-0 z-20 mt-2 w-36">
+                  <SelectOptionList
+                    options={taskFilterOptions}
+                    selectedValue={taskFilter}
+                    onSelect={(value) => {
+                      setTaskFilter(value);
+                      setIsFilterOpen(false);
+                    }}
+                  />
+                </div>
+              ) : null}
+            </div>
             <ViewToggleButton
               isActive={viewMode === "card"}
               label="카드형 보기"
@@ -131,6 +204,14 @@ export function TaskListScaffold({
             );
           })}
 
+          {!rows.length && !isFetchingNextPage && !hasNextPage ? (
+            <div className="absolute inset-0 flex items-center justify-center px-6">
+              <p className="text-sm font-medium text-text-muted">
+                선택한 필터에 해당하는 할 일이 없습니다.
+              </p>
+            </div>
+          ) : null}
+
           {isFetchingNextPage ? (
             <div
               className="absolute left-0 w-full"
@@ -139,7 +220,9 @@ export function TaskListScaffold({
               }}
             >
               <div className="flex items-center justify-center py-4 text-sm text-text-muted">
-                다음 목록을 불러오는 중입니다.
+                {taskFilter === "ALL"
+                  ? "다음 목록을 불러오는 중입니다."
+                  : "필터링을 위해 전체 목록을 불러오는 중입니다."}
               </div>
             </div>
           ) : null}
