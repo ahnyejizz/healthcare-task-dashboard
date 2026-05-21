@@ -7,7 +7,6 @@ import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
 import { CardViewIcon, ListViewIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
-import { pagePanelSpacing } from "@/shared/ui/panel-spacing";
 import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
 
 type TaskListScaffoldProps = {
@@ -79,7 +78,6 @@ export function TaskListScaffold({
           </div>
         </div>
       }
-      paddingClassName={pagePanelSpacing.paddingClassName}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
     >

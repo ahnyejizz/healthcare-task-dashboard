@@ -23,7 +23,7 @@ export function Panel({
     <section
       className={[
         "surface-card rounded-[28px]",
-        paddingClassName ?? "p-6 lg:p-8",
+        paddingClassName ?? "px-6 py-5 lg:px-8 lg:py-7",
         className,
       ]
         .filter(Boolean)
