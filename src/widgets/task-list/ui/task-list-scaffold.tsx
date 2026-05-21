@@ -8,6 +8,7 @@ import { pageMeta } from "@/shared/config/page-meta";
 import { CardViewIcon, FilterIcon, ListViewIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 import { SelectOptionList } from "@/shared/ui/select-option-list";
+import { StatusBadge } from "@/shared/ui/status-badge";
 import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
 
 type TaskListScaffoldProps = {
@@ -31,27 +32,15 @@ function renderTaskFilterLabel(option: {
   value: TaskFilter;
 }) {
   if (option.value === "ALL") {
-    return (
-      <span className="inline-flex rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em] text-text-muted">
-        전체
-      </span>
-    );
+    return <StatusBadge tone="all">전체</StatusBadge>;
   }
 
   if (option.value === "TODO") {
-    return (
-      <span className="inline-flex rounded-full border border-status-todo-strong/20 bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em] text-status-todo-strong">
-        TODO
-      </span>
-    );
+    return <StatusBadge tone="todo">TODO</StatusBadge>;
   }
 
   if (option.value === "DONE") {
-    return (
-      <span className="inline-flex rounded-full border border-status-done-strong/20 bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em] text-status-done-strong">
-        DONE
-      </span>
-    );
+    return <StatusBadge tone="done">DONE</StatusBadge>;
   }
 
   return option.label;

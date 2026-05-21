@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { TaskItem } from "@/shared/api/contracts";
+import { StatusBadge } from "@/shared/ui/status-badge";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 
 type TaskCardProps = {
@@ -26,10 +27,6 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
     task.status === "DONE"
       ? "border-status-done-strong/35 bg-status-done-surface hover:bg-status-done-surface"
       : "border-status-todo-strong/35 bg-status-todo-surface hover:bg-status-todo-surface";
-  const badgeClass =
-    task.status === "DONE"
-      ? "border border-status-done-strong/20 bg-white text-status-done-strong"
-      : "border border-status-todo-strong/20 bg-white text-status-todo-strong";
   const idClass =
     task.status === "DONE" ? "text-status-done-strong" : "text-status-todo-strong";
   const isList = variant === "list";
@@ -96,11 +93,12 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
               {task.title}
             </h2>
           </div>
-          <span
-            className={`inline-flex shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-[0.12em] ${badgeClass}`}
+          <StatusBadge
+            tone={task.status === "DONE" ? "done" : "todo"}
+            className="shrink-0 px-3.5 py-1.5"
           >
             {task.status}
-          </span>
+          </StatusBadge>
         </div>
 
         <div className={isList ? "mt-3 min-h-0 flex-1 overflow-hidden" : "mt-4 min-h-0 flex-1 overflow-hidden"}>
