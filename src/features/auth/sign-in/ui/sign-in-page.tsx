@@ -15,6 +15,11 @@ import { Input } from "@/shared/ui/input";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { signInSchema, type SignInFormValues } from "@/features/auth/sign-in/model/sign-in-schema";
 
+/**
+ * @page  - [로그인]
+ * @title - 로그인 폼 컴포넌트
+ * @desc  - 이메일/비밀번호 입력 및 로그인 제출 처리
+ */
 export function SignInPage() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+/**
+ * @page  - [로그인]
+ * @title - 로그인 스키마 상수
+ * @desc  - 로그인 입력값 검증 규칙 정의
+ */
 export const signInSchema = z.object({
   email: z.email("이메일 형식이 올바르지 않습니다."),
   password: z

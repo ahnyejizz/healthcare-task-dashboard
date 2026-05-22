@@ -24,6 +24,11 @@ type DeleteTaskFormValues = {
   confirmValue: string;
 };
 
+/**
+ * @page  - [할 일 상세]
+ * @title - 삭제 확인 다이얼로그 컴포넌트
+ * @desc  - 할 일 삭제 전 ID 확인 입력 및 삭제 완료 안내 제공
+ */
 export function DeleteTaskDialog({
   buttonClassName,
   id,
