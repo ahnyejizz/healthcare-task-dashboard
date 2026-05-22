@@ -1,18 +1,13 @@
+import { TaskFilter } from "@/widgets/task-list/model/task-list-controls";
 import type { ReactNode } from "react";
-
-type StatusBadgeTone = "all" | "done" | "todo";
 
 type StatusBadgeProps = {
   children: ReactNode;
   className?: string;
-  tone: StatusBadgeTone;
+  tone: TaskFilter;
 };
 
-export function StatusBadge({
-  children,
-  className,
-  tone,
-}: StatusBadgeProps) {
+export function StatusBadge({ children, className, tone }: StatusBadgeProps) {
   const toneClass =
     tone === "done"
       ? "border-status-done-strong/20 text-status-done-strong"

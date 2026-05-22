@@ -12,7 +12,6 @@ export type TooltipPosition = {
 type TooltipProps = {
   arrowLeft?: string;
   children: ReactNode;
-  bubbleClassName?: string;
   isOpen: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -22,7 +21,6 @@ type TooltipProps = {
 
 export function Tooltip({
   arrowLeft = "calc(50% - 0.375rem)", // 툴팁 꼬리 중앙
-  bubbleClassName,
   children,
   isOpen,
   onMouseEnter,
@@ -52,14 +50,7 @@ export function Tooltip({
       onMouseLeave={onMouseLeave}
       style={containerStyle}
     >
-      <div
-        className={[
-          "relative rounded-[18px] border border-[#151a23] bg-[#151a23] px-4 py-3 text-sm leading-6 text-white shadow-[0_18px_40px_rgba(0,0,0,0.32)]",
-          bubbleClassName,
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
+      <div className="relative rounded-[18px] border border-[#151a23] bg-[#151a23] px-4 py-3 text-sm leading-6 text-white shadow-[0_18px_40px_rgba(0,0,0,0.32)]">
         {children}
         <span
           className="absolute top-full h-3 w-3 -translate-y-1/2 rotate-45 border-r border-b border-[#151a23] bg-[#151a23]"

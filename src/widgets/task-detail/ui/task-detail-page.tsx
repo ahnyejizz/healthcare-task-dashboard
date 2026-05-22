@@ -13,19 +13,25 @@ import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { TaskDetailView } from "@/widgets/task-detail/ui/task-detail-view";
 
-type TaskDetailSectionProps = {
-  id: string;
-};
-
-export function TaskDetailSection({ id }: TaskDetailSectionProps) {
+export function TaskDetailPage({ id }: { id: string }) {
   const router = useRouter();
   const { data, error, isLoading } = useQuery({
     queryKey: ["task-detail", id],
     queryFn: () => getTaskDetail(id),
     retry: false,
   });
-  const isUnauthorized = error instanceof ApiError && error.status === 401;
 
+  const isUnauthorized = error instanceof ApiError && error.status === 401;
+  const isNotFound = error instanceof ApiError && error.status === 404;
+
+  const errorMessage =
+    error instanceof ApiError ? error.message : "할 일 상세를 불러오지 못했습니다.";
+
+  /* ================================================================================== */
+  /* useEffect() */
+  /* ================================================================================== */
+
+  // 인증 만료 시 대시보드로 이동
   useEffect(() => {
     if (!isUnauthorized) {
       return;
@@ -35,21 +41,22 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
     router.refresh();
   }, [isUnauthorized, router]);
 
+  /* ================================================================================== */
+  /* render */
+  /* ================================================================================== */
+
+  // 초기 로딩
   if (isLoading) {
     return <LoadingOverlay message="할 일 상세를 불러오는 중입니다." />;
   }
 
+  // 인증 만료 리다이렉트 대기
   if (isUnauthorized) {
     return null;
   }
 
+  // 조회 실패
   if (error || !data) {
-    const isNotFound = error instanceof ApiError && error.status === 404;
-    const errorMessage =
-      error instanceof ApiError
-        ? error.message
-        : "할 일 상세를 불러오지 못했습니다.";
-
     if (isNotFound) {
       return (
         <Panel
@@ -93,5 +100,6 @@ export function TaskDetailSection({ id }: TaskDetailSectionProps) {
     );
   }
 
+  // 조회 성공
   return <TaskDetailView id={id} task={data} />;
 }

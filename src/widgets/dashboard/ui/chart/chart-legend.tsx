@@ -1,15 +1,9 @@
-type DashboardChartLegendItem = {
+type ChartLegendItem = {
   color: string;
   label: string;
 };
 
-type DashboardChartLegendProps = {
-  items: DashboardChartLegendItem[];
-};
-
-export function DashboardChartLegend({
-  items,
-}: DashboardChartLegendProps) {
+export function ChartLegend({ items }: { items: ChartLegendItem[] }) {
   return (
     <div className="flex items-center gap-x-4 whitespace-nowrap">
       {items.map((item) => (
@@ -18,9 +12,7 @@ export function DashboardChartLegend({
             className="inline-block h-2.5 w-2.5 rounded-full"
             style={{ backgroundColor: item.color }}
           />
-          <span className="text-xs font-semibold text-text-muted">
-            {item.label}
-          </span>
+          <span className="text-xs font-semibold text-text-muted">{item.label}</span>
         </div>
       ))}
     </div>

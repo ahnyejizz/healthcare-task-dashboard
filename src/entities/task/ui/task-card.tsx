@@ -5,19 +5,18 @@ import Link from "next/link";
 import type { TaskItem } from "@/shared/api/contracts";
 import { StatusBadge } from "@/shared/ui/status-badge";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
+import { type TaskListViewMode } from "@/widgets/task-list/model/task-list-controls";
 
 type TaskCardProps = {
   task: TaskItem;
-  variant?: "card" | "list";
+  variant?: TaskListViewMode;
 };
 
 const TASK_MEMO_PREVIEW_MAX_LENGTH = 80;
 
 export function TaskCard({ task, variant = "card" }: TaskCardProps) {
   const [isMemoTooltipOpen, setIsMemoTooltipOpen] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition | null>(
-    null,
-  );
+  const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition | null>(null);
 
   const shouldShowMemoTooltip = task.memo.length > TASK_MEMO_PREVIEW_MAX_LENGTH;
   const memoPreview = shouldShowMemoTooltip
@@ -27,8 +26,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
     task.status === "DONE"
       ? "border-status-done-strong/35 bg-status-done-surface hover:bg-status-done-surface"
       : "border-status-todo-strong/35 bg-status-todo-surface hover:bg-status-todo-surface";
-  const idClass =
-    task.status === "DONE" ? "text-status-done-strong" : "text-status-todo-strong";
+  const idClass = task.status === "DONE" ? "text-status-done-strong" : "text-status-todo-strong";
   const isList = variant === "list";
 
   function openMemoTooltip(target: HTMLDivElement) {
@@ -45,17 +43,13 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
     setIsMemoTooltipOpen(true);
   }
 
-  function closeMemoTooltip() {
-    setIsMemoTooltipOpen(false);
-  }
-
   useEffect(() => {
     if (!isMemoTooltipOpen) {
       return;
     }
 
     const handleViewportChange = () => {
-      closeMemoTooltip();
+      setIsMemoTooltipOpen(false);
     };
 
     window.addEventListener("scroll", handleViewportChange, true);
@@ -82,10 +76,9 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <p
-              className={[
-                "text-[11px] font-semibold tracking-[0.16em] uppercase",
-                idClass,
-              ].join(" ")}
+              className={["text-[11px] font-semibold tracking-[0.16em] uppercase", idClass].join(
+                " ",
+              )}
             >
               {task.id}
             </p>
@@ -101,7 +94,11 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
           </StatusBadge>
         </div>
 
-        <div className={isList ? "mt-3 min-h-0 flex-1 overflow-hidden" : "mt-4 min-h-0 flex-1 overflow-hidden"}>
+        <div
+          className={
+            isList ? "mt-3 min-h-0 flex-1 overflow-hidden" : "mt-4 min-h-0 flex-1 overflow-hidden"
+          }
+        >
           {shouldShowMemoTooltip ? (
             <div
               className="h-full cursor-pointer"
@@ -110,7 +107,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
                 openMemoTooltip(event.currentTarget);
               }}
               onMouseLeave={() => {
-                closeMemoTooltip();
+                setIsMemoTooltipOpen(false);
               }}
             >
               <p
@@ -142,7 +139,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
           setIsMemoTooltipOpen(true);
         }}
         onMouseLeave={() => {
-          closeMemoTooltip();
+          setIsMemoTooltipOpen(false);
         }}
       >
         {task.memo}

@@ -1,0 +1,60 @@
+"use client";
+
+import { FilterIcon } from "@/shared/ui/icons";
+import { SelectOptionList } from "@/shared/ui/select-option-list";
+import { StatusBadge } from "@/shared/ui/status-badge";
+import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
+import { type TaskFilter, taskFilterOptions } from "@/widgets/task-list/model/task-list-controls";
+
+type FilterDropdownProps = {
+  isOpen: boolean;
+  taskFilter: TaskFilter;
+  onButtonClick: () => void;
+  onSelect: (value: TaskFilter) => void;
+};
+
+function renderTaskFilterLabel(option: { label: string; value: TaskFilter }) {
+  if (option.value === "all") {
+    return <StatusBadge tone="all">전체</StatusBadge>;
+  }
+
+  if (option.value === "todo") {
+    return <StatusBadge tone="todo">TODO</StatusBadge>;
+  }
+
+  if (option.value === "done") {
+    return <StatusBadge tone="done">DONE</StatusBadge>;
+  }
+
+  return option.label;
+}
+
+export function FilterDropdown({
+  isOpen,
+  taskFilter,
+  onButtonClick,
+  onSelect,
+}: FilterDropdownProps) {
+  return (
+    <div className="relative ml-5">
+      <ViewToggleButton
+        activeClassName="border-primary/40 bg-white text-primary"
+        isActive={taskFilter !== "all"}
+        inactiveClassName="bg-white text-text-muted hover:text-text"
+        label="필터링"
+        onClick={onButtonClick}
+      >
+        <FilterIcon />
+      </ViewToggleButton>
+
+      {isOpen ? (
+        <SelectOptionList
+          options={taskFilterOptions}
+          renderLabel={renderTaskFilterLabel}
+          selectedValue={taskFilter}
+          onSelect={onSelect}
+        />
+      ) : null}
+    </div>
+  );
+}

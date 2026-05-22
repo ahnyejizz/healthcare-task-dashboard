@@ -1,8 +1,4 @@
-type LoadingOverlayProps = {
-  message: string;
-};
-
-export function LoadingOverlay({ message }: LoadingOverlayProps) {
+export function LoadingOverlay({ message }: { message: string }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172033]/18 px-4 backdrop-blur-[3px]">
       <div
@@ -11,9 +7,7 @@ export function LoadingOverlay({ message }: LoadingOverlayProps) {
         className="surface-card w-full max-w-md rounded-[28px] border border-border/80 px-6 py-5"
       >
         <div className="flex items-center justify-between gap-4">
-          <strong className="text-base font-semibold text-text">
-            {message}
-          </strong>
+          <strong className="text-base font-semibold text-text">{message}</strong>
           <span className="text-xs font-medium tracking-[0.16em] text-text-muted uppercase">
             loading...
           </span>

@@ -29,9 +29,7 @@ type TooltipParamLike = {
 };
 
 function readColorToken(name: string) {
-  return getComputedStyle(document.documentElement)
-    .getPropertyValue(name)
-    .trim();
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
 export function toRgba(color: string, alpha: number) {
@@ -92,13 +90,6 @@ export function createDashboardChartOptionContext(
   };
 }
 
-export function createDashboardTooltipConfig() {
-  return {
-    show: false,
-    triggerOn: "none",
-  };
-}
-
 export function resolveDashboardTooltipItem(
   label: string,
   context: DashboardChartOptionContext,
@@ -128,23 +119,6 @@ export function resolveDashboardTooltipItem(
   }
 
   return null;
-}
-
-export function renderDashboardTooltip(
-  item: DashboardTooltipItem | null,
-  context: DashboardChartOptionContext,
-) {
-  if (!item) {
-    return "";
-  }
-
-  return [
-    `<div style="display:flex;align-items:center;gap:10px;min-width:122px;padding:10px 12px;">`,
-    `<span style="width:10px;height:10px;border-radius:999px;background:${item.color};box-shadow:0 0 0 3px ${toRgba(item.color, 0.18)};"></span>`,
-    `<span style="flex:1;color:${context.textMuted};font-size:13px;font-weight:600;line-height:1;">${item.label}</span>`,
-    `<strong style="color:${context.text};font-size:20px;font-weight:700;line-height:1;">${item.value}</strong>`,
-    `</div>`,
-  ].join("");
 }
 
 export function resolveDashboardTooltipLabel(params: unknown) {

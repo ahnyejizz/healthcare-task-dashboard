@@ -1,12 +1,8 @@
 import type { EChartsOption } from "echarts";
-import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
-import {
-  toRgba,
-} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/chart/options/option-context";
+import { toRgba } from "@/widgets/dashboard/ui/chart/options/option-context";
 
-export function createDistributionOption(
-  context: DashboardChartOptionContext,
-): EChartsOption {
+export function createDistributionOption(context: DashboardChartOptionContext): EChartsOption {
   const {
     doneRate,
     doneStrong,

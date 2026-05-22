@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/shared/config/page-meta";
 import { SignInPage } from "@/features/auth/sign-in/ui/sign-in-page";
 
 export const metadata: Metadata = {
-  title: "로그인",
+  title: pageMeta.signIn.title,
 };
 
 export default function SignInRoutePage() {

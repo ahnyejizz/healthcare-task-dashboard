@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { TaskDetailSection } from "@/widgets/task-detail/ui/task-detail-section";
-
-type TaskDetailPageProps = {
-  params: Promise<{ id: string }>;
-};
+import { pageMeta } from "@/shared/config/page-meta";
+import { TaskDetailPage as TaskDetailMainPage } from "@/widgets/task-detail/ui/task-detail-page";
 
 export async function generateMetadata({
   params,
-}: TaskDetailPageProps): Promise<Metadata> {
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
   const { id } = await params;
 
   return {
-    title: `할 일 상세 ${id}`,
+    title: `${pageMeta.taskDetail.title} ${id}`,
   };
 }
 
-export default async function TaskDetailPage({ params }: TaskDetailPageProps) {
+export default async function TaskDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  return <TaskDetailSection id={id} />;
+  return <TaskDetailMainPage id={id} />;
 }

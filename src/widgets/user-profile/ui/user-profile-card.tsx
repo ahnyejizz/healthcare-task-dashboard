@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  finishAuthRedirect,
-  markSignedOut,
-  startAuthRedirect,
-} from "@/shared/api/auth-storage";
+import { finishAuthRedirect, markSignedOut, startAuthRedirect } from "@/shared/api/auth-storage";
 import { signOut } from "@/shared/api/auth";
 import type { UserResponse } from "@/shared/api/contracts";
 import { routes } from "@/shared/config/routes";
@@ -23,12 +19,22 @@ type UserProfileCardProps = {
 };
 
 export function UserProfileCard({ email, user }: UserProfileCardProps) {
+  /* ================================================================================== */
+  /* state */
+  /* ================================================================================== */
+
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSigningOut, setIsSigningOut] = useState(false);
+
   const memoFallback =
     user.memo.trim() || "아직 등록된 메모가 없습니다. 간단한 소개를 추가해보세요.";
 
+  /* ================================================================================== */
+  /* function */
+  /* ================================================================================== */
+
+  // 로그아웃 처리
   async function handleSignOut() {
     setErrorMessage("");
     setIsSigningOut(true);
@@ -43,15 +49,18 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
       finishAuthRedirect();
       setIsSigningOut(false);
       setErrorMessage(
-        error instanceof ApiError
-          ? error.message
-          : "로그아웃 처리 중 오류가 발생했습니다.",
+        error instanceof ApiError ? error.message : "로그아웃 처리 중 오류가 발생했습니다.",
       );
     }
   }
 
+  /* ================================================================================== */
+  /* render */
+  /* ================================================================================== */
+
   return (
     <>
+      {/* 회원정보 패널 */}
       <Panel
         title={pageMeta.user.title}
         description={pageMeta.user.description}
@@ -66,19 +75,17 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
             triggerClassName="h-12 w-12 rounded-[18px] p-0 text-text hover:text-text"
             onConfirm={handleSignOut}
             trigger={
-              <span
-                className="flex items-center justify-center"
-                aria-hidden="true"
-              >
+              <span className="flex items-center justify-center" aria-hidden="true">
                 <LogoutIcon className="size-5" />
               </span>
             }
           />
         }
       >
-        {errorMessage ? (
-          <p className="mb-4 text-sm text-danger">{errorMessage}</p>
-        ) : null}
+        {/* 로그아웃 실패 문구 */}
+        {errorMessage ? <p className="mb-4 text-sm text-danger">{errorMessage}</p> : null}
+
+        {/* 프로필 요약 카드 */}
         <div className="grid w-full flex-1 gap-4">
           <article className="surface-highlight relative overflow-hidden rounded-[28px] border border-border p-6 shadow-[0_24px_48px_rgba(252,175,24,0.14)]">
             <div className="absolute -top-12 right-[-10px] h-32 w-32 rounded-full bg-primary/12 blur-2xl" />
@@ -109,18 +116,15 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
                 <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
                   Memo
                 </p>
-                <p className="mt-3 text-base font-semibold leading-7 text-text">
-                  {memoFallback}
-                </p>
+                <p className="mt-3 text-base font-semibold leading-7 text-text">{memoFallback}</p>
               </div>
             </div>
           </article>
         </div>
       </Panel>
 
-      {isSigningOut ? (
-        <LoadingOverlay message="로그아웃 중입니다." />
-      ) : null}
+      {/* 로그아웃 로딩 오버레이 */}
+      {isSigningOut ? <LoadingOverlay message="로그아웃 중입니다." /> : null}
     </>
   );
 }

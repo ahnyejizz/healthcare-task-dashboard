@@ -1,9 +1,7 @@
 import type { EChartsOption } from "echarts";
-import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/chart/options/option-context";
 
-export function createComparisonCountOption(
-  context: DashboardChartOptionContext,
-): EChartsOption {
+export function createComparisonCountOption(context: DashboardChartOptionContext): EChartsOption {
   const {
     border,
     doneStrong,

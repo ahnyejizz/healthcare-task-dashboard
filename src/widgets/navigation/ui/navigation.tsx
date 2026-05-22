@@ -17,11 +17,11 @@ import {
   UserIcon,
 } from "@/shared/ui/icons";
 
-function resolveIcon(icon: (typeof primaryNavigation)[number]["icon"]) {
-  return icon === "dashboard" ? DashboardIcon : TasksIcon;
-}
-
 export function Navigation() {
+  /* ================================================================================== */
+  /* state */
+  /* ================================================================================== */
+
   const pathname = usePathname();
   const isAuthenticated = useSyncExternalStore(
     subscribeAuthState,
@@ -29,13 +29,26 @@ export function Navigation() {
     getAuthStateServerSnapshot,
   );
 
-  const accountHref = isAuthenticated ? routes.user : routes.signIn;
   const AccountIcon = isAuthenticated ? UserIcon : LoginIcon;
+  const accountHref = isAuthenticated ? routes.user : routes.signIn;
   const accountLabel = isAuthenticated ? "회원정보" : "로그인";
   const isAccountActive = pathname.startsWith(accountHref);
 
+  /* ================================================================================== */
+  /* function */
+  /* ================================================================================== */
+
+  function resolveIcon(icon: (typeof primaryNavigation)[number]["icon"]) {
+    return icon === "dashboard" ? DashboardIcon : TasksIcon;
+  }
+
+  /* ================================================================================== */
+  /* render */
+  /* ================================================================================== */
+
   return (
     <aside className="surface-card flex h-full flex-col rounded-[32px] p-6">
+      {/* 로고 */}
       <Link
         href={routes.dashboard}
         className="focus-ring rounded-[28px] border border-primary/35 bg-[linear-gradient(145deg,rgba(255,255,255,0.98),rgba(255,243,210,0.92))] p-4 shadow-[0_16px_36px_rgba(252,175,24,0.14)]"
@@ -61,13 +74,12 @@ export function Navigation() {
         </div>
       </Link>
 
+      {/* 메뉴 (대시보드, 할 일) */}
       <nav className="mt-10 flex flex-1 flex-col gap-2" aria-label="주요 메뉴">
         {primaryNavigation.map((item) => {
           const Icon = resolveIcon(item.icon);
           const isActive =
-            item.href === "/"
-              ? pathname === item.href
-              : pathname.startsWith(item.href);
+            item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
 
           return (
             <Link
@@ -87,6 +99,7 @@ export function Navigation() {
         })}
       </nav>
 
+      {/* 계정 */}
       <div className="mt-6 rounded-[24px] bg-white px-0 pb-0 pt-4">
         <p className="px-4 text-xs font-semibold tracking-[0.16em] text-primary uppercase">
           Account
@@ -100,12 +113,7 @@ export function Navigation() {
               : "border-border/80 bg-white text-text-muted",
           ].join(" ")}
         >
-          <AccountIcon
-            className={[
-              "size-5",
-              isAuthenticated ? "text-primary" : "",
-            ].join(" ")}
-          />
+          <AccountIcon className={["size-5", isAuthenticated ? "text-primary" : ""].join(" ")} />
           {accountLabel}
         </Link>
       </div>

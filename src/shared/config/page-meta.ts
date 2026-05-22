@@ -1,5 +1,13 @@
 import { routes } from "@/shared/config/routes";
 
+export const appMeta = {
+  title: {
+    default: "healthcare-task-dashboard",
+    template: "%s | healthcare-task-dashboard",
+  },
+  description: "Task dashboard frontend project scaffold",
+} as const;
+
 export const pageMeta = {
   dashboard: {
     title: "대시보드",
@@ -19,7 +27,8 @@ export const pageMeta = {
   },
   signIn: {
     title: "로그인",
-    description: "MSW 기반의 테스트 계정으로 이메일과 비밀번호를 입력해 로그인할 수 있는 화면입니다.",
+    description:
+      "MSW 기반의 테스트 계정으로 이메일과 비밀번호를 입력해 로그인할 수 있는 화면입니다.",
   },
 } as const;
 

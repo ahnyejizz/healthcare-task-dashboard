@@ -13,11 +13,7 @@ import {
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
 
-type AccessTokenGateProps = {
-  children: ReactNode;
-};
-
-export function AccessTokenGate({ children }: AccessTokenGateProps) {
+export function AccessTokenGate({ children }: { children: ReactNode }) {
   const hasAccessToken = useSyncExternalStore(
     subscribeAuthState,
     getAuthStateSnapshot,

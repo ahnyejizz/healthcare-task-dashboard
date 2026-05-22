@@ -1,31 +1,31 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardResponse } from "@/shared/api/contracts";
-import { createComparisonCountOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/comparison-count-option";
-import { createComparisonRatioOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/comparison-ratio-option";
-import { createCompletionGaugeOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/completion-gauge-option";
-import { createDistributionOption } from "@/widgets/dashboard/ui/dashboard-status-chart-options/distribution-option";
+import { createComparisonCountOption } from "@/widgets/dashboard/ui/chart/options/comparison-count-option";
+import { createComparisonRatioOption } from "@/widgets/dashboard/ui/chart/options/comparison-ratio-option";
+import { createCompletionGaugeOption } from "@/widgets/dashboard/ui/chart/options/completion-gauge-option";
+import { createDistributionOption } from "@/widgets/dashboard/ui/chart/options/distribution-option";
 import {
   createDashboardChartOptionContext,
   type DashboardChartOptionContext,
-} from "@/widgets/dashboard/ui/dashboard-status-chart-options/shared";
+} from "@/widgets/dashboard/ui/chart/options/option-context";
 
-export type DashboardChartLegendItem = {
+export type ChartLegendItem = {
   colorKey: "todoStrong" | "doneStrong" | "primary";
   label: string;
 };
 
-export type DashboardChartCardMeta = {
+export type ChartCardMeta = {
   description: string;
-  legendItems?: DashboardChartLegendItem[];
+  legendItems?: ChartLegendItem[];
   title: string;
 };
 
-const progressLegendItems: DashboardChartLegendItem[] = [
+const progressLegendItems: ChartLegendItem[] = [
   { colorKey: "todoStrong", label: "해야할 일" },
   { colorKey: "doneStrong", label: "한 일" },
 ];
 
-export const dashboardChartCards: DashboardChartCardMeta[] = [
+export const chartCards: ChartCardMeta[] = [
   {
     title: "카운트 비교",
     description: "전체 할 일, 남은 일, 완료한 일을 한눈에 비교할 수 있습니다.",
@@ -42,22 +42,19 @@ export const dashboardChartCards: DashboardChartCardMeta[] = [
   },
   {
     title: "분포도",
-    description: "남은 일과 완료한 일이 어느정도 비중을 차지하는지 보여줍니다.",
+    description: "남은 일과 완료한 일이 어느 정도 비중을 차지하는지 보여줍니다.",
   },
 ];
 
-const chartOptionFactories: Array<
-  (context: DashboardChartOptionContext) => EChartsOption
-> = [
+const chartOptionFactories: Array<(context: DashboardChartOptionContext) => EChartsOption> = [
   createComparisonCountOption,
   createComparisonRatioOption,
   createCompletionGaugeOption,
   createDistributionOption,
 ];
 
-export function createDashboardChartOptions(
-  metrics: DashboardResponse,
-): EChartsOption[] {
+export function createChartOptions(metrics: DashboardResponse): EChartsOption[] {
   const context = createDashboardChartOptionContext(metrics);
+
   return chartOptionFactories.map((createOption) => createOption(context));
 }

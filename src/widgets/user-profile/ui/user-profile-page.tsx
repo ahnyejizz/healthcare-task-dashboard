@@ -10,7 +10,7 @@ import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
 
-export function UserProfileSection() {
+export function UserProfilePage() {
   const { data, error, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -23,17 +23,22 @@ export function UserProfileSection() {
     retry: false,
   });
 
+  const needsLogin = error instanceof ApiError && error.status === 401;
+
+  const errorMessage =
+    error instanceof ApiError ? error.message : "회원정보를 불러오지 못했습니다.";
+
+  /* ================================================================================== */
+  /* render */
+  /* ================================================================================== */
+
+  // 초기 로딩
   if (isLoading) {
     return <LoadingOverlay message="회원정보를 불러오는 중입니다." />;
   }
 
+  // 조회 실패
   if (error || !data) {
-    const errorMessage =
-      error instanceof ApiError
-        ? error.message
-        : "회원정보를 불러오지 못했습니다.";
-    const needsLogin = error instanceof ApiError && error.status === 401;
-
     return (
       <Panel
         title={pageMeta.user.title}
@@ -53,5 +58,6 @@ export function UserProfileSection() {
     );
   }
 
+  // 조회 성공
   return <UserProfileCard email={data.email} user={data.user} />;
 }

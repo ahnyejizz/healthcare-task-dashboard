@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/shared/config/page-meta";
 import { dashboardFixture } from "@/shared/mocks/data/seed";
-import { DashboardOverview } from "@/widgets/dashboard/ui/dashboard-overview";
+import { DashboardPage } from "@/widgets/dashboard/ui/dashboard-page";
 
 export const metadata: Metadata = {
-  title: "대시보드",
+  title: pageMeta.dashboard.title,
 };
 
-export default function DashboardPage() {
-  return <DashboardOverview metrics={dashboardFixture} />;
+export default function Page() {
+  return <DashboardPage metrics={dashboardFixture} />;
 }
