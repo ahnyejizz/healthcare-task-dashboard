@@ -35,9 +35,8 @@ export function SortDropdown({
     <>
       <div className="relative">
         <ViewToggleButton
-          activeClassName="border-primary/40 bg-white text-primary"
+          className="bg-white"
           isActive={isSortOpen || taskSort !== "TASK_ID"}
-          inactiveClassName="bg-white text-text-muted hover:text-text"
           label="정렬"
           onClick={onSortButtonClick}
         >
@@ -54,9 +53,8 @@ export function SortDropdown({
       </div>
 
       <ViewToggleButton
-        activeClassName="border-primary/40 bg-white text-primary"
+        className="bg-white"
         isActive={taskSortOrder === "desc"}
-        inactiveClassName="bg-white text-text-muted hover:text-text"
         label={taskSortOrder === "desc" ? "내림차순 정렬" : "오름차순 정렬"}
         onClick={onSortOrderToggle}
       >

@@ -3,9 +3,8 @@ import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button/button";
 
 type ViewToggleButtonProps = {
-  activeClassName?: string;
   children: ReactNode;
-  inactiveClassName?: string;
+  className?: string;
   isActive: boolean;
   label: string;
   onClick: () => void;
@@ -17,9 +16,8 @@ type ViewToggleButtonProps = {
  * @desc  - 활성화 상태를 포함한 공통 토글 버튼 렌더링
  */
 export function ViewToggleButton({
-  activeClassName,
   children,
-  inactiveClassName,
+  className,
   isActive,
   label,
   onClick,
@@ -32,8 +30,9 @@ export function ViewToggleButton({
       className={cn(
         "h-9 w-9 rounded-xl p-0",
         isActive
-          ? (activeClassName ?? "border-primary/40 bg-surface-muted text-primary")
-          : (inactiveClassName ?? "text-text-muted hover:text-text"),
+          ? "border-primary/40 bg-surface-muted text-primary"
+          : "text-text-muted hover:text-text",
+        className,
       )}
       onClick={onClick}
     >

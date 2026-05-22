@@ -43,9 +43,8 @@ export function FilterDropdown({
   return (
     <div className="relative ml-5">
       <ViewToggleButton
-        activeClassName="border-primary/40 bg-white text-primary"
+        className="bg-white"
         isActive={taskFilter !== "all"}
-        inactiveClassName="bg-white text-text-muted hover:text-text"
         label="필터링"
         onClick={onButtonClick}
       >
