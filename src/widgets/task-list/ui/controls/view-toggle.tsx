@@ -1,7 +1,7 @@
 "use client";
 
 import { CardViewIcon, ListViewIcon } from "@/shared/ui/icons";
-import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
+import { ViewToggleButton } from "@/shared/ui/button/view-toggle-button";
 import { type TaskListViewMode } from "@/widgets/task-list/model/task-list-controls";
 
 type ViewToggleProps = {

@@ -3,7 +3,7 @@ import { DeleteTaskDialog } from "@/features/task/delete-task/ui/delete-task-dia
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { formatDateTime } from "@/shared/lib/format-date-time";
-import { ButtonLink } from "@/shared/ui/button";
+import { ButtonLink } from "@/shared/ui/button/button";
 import { ArrowLeftIcon, TrashIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 

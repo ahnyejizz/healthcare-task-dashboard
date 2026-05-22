@@ -5,8 +5,8 @@ import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getSession, getUser } from "@/shared/api/user";
 import { routes } from "@/shared/config/routes";
-import { ButtonLink } from "@/shared/ui/button";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { ButtonLink } from "@/shared/ui/button/button";
+import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
 

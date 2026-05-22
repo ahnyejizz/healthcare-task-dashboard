@@ -7,9 +7,9 @@ import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getTaskDetail } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
-import { ButtonLink } from "@/shared/ui/button";
+import { ButtonLink } from "@/shared/ui/button/button";
 import { ArrowLeftIcon } from "@/shared/ui/icons";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { TaskDetailView } from "@/widgets/task-detail/ui/task-detail-view";
 

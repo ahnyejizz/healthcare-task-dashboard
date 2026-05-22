@@ -3,7 +3,7 @@
 import { FilterIcon } from "@/shared/ui/icons";
 import { SelectOptionList } from "@/shared/ui/select-option-list";
 import { StatusBadge } from "@/shared/ui/status-badge";
-import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
+import { ViewToggleButton } from "@/shared/ui/button/view-toggle-button";
 import { type TaskFilter, taskFilterOptions } from "@/widgets/task-list/model/task-list-controls";
 
 type FilterDropdownProps = {

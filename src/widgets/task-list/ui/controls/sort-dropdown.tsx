@@ -2,7 +2,7 @@
 
 import { SortDirectionIcon, SortIcon } from "@/shared/ui/icons";
 import { SelectOptionList } from "@/shared/ui/select-option-list";
-import { ViewToggleButton } from "@/shared/ui/view-toggle-button";
+import { ViewToggleButton } from "@/shared/ui/button/view-toggle-button";
 import {
   type TaskSort,
   type TaskSortOrder,

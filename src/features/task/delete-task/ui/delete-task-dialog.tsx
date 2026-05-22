@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { deleteTask } from "@/shared/api/tasks";
 import { ApiError } from "@/shared/api/http";
 import { routes } from "@/shared/config/routes";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui/button/button";
 import { Dialog } from "@/shared/ui/dialog/dialog";
 import { CheckIcon } from "@/shared/ui/icons";
 import { Input } from "@/shared/ui/input";

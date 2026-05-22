@@ -10,7 +10,7 @@ import {
   subscribeAuthRedirectState,
   subscribeAuthState,
 } from "@/shared/api/auth-storage";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
 
 /**

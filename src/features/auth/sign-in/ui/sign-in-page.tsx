@@ -9,10 +9,10 @@ import { finishAuthRedirect, getIsAuthenticated, markSignedIn } from "@/shared/a
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { ApiError } from "@/shared/api/http";
-import { Button, ButtonLink } from "@/shared/ui/button";
+import { Button, ButtonLink } from "@/shared/ui/button/button";
 import { HomeIcon } from "@/shared/ui/icons";
 import { Input } from "@/shared/ui/input";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { signInSchema, type SignInFormValues } from "@/features/auth/sign-in/model/sign-in-schema";
 
 /**

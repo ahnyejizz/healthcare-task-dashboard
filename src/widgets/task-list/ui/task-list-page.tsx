@@ -6,8 +6,8 @@ import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { getTaskPage } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
-import { ButtonLink } from "@/shared/ui/button";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { ButtonLink } from "@/shared/ui/button/button";
+import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { TaskListView } from "@/widgets/task-list/ui/task-list-view";
 

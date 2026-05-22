@@ -10,7 +10,7 @@ import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { ConfirmDialog } from "@/shared/ui/dialog/confirm-dialog";
 import { LogoutIcon, UserIcon } from "@/shared/ui/icons";
-import { LoadingOverlay } from "@/shared/ui/loading-overlay";
+import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 
 type UserProfileCardProps = {
