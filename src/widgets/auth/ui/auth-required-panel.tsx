@@ -5,6 +5,11 @@ import { resolvePageMeta } from "@/shared/config/page-meta";
 import { LoginIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";
 
+/**
+ * @page  - [공통]
+ * @title - 인증 안내 패널 컴포넌트
+ * @desc  - 로그인 필요 안내와 접근 가능한 화면 정보 표시
+ */
 export function AuthRequiredPanel() {
   const pathname = usePathname();
   const { title, description } = resolvePageMeta(pathname);

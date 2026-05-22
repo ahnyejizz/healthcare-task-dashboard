@@ -54,6 +54,11 @@ function groupTasksByRow(tasks: TaskItem[], columnCount: number) {
   return groupedRows;
 }
 
+/**
+ * @page  - [할 일 목록]
+ * @title - 목록 뷰 컴포넌트
+ * @desc  - 가상 스크롤/무한 스크롤 방식의 리스트 렌더링 + 필터/정렬/뷰 전환
+ */
 export function TaskListView({
   hasNextPage,
   isFetchingNextPage,

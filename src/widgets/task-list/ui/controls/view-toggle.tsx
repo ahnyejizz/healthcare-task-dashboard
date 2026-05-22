@@ -10,6 +10,11 @@ type ViewToggleProps = {
   onListViewClick: () => void;
 };
 
+/**
+ * @page  - [할 일 목록]
+ * @title - 뷰 전환 토글 컴포넌트
+ * @desc  - 카드형/리스트형 토글 버튼 제공
+ */
 export function ViewToggle({ viewMode, onCardViewClick, onListViewClick }: ViewToggleProps) {
   return (
     <div className="inline-flex items-center gap-2">

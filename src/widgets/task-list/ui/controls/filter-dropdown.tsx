@@ -29,6 +29,11 @@ function renderTaskFilterLabel(option: { label: string; value: TaskFilter }) {
   return option.label;
 }
 
+/**
+ * @page  - [할 일 목록]
+ * @title - 필터 드롭다운 컴포넌트
+ * @desc  - 상태(전체/TODO/DONE) 필터 버튼 제공
+ */
 export function FilterDropdown({
   isOpen,
   taskFilter,

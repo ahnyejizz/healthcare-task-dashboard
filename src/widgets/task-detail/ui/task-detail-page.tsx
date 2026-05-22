@@ -13,6 +13,11 @@ import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { TaskDetailView } from "@/widgets/task-detail/ui/task-detail-view";
 
+/**
+ * @page  - [할 일 상세]
+ * @title - 할 일 상세 메인 페이지
+ * @desc  - 데이터 처리 및 가공 후 TaskDetailView 컴포넌트에 데이터 전달
+ */
 export function TaskDetailPage({ id }: { id: string }) {
   const router = useRouter();
   const { data, error, isLoading } = useQuery({

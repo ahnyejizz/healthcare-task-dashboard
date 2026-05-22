@@ -53,6 +53,11 @@ const chartOptionFactories: Array<(context: DashboardChartOptionContext) => ECha
   createDistributionOption,
 ];
 
+/**
+ * @page  - [대시보드]
+ * @title - 차트 옵션 생성 함수
+ * @desc  - 대시보드 차트에 필요한 ECharts 옵션 배열 반환
+ */
 export function createChartOptions(metrics: DashboardResponse): EChartsOption[] {
   const context = createDashboardChartOptionContext(metrics);
 

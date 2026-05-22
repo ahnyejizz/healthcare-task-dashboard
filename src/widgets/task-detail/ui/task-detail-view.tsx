@@ -12,6 +12,11 @@ type TaskDetailViewProps = {
   task: TaskDetailResponse;
 };
 
+/**
+ * @page  - [할 일 상세]
+ * @title - 상세 카드 컴포넌트
+ * @desc  - 할 일 상세 정보 표시 + 삭제 액션 제공
+ */
 export function TaskDetailView({ id, task }: TaskDetailViewProps) {
   return (
     <Panel

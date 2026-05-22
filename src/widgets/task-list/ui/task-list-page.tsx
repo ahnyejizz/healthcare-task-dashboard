@@ -11,6 +11,11 @@ import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { TaskListView } from "@/widgets/task-list/ui/task-list-view";
 
+/**
+ * @page  - [할 일 목록]
+ * @title - 할 일 목록 메인 페이지
+ * @desc  - 데이터 처리 및 가공 후 TaskListView 컴포넌트에 데이터 전달
+ */
 export function TaskListPage({ initialPage }: { initialPage: number }) {
   const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({

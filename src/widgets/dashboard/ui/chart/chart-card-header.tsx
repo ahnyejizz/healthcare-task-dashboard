@@ -7,6 +7,11 @@ type ChartCardHeaderProps = {
   title: string;
 };
 
+/**
+ * @page  - [대시보드]
+ * @title - 차트 카드 헤더 컴포넌트
+ * @desc  - 제목, 이미지 다운로드 버튼, 설명, 범례 제공
+ */
 export function ChartCardHeader({
   title,
   imageDownloadButton,

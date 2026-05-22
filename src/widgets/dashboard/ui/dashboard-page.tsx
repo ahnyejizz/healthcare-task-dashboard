@@ -4,6 +4,11 @@ import { Panel } from "@/shared/ui/panel";
 import { MetricCard } from "@/widgets/dashboard/ui/metric-card";
 import { ChartCard } from "@/widgets/dashboard/ui/chart/chart-card";
 
+/**
+ * @page  - [대시보드]
+ * @title - 대시보드 메인 페이지
+ * @desc  - 요약 지표 영역 (MetricCard) + 차트 영역 (ChartCard) 조합
+ */
 export function DashboardPage({ metrics }: { metrics: DashboardResponse }) {
   return (
     <Panel

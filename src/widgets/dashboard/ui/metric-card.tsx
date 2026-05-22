@@ -4,6 +4,11 @@ type MetricCardProps = {
   value: number;
 };
 
+/**
+ * @page  - [대시보드]
+ * @title - 상단 요약 지표 컴포넌트
+ * @desc  - 지표 제목과 수치 표시
+ */
 export function MetricCard({ caption, tone, value }: MetricCardProps) {
   const toneClass =
     tone === "success" ? "text-success" : tone === "warning" ? "text-warning" : "text-primary";

@@ -17,6 +17,11 @@ import {
   UserIcon,
 } from "@/shared/ui/icons";
 
+/**
+ * @page  - [공통]
+ * @title - 좌측 네비게이션 컴포넌트
+ * @desc  - 로고 + 주요 메뉴 + 계정 정보 제공
+ */
 export function Navigation() {
   /* ================================================================================== */
   /* state */

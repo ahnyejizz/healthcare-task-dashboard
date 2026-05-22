@@ -28,10 +28,20 @@ type TooltipParamLike = {
   name?: unknown;
 };
 
+/**
+ * @page  - [대시보드]
+ * @title - 색상 토큰 조회 함수
+ * @desc  - CSS 색상 토큰 값을 읽어 반환
+ */
 function readColorToken(name: string) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+/**
+ * @page  - [대시보드]
+ * @title - rgba 변환 함수
+ * @desc  - 차트 색상 값을 rgba 문자열로 변환
+ */
 export function toRgba(color: string, alpha: number) {
   if (color.startsWith("#")) {
     const normalized = color.replace("#", "");
@@ -59,6 +69,11 @@ export function toRgba(color: string, alpha: number) {
   return color;
 }
 
+/**
+ * @page  - [대시보드]
+ * @title - 차트 옵션 컨텍스트 생성 함수
+ * @desc  - 대시보드 차트 공통 옵션 계산에 필요한 값 반환
+ */
 export function createDashboardChartOptionContext(
   metrics: DashboardResponse,
 ): DashboardChartOptionContext {
@@ -90,6 +105,11 @@ export function createDashboardChartOptionContext(
   };
 }
 
+/**
+ * @page  - [대시보드]
+ * @title - 툴팁 항목 조회 함수
+ * @desc  - 툴팁 라벨에 대응하는 차트 항목 정보 반환
+ */
 export function resolveDashboardTooltipItem(
   label: string,
   context: DashboardChartOptionContext,
@@ -121,6 +141,11 @@ export function resolveDashboardTooltipItem(
   return null;
 }
 
+/**
+ * @page  - [대시보드]
+ * @title - 툴팁 라벨 추출 함수
+ * @desc  - ECharts 이벤트 파라미터에서 툴팁 라벨 반환
+ */
 export function resolveDashboardTooltipLabel(params: unknown) {
   if (Array.isArray(params)) {
     return resolveDashboardTooltipLabel(params[0]);

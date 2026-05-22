@@ -18,6 +18,11 @@ type SortDropdownProps = {
   onSortSelect: (value: TaskSort) => void;
 };
 
+/**
+ * @page  - [할 일 목록]
+ * @title - 정렬 드롭다운 컴포넌트
+ * @desc  - 정렬 기준(태스크ID/태스크명) 및 방향(오름차순/내림차순) 버튼 제공
+ */
 export function SortDropdown({
   isSortOpen,
   taskSort,

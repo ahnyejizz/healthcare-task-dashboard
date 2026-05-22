@@ -18,6 +18,11 @@ type UserProfileCardProps = {
   user: UserResponse;
 };
 
+/**
+ * @page  - [회원정보]
+ * @title - 회원정보 카드 컴포넌트
+ * @desc  - 프로필 정보 표시 + 로그아웃 액션 제공
+ */
 export function UserProfileCard({ email, user }: UserProfileCardProps) {
   /* ================================================================================== */
   /* state */

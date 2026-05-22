@@ -13,6 +13,11 @@ import {
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
 
+/**
+ * @page  - [공통]
+ * @title - 인증 게이트 컴포넌트
+ * @desc  - 인증 상태에 따라 하위 화면 또는 인증 안내 패널 렌더링
+ */
 export function AccessTokenGate({ children }: { children: ReactNode }) {
   const hasAccessToken = useSyncExternalStore(
     subscribeAuthState,

@@ -10,6 +10,11 @@ import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
 
+/**
+ * @page  - [회원정보]
+ * @title - 회원정보 메인 페이지
+ * @desc  - 데이터 처리 및 가공 후 UserProfileCard 컴포넌트에 데이터 전달
+ */
 export function UserProfilePage() {
   const { data, error, isLoading } = useQuery({
     queryKey: ["user"],

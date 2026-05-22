@@ -3,6 +3,11 @@ type ChartLegendItem = {
   label: string;
 };
 
+/**
+ * @page  - [대시보드]
+ * @title - 차트 범례 컴포넌트
+ * @desc  - 차트 항목의 색상 및 라벨 정보를 범례 UI로 렌더링
+ */
 export function ChartLegend({ items }: { items: ChartLegendItem[] }) {
   return (
     <div className="flex items-center gap-x-4 whitespace-nowrap">

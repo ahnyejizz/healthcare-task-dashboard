@@ -1,6 +1,11 @@
 import type { EChartsOption } from "echarts";
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/chart/options/option-context";
 
+/**
+ * @page  - [대시보드]
+ * @title - 카운트 비교 차트 옵션 생성 함수
+ * @desc  - 카운트 비교 차트 렌더링에 필요한 옵션 반환
+ */
 export function createComparisonCountOption(context: DashboardChartOptionContext): EChartsOption {
   const {
     border,

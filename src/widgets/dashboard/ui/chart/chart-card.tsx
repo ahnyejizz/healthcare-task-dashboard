@@ -25,6 +25,11 @@ type ChartTooltipState = {
   value: number;
 } | null;
 
+/**
+ * @page  - [대시보드]
+ * @title - 차트 카드 컴포넌트
+ * @desc  - 총 4가지 종류의 차트 제공 (카운트 비교, 완료/잔여 비중, 완료율, 분포도)
+ */
 export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
   /* ================================================================================== */
   /* state */
