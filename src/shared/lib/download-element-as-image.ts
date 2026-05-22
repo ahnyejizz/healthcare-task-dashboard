@@ -6,6 +6,11 @@ type DownloadElementAsImageOptions = {
   fileName: string;
 };
 
+/**
+ * @page  - [공통 유틸]
+ * @title - 이미지 다운로드 함수
+ * @desc  - 지정한 DOM 영역을 이미지 파일로 저장
+ */
 export async function downloadElementAsImage({
   backgroundColor = "#ffffff",
   element,

@@ -5,6 +5,11 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 입력 필드 컴포넌트
+ * @desc  - 라벨, 에러 메시지를 포함한 공통 입력 필드 렌더링
+ */
 export function Input({ className, errorMessage, id, label, ...props }: InputProps) {
   return (
     <label className="block">

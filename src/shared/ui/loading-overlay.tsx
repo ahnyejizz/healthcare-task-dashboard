@@ -1,3 +1,8 @@
+/**
+ * @page  - [공통 UI]
+ * @title - 로딩 오버레이 컴포넌트
+ * @desc  - 화면 전체를 덮는 공통 로딩 오버레이 렌더링
+ */
 export function LoadingOverlay({ message }: { message: string }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172033]/18 px-4 backdrop-blur-[3px]">

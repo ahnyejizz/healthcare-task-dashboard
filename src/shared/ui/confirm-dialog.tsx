@@ -16,6 +16,11 @@ type ConfirmDialogProps = {
   onConfirm: () => void | Promise<void>;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 확인 다이얼로그 컴포넌트
+ * @desc  - 트리거 버튼 클릭 시 확인/취소 모달 제공
+ */
 export function ConfirmDialog({
   triggerClassName,
   triggerVariant = "secondary",

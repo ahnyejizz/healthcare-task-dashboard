@@ -7,7 +7,7 @@ import type { DashboardResponse } from "@/shared/api/contracts";
 import { downloadElementAsImage } from "@/shared/lib/download-element-as-image";
 import { Button } from "@/shared/ui/button";
 import { DownloadIcon } from "@/shared/ui/icons";
-import { Spinner } from "@/shared/ui/spinner";
+import { LoadingSpinner } from "@/shared/ui/loading-spinner";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 import { ChartCardHeader } from "@/widgets/dashboard/ui/chart/chart-card-header";
 import { ChartLegend } from "@/widgets/dashboard/ui/chart/chart-legend";
@@ -231,7 +231,7 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
                 {/* 로딩 스피너 오버레이 */}
                 {readyCharts[index] ? null : (
                   <div className="absolute inset-0 z-10 flex items-center justify-center rounded-[20px] bg-white/78">
-                    <Spinner label={`${card.title} 차트를 불러오는 중입니다.`} />
+                    <LoadingSpinner label={`${card.title} 차트를 불러오는 중입니다.`} />
                   </div>
                 )}
                 {/* 실제 차트 DOM 영역 */}

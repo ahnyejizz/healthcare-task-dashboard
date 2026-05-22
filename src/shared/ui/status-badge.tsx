@@ -7,6 +7,11 @@ type StatusBadgeProps = {
   tone: TaskFilter;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 상태 배지 컴포넌트
+ * @desc  - 상태 톤에 맞는 공통 배지 UI 렌더링
+ */
 export function StatusBadge({ children, className, tone }: StatusBadgeProps) {
   const toneClass =
     tone === "done"

@@ -14,6 +14,11 @@ type SelectOptionListProps<T extends string> = {
   selectedValue: T;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 선택 옵션 리스트 컴포넌트
+ * @desc  - 드롭다운 형태의 공통 옵션 리스트 렌더링
+ */
 export function SelectOptionList<T extends string>({
   onSelect,
   options,

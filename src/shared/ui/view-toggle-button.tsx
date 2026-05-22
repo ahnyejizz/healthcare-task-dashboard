@@ -10,6 +10,11 @@ type ViewToggleButtonProps = {
   onClick: () => void;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 뷰 토글 버튼 컴포넌트
+ * @desc  - 활성화 상태를 포함한 공통 토글 버튼 렌더링
+ */
 export function ViewToggleButton({
   activeClassName,
   children,

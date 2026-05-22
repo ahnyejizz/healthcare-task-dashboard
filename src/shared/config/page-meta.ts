@@ -32,6 +32,11 @@ export const pageMeta = {
   },
 } as const;
 
+/**
+ * @page  - [공통 설정]
+ * @title - 페이지 메타 조회 함수
+ * @desc  - 현재 경로에 대응하는 페이지 메타 정보를 반환
+ */
 export function resolvePageMeta(pathname: string) {
   if (pathname.startsWith(routes.signIn)) {
     return pageMeta.signIn;

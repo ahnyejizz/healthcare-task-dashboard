@@ -3,6 +3,11 @@ import type { ComponentProps, SVGProps } from "react";
 type IconSvgProps = SVGProps<SVGSVGElement>;
 type IconSpanProps = ComponentProps<"span">;
 
+/**
+ * @page  - [공통 UI]
+ * @title - SVG 아이콘 베이스 컴포넌트
+ * @desc  - 공통 SVG 속성이 적용된 아이콘 베이스 렌더링
+ */
 function BaseIcon(props: IconSvgProps) {
   return (
     <svg
@@ -18,6 +23,11 @@ function BaseIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 대시보드 아이콘 컴포넌트
+ * @desc  - 대시보드 메뉴 아이콘 렌더링
+ */
 export function DashboardIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -29,6 +39,11 @@ export function DashboardIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 홈 아이콘 컴포넌트
+ * @desc  - 홈 이동용 아이콘 렌더링
+ */
 export function HomeIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -39,6 +54,11 @@ export function HomeIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 할 일 아이콘 컴포넌트
+ * @desc  - 할 일 메뉴 아이콘 렌더링
+ */
 export function TasksIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -52,6 +72,11 @@ export function TasksIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 사용자 아이콘 컴포넌트
+ * @desc  - 사용자 프로필 아이콘 렌더링
+ */
 export function UserIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -61,6 +86,11 @@ export function UserIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 로그인 아이콘 컴포넌트
+ * @desc  - 로그인 액션 아이콘 렌더링
+ */
 export function LoginIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -71,6 +101,11 @@ export function LoginIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 로그아웃 아이콘 컴포넌트
+ * @desc  - 로그아웃 액션 아이콘 렌더링
+ */
 export function LogoutIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -81,6 +116,11 @@ export function LogoutIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 뒤로가기 아이콘 컴포넌트
+ * @desc  - 이전 화면 이동 아이콘 렌더링
+ */
 export function ArrowLeftIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -90,6 +130,11 @@ export function ArrowLeftIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 체크 아이콘 컴포넌트
+ * @desc  - 선택 또는 완료 표시 아이콘 렌더링
+ */
 export function CheckIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -98,6 +143,11 @@ export function CheckIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 삭제 아이콘 컴포넌트
+ * @desc  - 삭제 액션 아이콘 렌더링
+ */
 export function TrashIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -110,6 +160,11 @@ export function TrashIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 다운로드 아이콘 컴포넌트
+ * @desc  - 이미지 저장 액션 아이콘 렌더링
+ */
 export function DownloadIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
@@ -123,6 +178,11 @@ export function DownloadIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 헬스케어 로고 아이콘 컴포넌트
+ * @desc  - 브랜드 로고 아이콘 렌더링
+ */
 export function HealthcareLogoIcon(props: IconSvgProps) {
   return (
     <BaseIcon {...props}>
@@ -132,6 +192,11 @@ export function HealthcareLogoIcon(props: IconSvgProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 필터 아이콘 컴포넌트
+ * @desc  - 필터 드롭다운 버튼 아이콘 렌더링
+ */
 export function FilterIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
@@ -145,6 +210,11 @@ export function FilterIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 정렬 아이콘 컴포넌트
+ * @desc  - 정렬 기준 드롭다운 버튼 아이콘 렌더링
+ */
 export function SortIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
@@ -160,6 +230,11 @@ export function SortIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 정렬 방향 아이콘 컴포넌트
+ * @desc  - 오름차순 또는 내림차순 방향 아이콘 렌더링
+ */
 export function SortDirectionIcon({
   className,
   direction,
@@ -185,6 +260,11 @@ export function SortDirectionIcon({
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 카드형 보기 아이콘 컴포넌트
+ * @desc  - 카드형 뷰 전환 아이콘 렌더링
+ */
 export function CardViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
@@ -201,6 +281,11 @@ export function CardViewIcon({ className, ...props }: IconSpanProps) {
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 리스트형 보기 아이콘 컴포넌트
+ * @desc  - 리스트형 뷰 전환 아이콘 렌더링
+ */
 export function ListViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span

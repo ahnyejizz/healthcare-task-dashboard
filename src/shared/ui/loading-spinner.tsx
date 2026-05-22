@@ -1,9 +1,17 @@
-type SpinnerProps = {
+type LoadingSpinnerProps = {
   className?: string;
   label?: string;
 };
 
-export function Spinner({ className, label = "로딩 중" }: SpinnerProps) {
+/**
+ * @page  - [공통 UI]
+ * @title - 로딩 스피너 컴포넌트
+ * @desc  - 로딩 상태를 표시하는 공통 스피너 렌더링
+ */
+export function LoadingSpinner({
+  className,
+  label = "로딩 중",
+}: LoadingSpinnerProps) {
   return (
     <div
       role="status"

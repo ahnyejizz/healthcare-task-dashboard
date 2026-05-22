@@ -19,6 +19,11 @@ type TooltipProps = {
   transform?: string;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 툴팁 컴포넌트
+ * @desc  - 포털 기반의 공통 말풍선 툴팁 렌더링
+ */
 export function Tooltip({
   arrowLeft = "calc(50% - 0.375rem)", // 툴팁 꼬리 중앙
   children,

@@ -9,6 +9,11 @@ type PanelProps = {
   title?: string;
 };
 
+/**
+ * @page  - [공통 UI]
+ * @title - 패널 컴포넌트
+ * @desc  - 제목, 설명, 우측 액션, 본문을 포함한 공통 패널 렌더링
+ */
 export function Panel({
   children,
   className,

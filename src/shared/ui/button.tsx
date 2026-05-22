@@ -37,6 +37,11 @@ function resolveClassName(variant: ButtonVariant, className?: string) {
     .join(" ");
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 버튼 컴포넌트
+ * @desc  - variant 스타일이 적용된 공통 버튼 렌더링
+ */
 export function Button({
   className,
   variant = "primary",
@@ -52,6 +57,11 @@ export function Button({
   );
 }
 
+/**
+ * @page  - [공통 UI]
+ * @title - 버튼 링크 컴포넌트
+ * @desc  - 버튼 스타일이 적용된 링크 렌더링
+ */
 export function ButtonLink({
   children,
   className,

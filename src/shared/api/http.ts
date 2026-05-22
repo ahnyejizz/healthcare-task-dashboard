@@ -6,6 +6,11 @@ type RequestOptions = RequestInit & {
   _retriedAfterRefresh?: boolean;
 };
 
+/**
+ * @page  - [공통 API]
+ * @title - API 에러 클래스
+ * @desc  - 상태 코드를 포함한 공통 API 에러 객체 제공
+ */
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -56,6 +61,11 @@ async function refreshAccessToken() {
   markSignedIn(tokens);
 }
 
+/**
+ * @page  - [공통 API]
+ * @title - API 요청 함수
+ * @desc  - 인증 갱신을 포함한 공통 API 요청 처리
+ */
 export async function apiRequest<T>(path: string, options: RequestOptions = {}) {
   let response = await sendRequest(path, options);
 
