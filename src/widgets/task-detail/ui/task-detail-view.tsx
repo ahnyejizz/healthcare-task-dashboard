@@ -63,16 +63,11 @@ export function TaskDetailView({ id, task }: TaskDetailViewProps) {
 
           {/* 삭제 버튼 */}
           <div className="mt-auto flex justify-end pt-2">
-            <DeleteTaskDialog
-              id={id}
-              triggerVariant="secondary"
-              buttonClassName="h-12 w-12 rounded-[20px] border border-border bg-white/90 px-0 py-0 text-text shadow-none hover:border-border hover:bg-white hover:text-text"
-              trigger={
-                <span className="flex items-center justify-center text-text">
-                  <TrashIcon className="size-5" />
-                </span>
-              }
-            />
+            <DeleteTaskDialog id={id}>
+              <span className="flex items-center justify-center text-text">
+                <TrashIcon className="size-5" />
+              </span>
+            </DeleteTaskDialog>
           </div>
         </div>
       </article>

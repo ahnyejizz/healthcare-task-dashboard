@@ -8,7 +8,7 @@ import type { UserResponse } from "@/shared/api/contracts";
 import { routes } from "@/shared/config/routes";
 import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
-import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
+import { ConfirmDialog } from "@/shared/ui/dialog/confirm-dialog";
 import { LogoutIcon, UserIcon } from "@/shared/ui/icons";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
@@ -75,16 +75,13 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
           <ConfirmDialog
             title="로그아웃 하시겠습니까?"
             description="현재 세션이 종료되며 로그인 화면으로 이동합니다."
-            confirmLabel="확인"
             isPending={isSigningOut}
-            triggerClassName="h-12 w-12 rounded-[18px] p-0 text-text hover:text-text"
             onConfirm={handleSignOut}
-            trigger={
-              <span className="flex items-center justify-center" aria-hidden="true">
-                <LogoutIcon className="size-5" />
-              </span>
-            }
-          />
+          >
+            <span className="flex items-center justify-center" aria-hidden="true">
+              <LogoutIcon className="size-5" />
+            </span>
+          </ConfirmDialog>
         }
       >
         {/* 로그아웃 실패 문구 */}
