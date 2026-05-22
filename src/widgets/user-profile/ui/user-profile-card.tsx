@@ -13,7 +13,7 @@ import { routes } from "@/shared/config/routes";
 import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { ConfirmDialog } from "@/shared/ui/confirm-dialog";
-import { LogoutIcon } from "@/shared/ui/icons";
+import { LogoutIcon, UserIcon } from "@/shared/ui/icons";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
 
@@ -26,7 +26,6 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const userInitial = user.name.trim().charAt(0).toUpperCase();
   const memoFallback =
     user.memo.trim() || "아직 등록된 메모가 없습니다. 간단한 소개를 추가해보세요.";
 
@@ -87,7 +86,7 @@ export function UserProfileCard({ email, user }: UserProfileCardProps) {
             <div className="relative flex h-full flex-col gap-6">
               <div className="flex items-start gap-4">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[22px] bg-primary text-2xl font-semibold text-white shadow-[0_18px_30px_rgba(252,175,24,0.28)]">
-                  {userInitial}
+                  <UserIcon className="size-8 text-white" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
