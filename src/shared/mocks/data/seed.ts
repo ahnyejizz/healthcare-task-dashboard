@@ -19,15 +19,15 @@ export const userFixtureByEmail: Record<string, UserResponse> = {
   },
 };
 
-export const tasksFixture: TaskItem[] = Array.from(
-  { length: TOTAL_TASKS },
-  (_, index) => ({
-    id: `task-${String(index + 1).padStart(3, "0")}`,
-    title: `건강 루틴 개선 태스크 ${index + 1}`,
-    memo: index % 5 === 0 ? `건강 루틴 개선 태스크 ${index + 1}의 메모입니다.` : "긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트",
-    status: index % 3 === 0 ? "DONE" : "TODO",
-  }),
-);
+export const tasksFixture: TaskItem[] = Array.from({ length: TOTAL_TASKS }, (_, index) => ({
+  id: `task-${String(index + 1).padStart(3, "0")}`,
+  title: `건강 루틴 개선 태스크 ${index + 1}`,
+  memo:
+    index % 5 === 0
+      ? `건강 루틴 개선 태스크 ${index + 1}의 메모입니다.`
+      : "긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트",
+  status: index % 3 === 0 ? "DONE" : "TODO",
+}));
 
 export const dashboardFixture: DashboardResponse = {
   numOfTask: tasksFixture.length,

@@ -15,20 +15,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SignInRequest'
+              $ref: "#/components/schemas/SignInRequest"
       responses:
-        '200':
+        "200":
           description: Sign-in success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthTokenResponse'
-        '400':
+                $ref: "#/components/schemas/AuthTokenResponse"
+        "400":
           description: Sign-in failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   /api/refresh:
     post:
       summary: Refresh access token
@@ -36,36 +36,36 @@ paths:
       security:
         - refreshTokenCookie: []
       responses:
-        '200':
+        "200":
           description: Refresh success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthTokenResponse'
-        '401':
+                $ref: "#/components/schemas/AuthTokenResponse"
+        "401":
           description: Unauthorized (invalid or expired refresh token)
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '400':
+                $ref: "#/components/schemas/ErrorResponse"
+        "400":
           description: Refresh failed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   # 자체적으로 별도 추가
   /api/sign-out:
     post:
       summary: Sign out
       operationId: signOut
       responses:
-        '200':
+        "200":
           description: Sign-out success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SuccessResponse'
+                $ref: "#/components/schemas/SuccessResponse"
   /api/user:
     get:
       summary: Get user profile
@@ -73,18 +73,18 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: User profile
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserResponse'
-        '401':
+                $ref: "#/components/schemas/UserResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   # 자체적으로 별도 추가
   /api/session:
     get:
@@ -93,18 +93,18 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: Current session
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SessionResponse'
-        '401':
+                $ref: "#/components/schemas/SessionResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   /api/dashboard:
     get:
       summary: Get dashboard metrics
@@ -112,18 +112,18 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: Dashboard data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DashboardResponse'
-        '401':
+                $ref: "#/components/schemas/DashboardResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   /api/task:
     get:
       summary: Get task list
@@ -138,18 +138,18 @@ paths:
             type: integer
             minimum: 1
       responses:
-        '200':
+        "200":
           description: Task page
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskListResponse'
-        '401':
+                $ref: "#/components/schemas/TaskListResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
   /api/task/{id}:
     get:
       summary: Get task detail
@@ -157,52 +157,52 @@ paths:
       security:
         - bearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/TaskIdPath'
+        - $ref: "#/components/parameters/TaskIdPath"
       responses:
-        '200':
+        "200":
           description: Task detail
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TaskDetailResponse'
-        '401':
+                $ref: "#/components/schemas/TaskDetailResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404':
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
           description: Task not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
     delete:
       summary: Delete task
       operationId: deleteTask
       security:
         - bearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/TaskIdPath'
+        - $ref: "#/components/parameters/TaskIdPath"
       responses:
-        '200':
+        "200":
           description: Task deleted
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteTaskResponse'
-        '401':
+                $ref: "#/components/schemas/DeleteTaskResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404':
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
           description: Task not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   securitySchemes:
     bearerAuth:
@@ -236,7 +236,7 @@ components:
           type: string
           minLength: 8
           maxLength: 24
-          pattern: '^[A-Za-z0-9]+$'
+          pattern: "^[A-Za-z0-9]+$"
     AuthTokenResponse:
       type: object
       additionalProperties: false
@@ -305,7 +305,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/TaskItem'
+            $ref: "#/components/schemas/TaskItem"
         hasNext:
           type: boolean
     TaskDetailResponse:

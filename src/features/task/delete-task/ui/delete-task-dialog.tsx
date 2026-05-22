@@ -58,9 +58,7 @@ export function DeleteTaskDialog({
       queryClient.removeQueries({ queryKey: ["task-detail", id] });
       setIsSuccessOpen(true);
     } catch (error) {
-      setErrorMessage(
-        error instanceof ApiError ? error.message : "삭제 처리에 실패했습니다.",
-      );
+      setErrorMessage(error instanceof ApiError ? error.message : "삭제 처리에 실패했습니다.");
     }
   }
 
@@ -98,14 +96,11 @@ export function DeleteTaskDialog({
               errorMessage={errors.confirmValue?.message}
               {...register("confirmValue", {
                 required: "할 일 ID를 입력해주세요.",
-                validate: (value) =>
-                  value === id || "정확한 할 일 ID를 입력해주세요.",
+                validate: (value) => value === id || "정확한 할 일 ID를 입력해주세요.",
               })}
             />
           </div>
-          {errorMessage ? (
-            <p className="mt-3 text-sm text-danger">{errorMessage}</p>
-          ) : null}
+          {errorMessage ? <p className="mt-3 text-sm text-danger">{errorMessage}</p> : null}
           <div className="mt-6 flex justify-end gap-3">
             <Button
               variant="secondary"
@@ -139,10 +134,7 @@ export function DeleteTaskDialog({
                     <CheckIcon className="size-7" />
                   </div>
                   <div>
-                    <h2
-                      id="delete-success-title"
-                      className="text-xl font-semibold text-text"
-                    >
+                    <h2 id="delete-success-title" className="text-xl font-semibold text-text">
                       삭제되었습니다.
                     </h2>
                     <p

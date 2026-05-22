@@ -5,13 +5,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
 };
 
-export function Input({
-  className,
-  errorMessage,
-  id,
-  label,
-  ...props
-}: InputProps) {
+export function Input({ className, errorMessage, id, label, ...props }: InputProps) {
   return (
     <label className="block">
       <span className="mb-2 block text-sm font-medium text-text">{label}</span>
@@ -27,9 +21,7 @@ export function Input({
         aria-invalid={Boolean(errorMessage)}
         {...props}
       />
-      {errorMessage ? (
-        <span className="mt-2 block text-sm text-danger">{errorMessage}</span>
-      ) : null}
+      {errorMessage ? <span className="mt-2 block text-sm text-danger">{errorMessage}</span> : null}
     </label>
   );
 }

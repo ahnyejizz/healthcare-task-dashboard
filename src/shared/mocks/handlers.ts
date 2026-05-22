@@ -187,14 +187,8 @@ export const handlers = [
 
     const headers = new Headers();
 
-    headers.append(
-      "Set-Cookie",
-      `${ACCESS_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`,
-    );
-    headers.append(
-      "Set-Cookie",
-      `${REFRESH_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`,
-    );
+    headers.append("Set-Cookie", `${ACCESS_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`);
+    headers.append("Set-Cookie", `${REFRESH_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`);
 
     return HttpResponse.json(
       { success: true },

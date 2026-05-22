@@ -6,8 +6,11 @@
   --color-background-accent: #ffe2a1;
   --color-surface: #ffffff;
   --color-surface-muted: #fff5dd;
-  --surface-highlight-gradient:
-    linear-gradient(180deg, rgba(255, 248, 232, 0.98), rgba(255, 236, 184, 0.3));
+  --surface-highlight-gradient: linear-gradient(
+    180deg,
+    rgba(255, 248, 232, 0.98),
+    rgba(255, 236, 184, 0.3)
+  );
   --color-border: #ead8b1;
   --color-primary: #fcaf18;
   --color-primary-strong: #d88a00;

@@ -31,9 +31,7 @@ export function ViewToggleButton({
       ].join(" ")}
       onClick={onClick}
     >
-      <span className="flex h-full w-full items-center justify-center">
-        {children}
-      </span>
+      <span className="flex h-full w-full items-center justify-center">{children}</span>
     </Button>
   );
 }

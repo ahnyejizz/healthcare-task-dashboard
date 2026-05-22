@@ -113,12 +113,7 @@ export function TrashIcon(props: IconSvgProps) {
 export function DownloadIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={[
-        "relative block h-[18px] w-[18px] shrink-0",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
       {...props}
     >
       <span className="absolute left-1/2 top-[1px] h-[10px] w-[2px] -translate-x-1/2 rounded-full bg-current" />
@@ -140,12 +135,7 @@ export function HealthcareLogoIcon(props: IconSvgProps) {
 export function FilterIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={[
-        "relative block h-[18px] w-[18px] shrink-0",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
       {...props}
     >
       <span className="absolute left-1/2 top-[2px] h-[2px] w-[14px] -translate-x-1/2 rounded-full bg-current" />
@@ -158,12 +148,7 @@ export function FilterIcon({ className, ...props }: IconSpanProps) {
 export function SortIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={[
-        "relative block h-[18px] w-[18px] shrink-0",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
       {...props}
     >
       <span className="absolute left-[2px] top-[3px] h-[2px] w-[11px] rounded-full bg-current/85" />
@@ -184,12 +169,7 @@ export function SortDirectionIcon({
 
   return (
     <span
-      className={[
-        "relative block h-[18px] w-[18px] shrink-0",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
       {...props}
     >
       <span className="absolute left-1/2 top-[2px] h-[14px] w-[2px] -translate-x-1/2 rounded-full bg-current/85" />
@@ -224,7 +204,10 @@ export function CardViewIcon({ className, ...props }: IconSpanProps) {
 export function ListViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={["grid h-4 w-4 shrink-0 grid-rows-4 items-center gap-[2px] leading-none", className]
+      className={[
+        "grid h-4 w-4 shrink-0 grid-rows-4 items-center gap-[2px] leading-none",
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
       {...props}

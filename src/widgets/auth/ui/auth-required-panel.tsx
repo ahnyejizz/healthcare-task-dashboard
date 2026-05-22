@@ -10,12 +10,7 @@ export function AuthRequiredPanel() {
   const { title, description } = resolvePageMeta(pathname);
 
   return (
-    <Panel
-      title={title}
-      description={description}
-      className="h-full"
-      contentClassName="h-full"
-    >
+    <Panel title={title} description={description} className="h-full" contentClassName="h-full">
       <div className="grid content-start gap-5">
         <article className="relative w-full self-start overflow-hidden rounded-[28px] border border-border bg-white px-6 py-7 lg:px-8">
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
@@ -37,25 +32,19 @@ export function AuthRequiredPanel() {
               <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                 Dashboard
               </p>
-              <p className="mt-2 text-sm leading-6 text-text">
-                태스크 현황 확인
-              </p>
+              <p className="mt-2 text-sm leading-6 text-text">태스크 현황 확인</p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
               <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                 Tasks
               </p>
-              <p className="mt-2 text-sm leading-6 text-text">
-                할 일 목록과 할 일 상세 확인
-              </p>
+              <p className="mt-2 text-sm leading-6 text-text">할 일 목록과 할 일 상세 확인</p>
             </div>
             <div className="rounded-[22px] border border-border/80 bg-surface p-4">
               <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                 Account
               </p>
-              <p className="mt-2 text-sm leading-6 text-text">
-                회원 정보 확인
-              </p>
+              <p className="mt-2 text-sm leading-6 text-text">회원 정보 확인</p>
             </div>
           </div>
         </article>

@@ -64,10 +64,7 @@ export function ConfirmDialog({
                 className="w-full max-w-md rounded-[28px] border border-border bg-white p-6 shadow-2xl"
               >
                 <div>
-                  <h2
-                    id="confirm-dialog-title"
-                    className="text-xl font-semibold text-text"
-                  >
+                  <h2 id="confirm-dialog-title" className="text-xl font-semibold text-text">
                     {title}
                   </h2>
                   <p

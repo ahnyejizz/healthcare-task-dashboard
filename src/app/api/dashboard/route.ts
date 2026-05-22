@@ -1,9 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  getDashboard,
-  getUnauthorizedError,
-  isAuthorizedRequest,
-} from "@/shared/api/mock-backend";
+import { getDashboard, getUnauthorizedError, isAuthorizedRequest } from "@/shared/api/mock-backend";
 
 export async function GET(request: Request) {
   if (!isAuthorizedRequest(request)) {

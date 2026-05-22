@@ -8,10 +8,7 @@ import {
   isAuthorizedRequest,
 } from "@/shared/api/mock-backend";
 
-export async function GET(
-  request: Request,
-  ctx: RouteContext<"/api/task/[id]">,
-) {
+export async function GET(request: Request, ctx: RouteContext<"/api/task/[id]">) {
   if (!isAuthorizedRequest(request)) {
     return NextResponse.json(getUnauthorizedError(), {
       status: 401,
@@ -30,10 +27,7 @@ export async function GET(
   return NextResponse.json(task);
 }
 
-export async function DELETE(
-  request: Request,
-  ctx: RouteContext<"/api/task/[id]">,
-) {
+export async function DELETE(request: Request, ctx: RouteContext<"/api/task/[id]">) {
   if (!isAuthorizedRequest(request)) {
     return NextResponse.json(getUnauthorizedError(), {
       status: 401,

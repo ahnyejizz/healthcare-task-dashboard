@@ -5,11 +5,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/shared/api/auth";
-import {
-  finishAuthRedirect,
-  getIsAuthenticated,
-  markSignedIn,
-} from "@/shared/api/auth-storage";
+import { finishAuthRedirect, getIsAuthenticated, markSignedIn } from "@/shared/api/auth-storage";
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { ApiError } from "@/shared/api/http";
@@ -17,10 +13,7 @@ import { Button, ButtonLink } from "@/shared/ui/button";
 import { HomeIcon } from "@/shared/ui/icons";
 import { Input } from "@/shared/ui/input";
 import { LoadingOverlay } from "@/shared/ui/loading-overlay";
-import {
-  signInSchema,
-  type SignInFormValues,
-} from "@/features/auth/sign-in/model/sign-in-schema";
+import { signInSchema, type SignInFormValues } from "@/features/auth/sign-in/model/sign-in-schema";
 
 export function SignInPage() {
   const router = useRouter();
@@ -57,9 +50,7 @@ export function SignInPage() {
     } catch (error) {
       setIsSigningIn(false);
       const nextErrorMessage =
-        error instanceof ApiError
-          ? error.message
-          : "로그인 처리 중 오류가 발생했습니다.";
+        error instanceof ApiError ? error.message : "로그인 처리 중 오류가 발생했습니다.";
       setErrorMessage(nextErrorMessage);
     }
   }
@@ -87,9 +78,7 @@ export function SignInPage() {
           <h1 className="mt-4 text-3xl font-semibold tracking-tight text-text">
             {pageMeta.signIn.title}
           </h1>
-          <p className="mt-3 text-sm leading-6 text-text-muted">
-            {pageMeta.signIn.description}
-          </p>
+          <p className="mt-3 text-sm leading-6 text-text-muted">{pageMeta.signIn.description}</p>
 
           <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -133,9 +122,7 @@ export function SignInPage() {
         </section>
       </main>
 
-      {isLoginPending ? (
-        <LoadingOverlay message="로그인 중입니다." />
-      ) : null}
+      {isLoginPending ? <LoadingOverlay message="로그인 중입니다." /> : null}
 
       {errorMessage ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#172033]/35 px-4 backdrop-blur-[3px]">
@@ -146,10 +133,7 @@ export function SignInPage() {
             aria-describedby="sign-in-error-description"
             className="w-full max-w-md rounded-[28px] border border-border bg-white p-6 shadow-2xl"
           >
-            <h2
-              id="sign-in-error-title"
-              className="text-xl font-semibold text-text"
-            >
+            <h2 id="sign-in-error-title" className="text-xl font-semibold text-text">
               로그인 실패
             </h2>
             <p

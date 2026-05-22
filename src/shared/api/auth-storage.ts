@@ -1,8 +1,5 @@
 import type { AuthTokenResponse } from "@/shared/api/contracts";
-import {
-  ACCESS_TOKEN_COOKIE_NAME,
-  REFRESH_TOKEN_COOKIE_NAME,
-} from "@/shared/api/mock-backend";
+import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "@/shared/api/mock-backend";
 
 const AUTH_STATE_CHANGE_EVENT = "healthcare-task-dashboard-auth-state-change";
 const AUTH_REDIRECT_EVENT = "healthcare-task-dashboard-auth-redirect-change";

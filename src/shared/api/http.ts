@@ -32,10 +32,7 @@ async function sendRequest(path: string, options: RequestOptions = {}) {
       credentials: "include",
     });
   } catch {
-    throw new ApiError(
-      "네트워크 요청에 실패했습니다. 개발 환경에서는 MSW 설정을 확인해주세요.",
-      0,
-    );
+    throw new ApiError("네트워크 요청에 실패했습니다. 개발 환경에서는 MSW 설정을 확인해주세요.", 0);
   }
 
   return response;
@@ -48,26 +45,18 @@ async function refreshAccessToken() {
   });
 
   if (!response.ok) {
-    const errorBody = (await response.json().catch(() => null)) as
-      | ErrorResponse
-      | null;
+    const errorBody = (await response.json().catch(() => null)) as ErrorResponse | null;
 
     markSignedOut();
 
-    throw new ApiError(
-      errorBody?.errorMessage ?? "인증 갱신에 실패했습니다.",
-      response.status,
-    );
+    throw new ApiError(errorBody?.errorMessage ?? "인증 갱신에 실패했습니다.", response.status);
   }
 
   const tokens = (await response.json()) as AuthTokenResponse;
   markSignedIn(tokens);
 }
 
-export async function apiRequest<T>(
-  path: string,
-  options: RequestOptions = {},
-) {
+export async function apiRequest<T>(path: string, options: RequestOptions = {}) {
   let response = await sendRequest(path, options);
 
   if (
@@ -84,14 +73,9 @@ export async function apiRequest<T>(
   }
 
   if (!response.ok) {
-    const errorBody = (await response.json().catch(() => null)) as
-      | ErrorResponse
-      | null;
+    const errorBody = (await response.json().catch(() => null)) as ErrorResponse | null;
 
-    throw new ApiError(
-      errorBody?.errorMessage ?? "요청 처리에 실패했습니다.",
-      response.status,
-    );
+    throw new ApiError(errorBody?.errorMessage ?? "요청 처리에 실패했습니다.", response.status);
   }
 
   return (await response.json()) as T;

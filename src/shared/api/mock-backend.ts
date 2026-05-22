@@ -9,11 +9,7 @@ import type {
   TaskListResponse,
   UserResponse,
 } from "@/shared/api/contracts";
-import {
-  mockCredentials,
-  tasksFixture,
-  userFixtureByEmail,
-} from "@/shared/mocks/data/seed";
+import { mockCredentials, tasksFixture, userFixtureByEmail } from "@/shared/mocks/data/seed";
 
 const ACCESS_TOKEN_PREFIX = "mock-access-token";
 const REFRESH_TOKEN_PREFIX = "mock-refresh-token";
