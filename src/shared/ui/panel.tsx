@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type PanelProps = {
   children: ReactNode;
@@ -24,9 +25,7 @@ export function Panel({
 }: PanelProps) {
   return (
     <section
-      className={["surface-card rounded-[28px]", "px-6 py-5 lg:px-8 lg:py-7", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={cn("surface-card rounded-[28px]", "px-6 py-5 lg:px-8 lg:py-7", className)}
     >
       {title ? (
         <header className="mb-6 flex items-end justify-between gap-4">

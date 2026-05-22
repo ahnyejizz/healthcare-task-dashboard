@@ -1,4 +1,5 @@
 import type { ComponentProps, SVGProps } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type IconSvgProps = SVGProps<SVGSVGElement>;
 type IconSpanProps = ComponentProps<"span">;
@@ -168,7 +169,7 @@ export function TrashIcon(props: IconSvgProps) {
 export function DownloadIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
+      className={cn("relative block h-[18px] w-[18px] shrink-0", className)}
       {...props}
     >
       <span className="absolute left-1/2 top-[1px] h-[10px] w-[2px] -translate-x-1/2 rounded-full bg-current" />
@@ -200,7 +201,7 @@ export function HealthcareLogoIcon(props: IconSvgProps) {
 export function FilterIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
+      className={cn("relative block h-[18px] w-[18px] shrink-0", className)}
       {...props}
     >
       <span className="absolute left-1/2 top-[2px] h-[2px] w-[14px] -translate-x-1/2 rounded-full bg-current" />
@@ -218,7 +219,7 @@ export function FilterIcon({ className, ...props }: IconSpanProps) {
 export function SortIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
+      className={cn("relative block h-[18px] w-[18px] shrink-0", className)}
       {...props}
     >
       <span className="absolute left-[2px] top-[3px] h-[2px] w-[11px] rounded-full bg-current/85" />
@@ -244,17 +245,17 @@ export function SortDirectionIcon({
 
   return (
     <span
-      className={["relative block h-[18px] w-[18px] shrink-0", className].filter(Boolean).join(" ")}
+      className={cn("relative block h-[18px] w-[18px] shrink-0", className)}
       {...props}
     >
       <span className="absolute left-1/2 top-[2px] h-[14px] w-[2px] -translate-x-1/2 rounded-full bg-current/85" />
       <span
-        className={[
+        className={cn(
           "absolute left-1/2 h-[5px] w-[5px] -translate-x-1/2 rotate-45 border-current/85",
           isAscending
             ? "top-[2px] border-t-[2px] border-l-[2px]"
             : "top-[10px] border-r-[2px] border-b-[2px]",
-        ].join(" ")}
+        )}
       />
     </span>
   );
@@ -268,9 +269,10 @@ export function SortDirectionIcon({
 export function CardViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={["grid h-4 w-4 shrink-0 grid-cols-2 grid-rows-2 gap-[2px] leading-none", className]
-        .filter(Boolean)
-        .join(" ")}
+      className={cn(
+        "grid h-4 w-4 shrink-0 grid-cols-2 grid-rows-2 gap-[2px] leading-none",
+        className,
+      )}
       {...props}
     >
       <span className="block h-full w-full rounded-[1px] border-[1.6px] border-current" />
@@ -289,12 +291,10 @@ export function CardViewIcon({ className, ...props }: IconSpanProps) {
 export function ListViewIcon({ className, ...props }: IconSpanProps) {
   return (
     <span
-      className={[
+      className={cn(
         "grid h-4 w-4 shrink-0 grid-rows-4 items-center gap-[2px] leading-none",
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
       {...props}
     >
       <span className="block h-px w-full rounded-full bg-current/75" />

@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useId } from "react";
 import { createPortal } from "react-dom";
+import { cn } from "@/shared/lib/cn";
 
 type DialogProps = {
   children?: ReactNode;
@@ -42,9 +43,7 @@ export function Dialog({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={header ? undefined : description ? descriptionId : undefined}
-        className={["w-full rounded-[28px] border border-border bg-white p-6 shadow-2xl", className]
-          .filter(Boolean)
-          .join(" ")}
+        className={cn("w-full rounded-[28px] border border-border bg-white p-6 shadow-2xl", className)}
       >
         {header ? (
           header

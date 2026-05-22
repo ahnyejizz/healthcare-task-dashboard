@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ComponentProps, ReactNode } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
@@ -28,13 +29,11 @@ function resolveVariant(variant: ButtonVariant) {
 }
 
 function resolveClassName(variant: ButtonVariant, className?: string) {
-  return [
+  return cn(
     "focus-ring inline-flex items-center justify-center rounded-2xl px-4 py-3 text-sm font-semibold transition-[background-color,border-color,color,box-shadow,transform] duration-200 ease-out disabled:cursor-not-allowed disabled:pointer-events-none disabled:border-disabled disabled:bg-disabled disabled:text-white/80 disabled:shadow-none",
     resolveVariant(variant),
     className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  );
 }
 
 /**

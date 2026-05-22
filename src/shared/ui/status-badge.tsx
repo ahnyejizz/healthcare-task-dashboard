@@ -1,5 +1,6 @@
 import { TaskFilter } from "@/widgets/task-list/model/task-list-controls";
 import type { ReactNode } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type StatusBadgeProps = {
   children: ReactNode;
@@ -22,13 +23,11 @@ export function StatusBadge({ children, className, tone }: StatusBadgeProps) {
 
   return (
     <span
-      className={[
+      className={cn(
         "inline-flex rounded-full border bg-white px-3 py-1 text-xs font-semibold tracking-[0.12em]",
         toneClass,
         className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      )}
     >
       {children}
     </span>

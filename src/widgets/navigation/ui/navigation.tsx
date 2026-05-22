@@ -9,6 +9,7 @@ import {
   subscribeAuthState,
 } from "@/shared/api/auth-storage";
 import { primaryNavigation, routes } from "@/shared/config/routes";
+import { cn } from "@/shared/lib/cn";
 import {
   DashboardIcon,
   HealthcareLogoIcon,
@@ -90,12 +91,12 @@ export function Navigation() {
             <Link
               key={item.href}
               href={item.href}
-              className={[
+              className={cn(
                 "focus-ring flex h-13 items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
                 isActive
                   ? "border-primary/30 bg-surface-muted text-text"
                   : "border-border/80 text-text-muted",
-              ].join(" ")}
+              )}
             >
               <Icon className="size-5" />
               <span>{item.label}</span>
@@ -111,14 +112,14 @@ export function Navigation() {
         </p>
         <Link
           href={accountHref}
-          className={[
+          className={cn(
             "focus-ring mt-3 flex h-13 w-full items-center gap-3 rounded-2xl border px-4 py-3 text-sm font-semibold transition-colors",
             isAccountActive
               ? "border-primary/30 bg-surface-muted text-text"
               : "border-border/80 bg-white text-text-muted",
-          ].join(" ")}
+          )}
         >
-          <AccountIcon className={["size-5", isAuthenticated ? "text-primary" : ""].join(" ")} />
+          <AccountIcon className={cn("size-5", isAuthenticated ? "text-primary" : "")} />
           {accountLabel}
         </Link>
       </div>

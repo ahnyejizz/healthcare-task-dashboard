@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string;
@@ -16,13 +17,11 @@ export function Input({ className, errorMessage, id, label, ...props }: InputPro
       <span className="mb-2 block text-sm font-medium text-text">{label}</span>
       <input
         id={id}
-        className={[
+        className={cn(
           "focus-ring w-full rounded-2xl border bg-white px-4 py-3 text-sm text-text placeholder:text-text-muted/70",
           errorMessage ? "border-danger" : "border-border",
           className,
-        ]
-          .filter(Boolean)
-          .join(" ")}
+        )}
         aria-invalid={Boolean(errorMessage)}
         {...props}
       />

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-
+import { cn } from "@/shared/lib/cn";
 import { CheckIcon } from "@/shared/ui/icons";
 
 type SelectOption<T extends string> = {
@@ -35,12 +35,12 @@ export function SelectOptionList<T extends string>({
           >
             <button
               type="button"
-              className={[
+              className={cn(
                 "flex min-h-10 w-full items-center justify-between rounded-xl px-3 py-1 text-sm font-medium transition-colors",
                 selectedValue === option.value
                   ? "text-primary"
                   : "text-text-muted hover:bg-surface hover:text-text",
-              ].join(" ")}
+              )}
               onClick={() => {
                 onSelect(option.value);
               }}

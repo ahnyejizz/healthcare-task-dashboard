@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import type { TaskItem } from "@/shared/api/contracts";
+import { cn } from "@/shared/lib/cn";
 import { StatusBadge } from "@/shared/ui/status-badge";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 import { type TaskListViewMode } from "@/widgets/task-list/model/task-list-controls";
@@ -13,6 +14,14 @@ type TaskCardProps = {
 };
 
 const TASK_MEMO_PREVIEW_MAX_LENGTH = 80;
+const TASK_CARD_BASE_CLASS =
+  "flex cursor-pointer flex-col border outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer";
+const TASK_CARD_LIST_CLASS = "h-[118px] min-h-[118px] max-h-[118px] rounded-[22px] px-6 py-5";
+const TASK_CARD_GRID_CLASS = "h-[180px] min-h-[180px] max-h-[180px] rounded-[24px] p-9";
+const TASK_CARD_MEMO_BASE_CLASS = "min-h-0 flex-1 overflow-hidden";
+const TASK_CARD_MEMO_TEXT_BASE_CLASS = "min-h-0 overflow-hidden text-sm text-text-muted";
+const TASK_CARD_MEMO_TOOLTIP_TEXT_CLASS =
+  "min-h-0 overflow-hidden break-words text-sm text-text-muted";
 
 /**
  * @page  - [할 일 목록]
@@ -33,12 +42,17 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
     ? `${task.memo.slice(0, TASK_MEMO_PREVIEW_MAX_LENGTH).trimEnd()}...`
     : task.memo;
 
+  const memoContainerClass = variant === "list" ? "mt-3" : "mt-4";
+  const memoTextClass = variant === "list" ? "line-clamp-2 leading-5" : "line-clamp-3 leading-6";
+  const memoTooltipTextClass = variant === "list" ? "line-clamp-2 leading-5" : "leading-6";
+  const layoutClass = variant === "list" ? TASK_CARD_LIST_CLASS : TASK_CARD_GRID_CLASS;
+
   const cardClass =
     task.status === "DONE"
       ? "border-status-done-strong/35 bg-status-done-surface hover:bg-status-done-surface"
       : "border-status-todo-strong/35 bg-status-todo-surface hover:bg-status-todo-surface";
-
   const idClass = task.status === "DONE" ? "text-status-done-strong" : "text-status-todo-strong";
+  const statusTone = task.status === "DONE" ? "done" : "todo";
 
   /* ================================================================================== */
   /* function */
@@ -85,25 +99,15 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
   /* ================================================================================== */
 
   return (
-    <div className="relative h-full cursor-pointer" style={{ cursor: "pointer" }}>
+    <div className="relative h-full cursor-pointer">
       <Link
         href={`/task/${task.id}`}
-        className={[
-          variant === "list"
-            ? "flex h-[118px] min-h-[118px] max-h-[118px] cursor-pointer flex-col rounded-[22px] border px-6 py-5 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer"
-            : "flex h-[180px] min-h-[180px] max-h-[180px] cursor-pointer flex-col rounded-[24px] border p-9 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer",
-          cardClass,
-        ].join(" ")}
-        style={{ cursor: "pointer" }}
+        className={cn(TASK_CARD_BASE_CLASS, layoutClass, cardClass)}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             {/* id */}
-            <p
-              className={["text-[11px] font-semibold tracking-[0.16em] uppercase", idClass].join(
-                " ",
-              )}
-            >
+            <p className={cn("text-[11px] font-semibold tracking-[0.16em] uppercase", idClass)}>
               {task.id}
             </p>
 
@@ -114,26 +118,16 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
           </div>
 
           {/* status */}
-          <StatusBadge
-            tone={task.status === "DONE" ? "done" : "todo"}
-            className="shrink-0 px-3.5 py-1.5"
-          >
+          <StatusBadge tone={statusTone} className="shrink-0 px-3.5 py-1.5">
             {task.status}
           </StatusBadge>
         </div>
 
         {/* memo */}
-        <div
-          className={
-            variant === "list"
-              ? "mt-3 min-h-0 flex-1 overflow-hidden"
-              : "mt-4 min-h-0 flex-1 overflow-hidden"
-          }
-        >
+        <div className={cn(TASK_CARD_MEMO_BASE_CLASS, memoContainerClass)}>
           {shouldShowMemoTooltip ? (
             <div
               className="h-full cursor-pointer"
-              style={{ cursor: "pointer" }}
               onMouseEnter={(event) => {
                 openMemoTooltip(event.currentTarget);
               }}
@@ -141,24 +135,12 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
                 setIsMemoTooltipOpen(false);
               }}
             >
-              <p
-                className={[
-                  "min-h-0 overflow-hidden break-words text-sm text-text-muted",
-                  variant === "list" ? "line-clamp-2 leading-5" : "leading-6",
-                ].join(" ")}
-              >
+              <p className={cn(TASK_CARD_MEMO_TOOLTIP_TEXT_CLASS, memoTooltipTextClass)}>
                 {memoPreview}
               </p>
             </div>
           ) : (
-            <p
-              className={[
-                "min-h-0 overflow-hidden text-sm text-text-muted",
-                variant === "list" ? "line-clamp-2 leading-5" : "line-clamp-3 leading-6",
-              ].join(" ")}
-            >
-              {task.memo}
-            </p>
+            <p className={cn(TASK_CARD_MEMO_TEXT_BASE_CLASS, memoTextClass)}>{task.memo}</p>
           )}
         </div>
       </Link>

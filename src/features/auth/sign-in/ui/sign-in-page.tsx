@@ -9,6 +9,7 @@ import { finishAuthRedirect, getIsAuthenticated, markSignedIn } from "@/shared/a
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { ApiError } from "@/shared/api/http";
+import { cn } from "@/shared/lib/cn";
 import { Button, ButtonLink } from "@/shared/ui/button/button";
 import { HomeIcon } from "@/shared/ui/icons";
 import { Input } from "@/shared/ui/input";
@@ -113,12 +114,12 @@ export function SignInPage() {
             </div>
             <Button
               type="submit"
-              className={[
+              className={cn(
                 "w-full",
                 isLoginPending
                   ? "disabled:border-primary disabled:bg-primary disabled:text-white disabled:shadow-[0_12px_28px_rgba(252,175,24,0.18)]"
                   : "",
-              ].join(" ")}
+              )}
               disabled={!isValid || isLoginPending}
             >
               제출

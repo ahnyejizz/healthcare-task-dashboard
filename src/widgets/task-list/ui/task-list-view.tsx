@@ -5,6 +5,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import type { TaskItem } from "@/shared/api/contracts";
 import { TaskCard } from "@/entities/task/ui/task-card";
 import { pageMeta } from "@/shared/config/page-meta";
+import { cn } from "@/shared/lib/cn";
 import { Panel } from "@/shared/ui/panel";
 import {
   type TaskFilter,
@@ -190,10 +191,10 @@ export function TaskListView({
         }}
       >
         <div
-          className={[
+          className={cn(
             "overflow-visible pb-4",
             viewMode === "card" ? "grid gap-4 md:grid-cols-2" : "flex flex-col gap-3",
-          ].join(" ")}
+          )}
         >
           {rowTasks.map((task) => (
             <TaskCard key={task.id} task={task} variant={viewMode} />
