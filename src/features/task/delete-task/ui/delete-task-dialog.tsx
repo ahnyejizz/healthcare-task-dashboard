@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { FormEvent, ReactNode } from "react";
 import { useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -64,6 +64,11 @@ export function DeleteTaskDialog({
     }
   }
 
+  function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    void handleSubmit(onSubmit)(event);
+  }
+
   return (
     <>
       <Button
@@ -81,7 +86,7 @@ export function DeleteTaskDialog({
         ref={dialogRef}
         className="fixed inset-0 m-auto w-[calc(100%-2rem)] max-w-xl rounded-[28px] border border-border bg-white p-0 shadow-2xl backdrop:bg-[#172033]/35"
       >
-        <form className="p-6" onSubmit={handleSubmit(onSubmit)}>
+        <form className="p-6" onSubmit={handleFormSubmit}>
           <h2 className="text-xl font-semibold text-text">삭제 확인</h2>
           <p className="mt-3 text-sm leading-6 text-text-muted">
             삭제를 진행하려면 아래 입력창에 정확한 ID를 입력해주세요.
