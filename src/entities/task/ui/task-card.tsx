@@ -14,20 +14,35 @@ type TaskCardProps = {
 
 const TASK_MEMO_PREVIEW_MAX_LENGTH = 80;
 
+/**
+ * @page  - [할 일 목록]
+ * @title - 할 일 컴포넌트
+ * @desc  - 태스크 ID, 태스크 명, 상태 뱃지, 메모 정보를 카드 또는 리스트 형태로 표시
+ */
 export function TaskCard({ task, variant = "card" }: TaskCardProps) {
+  /* ================================================================================== */
+  /* state */
+  /* ================================================================================== */
+
   const [isMemoTooltipOpen, setIsMemoTooltipOpen] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<TooltipPosition | null>(null);
 
   const shouldShowMemoTooltip = task.memo.length > TASK_MEMO_PREVIEW_MAX_LENGTH;
+
   const memoPreview = shouldShowMemoTooltip
     ? `${task.memo.slice(0, TASK_MEMO_PREVIEW_MAX_LENGTH).trimEnd()}...`
     : task.memo;
+
   const cardClass =
     task.status === "DONE"
       ? "border-status-done-strong/35 bg-status-done-surface hover:bg-status-done-surface"
       : "border-status-todo-strong/35 bg-status-todo-surface hover:bg-status-todo-surface";
+
   const idClass = task.status === "DONE" ? "text-status-done-strong" : "text-status-todo-strong";
-  const isList = variant === "list";
+
+  /* ================================================================================== */
+  /* function */
+  /* ================================================================================== */
 
   function openMemoTooltip(target: HTMLDivElement) {
     if (!shouldShowMemoTooltip) {
@@ -42,6 +57,10 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
     });
     setIsMemoTooltipOpen(true);
   }
+
+  /* ================================================================================== */
+  /* useEffect() */
+  /* ================================================================================== */
 
   useEffect(() => {
     if (!isMemoTooltipOpen) {
@@ -61,12 +80,16 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
     };
   }, [isMemoTooltipOpen]);
 
+  /* ================================================================================== */
+  /* render */
+  /* ================================================================================== */
+
   return (
     <div className="relative h-full cursor-pointer" style={{ cursor: "pointer" }}>
       <Link
         href={`/task/${task.id}`}
         className={[
-          isList
+          variant === "list"
             ? "flex h-[118px] min-h-[118px] max-h-[118px] cursor-pointer flex-col rounded-[22px] border px-6 py-5 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer"
             : "flex h-[180px] min-h-[180px] max-h-[180px] cursor-pointer flex-col rounded-[24px] border p-9 outline-none transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[var(--shadow-card)] focus-visible:shadow-[0_0_0_2px_var(--color-surface)] [&_*]:!cursor-pointer",
           cardClass,
@@ -75,6 +98,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
       >
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
+            {/* id */}
             <p
               className={["text-[11px] font-semibold tracking-[0.16em] uppercase", idClass].join(
                 " ",
@@ -82,10 +106,14 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
             >
               {task.id}
             </p>
+
+            {/* title */}
             <h2 className="mt-2.5 text-[1.02rem] leading-tight font-semibold tracking-tight text-text">
               {task.title}
             </h2>
           </div>
+
+          {/* status */}
           <StatusBadge
             tone={task.status === "DONE" ? "done" : "todo"}
             className="shrink-0 px-3.5 py-1.5"
@@ -94,9 +122,12 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
           </StatusBadge>
         </div>
 
+        {/* memo */}
         <div
           className={
-            isList ? "mt-3 min-h-0 flex-1 overflow-hidden" : "mt-4 min-h-0 flex-1 overflow-hidden"
+            variant === "list"
+              ? "mt-3 min-h-0 flex-1 overflow-hidden"
+              : "mt-4 min-h-0 flex-1 overflow-hidden"
           }
         >
           {shouldShowMemoTooltip ? (
@@ -113,7 +144,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
               <p
                 className={[
                   "min-h-0 overflow-hidden break-words text-sm text-text-muted",
-                  isList ? "line-clamp-2 leading-5" : "leading-6",
+                  variant === "list" ? "line-clamp-2 leading-5" : "leading-6",
                 ].join(" ")}
               >
                 {memoPreview}
@@ -123,7 +154,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
             <p
               className={[
                 "min-h-0 overflow-hidden text-sm text-text-muted",
-                isList ? "line-clamp-2 leading-5" : "line-clamp-3 leading-6",
+                variant === "list" ? "line-clamp-2 leading-5" : "line-clamp-3 leading-6",
               ].join(" ")}
             >
               {task.memo}
@@ -132,6 +163,7 @@ export function TaskCard({ task, variant = "card" }: TaskCardProps) {
         </div>
       </Link>
 
+      {/* 툴팁 */}
       <Tooltip
         isOpen={shouldShowMemoTooltip && isMemoTooltipOpen}
         position={tooltipPosition}
