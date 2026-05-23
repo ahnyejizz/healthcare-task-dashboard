@@ -6,6 +6,11 @@ import {
   isAuthorizedRequest,
 } from "@/shared/api/mock-backend";
 
+/**
+ * @page  - [회원정보]
+ * @title - 회원정보 Route Handler
+ * @desc  - 인증 확인 후 현재 로그인 사용자의 프로필 정보 반환
+ */
 export async function GET(request: Request) {
   if (!isAuthorizedRequest(request)) {
     return NextResponse.json(getUnauthorizedError(), {

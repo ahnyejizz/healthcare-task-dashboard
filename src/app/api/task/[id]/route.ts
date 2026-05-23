@@ -8,6 +8,11 @@ import {
   isAuthorizedRequest,
 } from "@/shared/api/mock-backend";
 
+/**
+ * @page  - [할 일 상세]
+ * @title - 할 일 상세 조회 Route Handler
+ * @desc  - 인증 확인 후 id에 해당하는 할 일 상세 정보 반환, 존재하지 않으면 404 응답
+ */
 export async function GET(request: Request, ctx: RouteContext<"/api/task/[id]">) {
   if (!isAuthorizedRequest(request)) {
     return NextResponse.json(getUnauthorizedError(), {
@@ -27,6 +32,11 @@ export async function GET(request: Request, ctx: RouteContext<"/api/task/[id]">)
   return NextResponse.json(task);
 }
 
+/**
+ * @page  - [할 일 상세]
+ * @title - 할 일 삭제 Route Handler
+ * @desc  - 인증 확인 후 id에 해당하는 할 일 삭제, 존재하지 않으면 404 응답
+ */
 export async function DELETE(request: Request, ctx: RouteContext<"/api/task/[id]">) {
   if (!isAuthorizedRequest(request)) {
     return NextResponse.json(getUnauthorizedError(), {

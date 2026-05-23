@@ -8,6 +8,11 @@ import {
   REFRESH_TOKEN_COOKIE_NAME,
 } from "@/shared/api/mock-backend";
 
+/**
+ * @page  - [로그인]
+ * @title - 로그인 Route Handler
+ * @desc  - 자격증명 검증 후 액세스/리프레시 토큰 발급 및 쿠키 설정
+ */
 export async function POST(request: Request) {
   const payload = (await request.json()) as SignInRequest;
 

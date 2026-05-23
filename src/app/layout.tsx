@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description: appMeta.description,
 };
 
+/**
+ * @page  - [공통]
+ * @title - 루트 레이아웃
+ * @desc  - HTML 기본 구조 설정 및 전역 Provider 주입
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

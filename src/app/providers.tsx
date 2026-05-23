@@ -7,6 +7,11 @@ function shouldEnableMocking() {
   return process.env.NEXT_PUBLIC_ENABLE_MSW === "true";
 }
 
+/**
+ * @page  - [공통]
+ * @title - 전역 Provider 컴포넌트
+ * @desc  - TanStack Query 클라이언트 초기화 및 MSW Worker 조건부 활성화
+ */
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
     () =>

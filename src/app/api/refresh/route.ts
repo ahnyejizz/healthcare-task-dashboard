@@ -10,6 +10,11 @@ import {
   REFRESH_TOKEN_COOKIE_NAME,
 } from "@/shared/api/mock-backend";
 
+/**
+ * @page  - [로그인]
+ * @title - 토큰 갱신 Route Handler
+ * @desc  - 리프레시 토큰 쿠키 검증 후 액세스/리프레시 토큰 재발급
+ */
 export async function POST(request: Request) {
   if (!hasRefreshTokenCookie(request)) {
     return NextResponse.json(getMissingRefreshTokenError(), {
