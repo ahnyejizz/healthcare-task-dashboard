@@ -8,12 +8,14 @@ import { pageMeta } from "@/shared/config/page-meta";
 import { cn } from "@/shared/lib/cn";
 import { Panel } from "@/shared/ui/panel";
 import {
+  type SearchField,
   type TaskFilter,
   type TaskListViewMode,
   type TaskSort,
   type TaskSortOrder,
 } from "@/widgets/task-list/model/task-list-controls";
 import { FilterDropdown } from "@/widgets/task-list/ui/controls/filter-dropdown";
+import { SearchBar } from "@/widgets/task-list/ui/controls/search-input";
 import { SortDropdown } from "@/widgets/task-list/ui/controls/sort-dropdown";
 import { ViewToggle } from "@/widgets/task-list/ui/controls/view-toggle";
 
@@ -25,6 +27,24 @@ type TaskListViewProps = {
 };
 
 const NEXT_PAGE_FETCH_THRESHOLD = 320;
+
+// 선택한 필드 기준으로 태스크 검색
+function searchTasks(tasks: TaskItem[], query: string, field: SearchField) {
+  const trimmed = query.trim();
+  if (!trimmed) return tasks;
+  const q = trimmed.toLowerCase();
+
+  if (field === "TASK_ID") return tasks.filter((task) => task.id.toLowerCase().includes(q));
+  if (field === "TASK_NAME") return tasks.filter((task) => task.title.toLowerCase().includes(q));
+  if (field === "MEMO") return tasks.filter((task) => task.memo.toLowerCase().includes(q));
+
+  return tasks.filter(
+    (task) =>
+      task.id.toLowerCase().includes(q) ||
+      task.title.toLowerCase().includes(q) ||
+      task.memo.toLowerCase().includes(q),
+  );
+}
 
 // 정렬 기준과 방향에 따라 목록 정렬
 function sortTasks(tasks: TaskItem[], taskSort: TaskSort, taskSortOrder: TaskSortOrder) {
@@ -76,6 +96,8 @@ export function TaskListView({
   const [taskSort, setTaskSort] = useState<TaskSort>("TASK_ID");
   const [taskSortOrder, setTaskSortOrder] = useState<TaskSortOrder>("asc");
   const [isSortOpen, setIsSortOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchField, setSearchField] = useState<SearchField>("all");
   const scrollRef = useRef<HTMLDivElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
 
@@ -94,10 +116,16 @@ export function TaskListView({
     return tasks.filter((task) => task.status.toLowerCase() === taskFilter);
   }, [taskFilter, tasks]);
 
+  // 선택한 필드 기준으로 필터링된 목록에서 재검색
+  const searchedTasks = useMemo(
+    () => searchTasks(filteredTasks, searchQuery, searchField),
+    [filteredTasks, searchField, searchQuery],
+  );
+
   // 선택한 정렬 기준으로 목록 정렬
   const sortedTasks = useMemo(
-    () => sortTasks(filteredTasks, taskSort, taskSortOrder),
-    [filteredTasks, taskSort, taskSortOrder],
+    () => sortTasks(searchedTasks, taskSort, taskSortOrder),
+    [searchedTasks, taskSort, taskSortOrder],
   );
 
   // 가상 스크롤 렌더링을 위한 행 단위 목록 구성
@@ -151,14 +179,23 @@ export function TaskListView({
     };
   }, [isFilterOpen, isSortOpen]);
 
-  // 필터 또는 정렬 시 현재까지 로드된 일부 데이터만으로 결과가 왜곡되지 않도록 남은 페이지를 끝까지 추가 조회
+  // 필터/정렬/검색 시 현재까지 로드된 일부 데이터만으로 결과가 왜곡되지 않도록 남은 페이지를 끝까지 추가 조회
   useEffect(() => {
-    if ((!isCustomSortActive && taskFilter === "all") || !hasNextPage || isFetchingNextPage) {
+    const isDefaultState = !isCustomSortActive && taskFilter === "all" && !searchQuery.trim();
+    if (isDefaultState || !hasNextPage || isFetchingNextPage) {
       return;
     }
 
     onEndReached();
-  }, [hasNextPage, isCustomSortActive, isFetchingNextPage, onEndReached, taskFilter, tasks.length]);
+  }, [
+    hasNextPage,
+    isCustomSortActive,
+    isFetchingNextPage,
+    onEndReached,
+    searchQuery,
+    taskFilter,
+    tasks.length,
+  ]);
 
   /* ================================================================================== */
   /* virtual scroll */
@@ -209,7 +246,7 @@ export function TaskListView({
   /* ================================================================================== */
 
   // 좌측 컨트롤 묶음
-  const controlDescription = (
+  const leftControls = (
     <div ref={controlsRef} className="flex items-center gap-2">
       <span>{pageMeta.taskList.description}</span>
 
@@ -247,17 +284,25 @@ export function TaskListView({
     </div>
   );
 
-  // 우측 뷰 모드 토글 묶음
-  const viewModeToggle = (
-    <ViewToggle
-      viewMode={viewMode}
-      onCardViewClick={() => {
-        setViewMode("card");
-      }}
-      onListViewClick={() => {
-        setViewMode("list");
-      }}
-    />
+  // 우측 컨트롤 묶음 (검색 + 뷰 모드 토글)
+  const rightControls = (
+    <div className="flex items-center gap-2">
+      <SearchBar
+        searchField={searchField}
+        value={searchQuery}
+        onChange={setSearchQuery}
+        onFieldChange={setSearchField}
+      />
+      <ViewToggle
+        viewMode={viewMode}
+        onCardViewClick={() => {
+          setViewMode("card");
+        }}
+        onListViewClick={() => {
+          setViewMode("list");
+        }}
+      />
+    </div>
   );
 
   /* ================================================================================== */
@@ -267,8 +312,8 @@ export function TaskListView({
   return (
     <Panel
       title={pageMeta.taskList.title}
-      description={controlDescription}
-      rightComponents={viewModeToggle}
+      description={leftControls}
+      rightComponents={rightControls}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
     >
@@ -291,7 +336,9 @@ export function TaskListView({
           {!rows.length && !isFetchingNextPage && !hasNextPage ? (
             <div className="absolute inset-0 flex items-center justify-center px-6">
               <p className="text-sm font-medium text-text-muted">
-                선택한 필터에 해당하는 할 일이 없습니다.
+                {searchQuery.trim()
+                  ? `"${searchQuery.trim()}"에 해당하는 할 일이 없습니다.`
+                  : "선택한 필터에 해당하는 할 일이 없습니다."}
               </p>
             </div>
           ) : null}

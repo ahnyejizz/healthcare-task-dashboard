@@ -263,6 +263,46 @@ export function SortDirectionIcon({
 
 /**
  * @page  - [공통 UI]
+ * @title - 아래 방향 화살표 아이콘 컴포넌트
+ * @desc  - 드롭다운 열림/닫힘 방향 표시 아이콘 렌더링
+ */
+export function ChevronDownIcon(props: IconSvgProps) {
+  return (
+    <BaseIcon strokeWidth="2" {...props}>
+      <path d="m6 9 6 6 6-6" />
+    </BaseIcon>
+  );
+}
+
+/**
+ * @page  - [공통 UI]
+ * @title - 검색 아이콘 컴포넌트
+ * @desc  - 검색 입력 필드 좌측 아이콘 렌더링
+ */
+export function SearchIcon(props: IconSvgProps) {
+  return (
+    <BaseIcon {...props}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m21 21-4.35-4.35" />
+    </BaseIcon>
+  );
+}
+
+/**
+ * @page  - [공통 UI]
+ * @title - 닫기 아이콘 컴포넌트
+ * @desc  - 입력 초기화 또는 닫기 액션 아이콘 렌더링
+ */
+export function CloseIcon(props: IconSvgProps) {
+  return (
+    <BaseIcon strokeWidth="2" {...props}>
+      <path d="M18 6 6 18M6 6l12 12" />
+    </BaseIcon>
+  );
+}
+
+/**
+ * @page  - [공통 UI]
  * @title - 카드형 보기 아이콘 컴포넌트
  * @desc  - 카드형 뷰 전환 아이콘 렌더링
  */

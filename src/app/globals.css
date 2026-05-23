@@ -101,6 +101,13 @@ a[href] {
     0 0 0 4px rgba(252, 175, 24, 0.42);
 }
 
+.focus-within-ring:focus-within {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px rgba(252, 175, 24, 0.42);
+}
+
 .surface-card {
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid var(--color-border);
