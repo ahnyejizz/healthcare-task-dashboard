@@ -245,11 +245,9 @@ export function TaskListView({
   /* render helper */
   /* ================================================================================== */
 
-  // 좌측 컨트롤 묶음
-  const leftControls = (
+  // 컨트롤 묶음 (필터링 + 정렬 + 검색 + 뷰 모드 토글)
+  const controls = (
     <div ref={controlsRef} className="flex items-center gap-2">
-      <span>{pageMeta.taskList.description}</span>
-
       {/* 필터링 */}
       <FilterDropdown
         isOpen={isFilterOpen}
@@ -281,18 +279,16 @@ export function TaskListView({
           setIsSortOpen(false);
         }}
       />
-    </div>
-  );
 
-  // 우측 컨트롤 묶음 (검색 + 뷰 모드 토글)
-  const rightControls = (
-    <div className="flex items-center gap-2">
+      {/* 검색 */}
       <SearchBar
         searchField={searchField}
         value={searchQuery}
         onChange={setSearchQuery}
         onFieldChange={setSearchField}
       />
+
+      {/* 뷰 모드 토글 */}
       <ViewToggle
         viewMode={viewMode}
         onCardViewClick={() => {
@@ -312,8 +308,8 @@ export function TaskListView({
   return (
     <Panel
       title={pageMeta.taskList.title}
-      description={leftControls}
-      rightComponents={rightControls}
+      description={pageMeta.taskList.description}
+      rightComponents={controls}
       className="flex h-full min-h-0 flex-col overflow-hidden lg:max-h-full"
       contentClassName="min-h-0 flex-1"
     >
