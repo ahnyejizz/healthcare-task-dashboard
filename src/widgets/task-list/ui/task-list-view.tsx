@@ -11,12 +11,11 @@ import {
   type SearchField,
   type TaskFilter,
   type TaskListViewMode,
-  type TaskSort,
   type TaskSortOrder,
 } from "@/widgets/task-list/model/task-list-controls";
 import { FilterDropdown } from "@/widgets/task-list/ui/controls/filter-dropdown";
 import { SearchBar } from "@/widgets/task-list/ui/controls/search-input";
-import { SortDropdown } from "@/widgets/task-list/ui/controls/sort-dropdown";
+import { SortToggle } from "@/widgets/task-list/ui/controls/sort-toggle";
 import { ViewToggle } from "@/widgets/task-list/ui/controls/view-toggle";
 
 type TaskListViewProps = {
@@ -46,22 +45,10 @@ function searchTasks(tasks: TaskItem[], query: string, field: SearchField) {
   );
 }
 
-// 정렬 기준과 방향에 따라 목록 정렬
-function sortTasks(tasks: TaskItem[], taskSort: TaskSort, taskSortOrder: TaskSortOrder) {
-  const nextTasks = [...tasks];
+// 태스크 ID 기준으로 목록 정렬
+function sortTasks(tasks: TaskItem[], taskSortOrder: TaskSortOrder) {
   const sortDirection = taskSortOrder === "asc" ? 1 : -1;
-
-  if (taskSort === "TASK_ID") {
-    nextTasks.sort((left, right) => left.id.localeCompare(right.id, "ko-KR") * sortDirection);
-    return nextTasks;
-  }
-
-  if (taskSort === "TASK_NAME") {
-    nextTasks.sort((left, right) => left.title.localeCompare(right.title, "ko-KR") * sortDirection);
-    return nextTasks;
-  }
-
-  return nextTasks;
+  return [...tasks].sort((a, b) => a.id.localeCompare(b.id, "ko-KR") * sortDirection);
 }
 
 // 뷰 모드에 맞춰 카드 행 단위로 그룹화
@@ -93,9 +80,7 @@ export function TaskListView({
   const [viewMode, setViewMode] = useState<TaskListViewMode>("card");
   const [taskFilter, setTaskFilter] = useState<TaskFilter>("todo");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [taskSort, setTaskSort] = useState<TaskSort>("TASK_ID");
   const [taskSortOrder, setTaskSortOrder] = useState<TaskSortOrder>("asc");
-  const [isSortOpen, setIsSortOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchField, setSearchField] = useState<SearchField>("all");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -103,9 +88,6 @@ export function TaskListView({
 
   // 뷰 모드에 따른 한 행 카드 개수
   const columnCount = viewMode === "card" ? 2 : 1;
-
-  // 기본 정렬 외 커스텀 정렬 여부
-  const isCustomSortActive = taskSort !== "TASK_ID" || taskSortOrder !== "asc";
 
   // 필터 조건에 맞는 목록 추출
   const filteredTasks = useMemo(() => {
@@ -122,10 +104,10 @@ export function TaskListView({
     [filteredTasks, searchField, searchQuery],
   );
 
-  // 선택한 정렬 기준으로 목록 정렬
+  // 태스크 ID 기준으로 목록 정렬
   const sortedTasks = useMemo(
-    () => sortTasks(searchedTasks, taskSort, taskSortOrder),
-    [searchedTasks, taskSort, taskSortOrder],
+    () => sortTasks(searchedTasks, taskSortOrder),
+    [searchedTasks, taskSortOrder],
   );
 
   // 가상 스크롤 렌더링을 위한 행 단위 목록 구성
@@ -154,13 +136,12 @@ export function TaskListView({
   /* useEffect() */
   /* ================================================================================== */
 
-  // 드롭다운 바깥 클릭 시 필터/정렬 드롭다운 닫기
+  // 드롭다운 바깥 클릭 시 필터 드롭다운 닫기
   useEffect(() => {
-    if (!isFilterOpen && !isSortOpen) {
+    if (!isFilterOpen) {
       return;
     }
 
-    // 드롭다운이 열린 동안에만 쓰이는 외부 클릭 핸들러
     function handlePointerDown(event: PointerEvent) {
       if (
         controlsRef.current &&
@@ -168,7 +149,6 @@ export function TaskListView({
         !controlsRef.current.contains(event.target)
       ) {
         setIsFilterOpen(false);
-        setIsSortOpen(false);
       }
     }
 
@@ -177,11 +157,11 @@ export function TaskListView({
     return () => {
       window.removeEventListener("pointerdown", handlePointerDown);
     };
-  }, [isFilterOpen, isSortOpen]);
+  }, [isFilterOpen]);
 
   // 필터/정렬/검색 시 현재까지 로드된 일부 데이터만으로 결과가 왜곡되지 않도록 남은 페이지를 끝까지 추가 조회
   useEffect(() => {
-    const isDefaultState = !isCustomSortActive && taskFilter === "all" && !searchQuery.trim();
+    const isDefaultState = taskSortOrder === "asc" && taskFilter === "all" && !searchQuery.trim();
     if (isDefaultState || !hasNextPage || isFetchingNextPage) {
       return;
     }
@@ -189,7 +169,7 @@ export function TaskListView({
     onEndReached();
   }, [
     hasNextPage,
-    isCustomSortActive,
+    taskSortOrder,
     isFetchingNextPage,
     onEndReached,
     searchQuery,
@@ -254,7 +234,6 @@ export function TaskListView({
         taskFilter={taskFilter}
         onButtonClick={() => {
           setIsFilterOpen((current) => !current);
-          setIsSortOpen(false);
         }}
         onSelect={(value) => {
           setTaskFilter(value);
@@ -263,21 +242,9 @@ export function TaskListView({
       />
 
       {/* 정렬 */}
-      <SortDropdown
-        isSortOpen={isSortOpen}
-        taskSort={taskSort}
+      <SortToggle
         taskSortOrder={taskSortOrder}
-        onSortButtonClick={() => {
-          setIsSortOpen((current) => !current);
-          setIsFilterOpen(false);
-        }}
-        onSortOrderToggle={() => {
-          setTaskSortOrder((current) => (current === "asc" ? "desc" : "asc"));
-        }}
-        onSortSelect={(value) => {
-          setTaskSort(value);
-          setIsSortOpen(false);
-        }}
+        onToggle={() => setTaskSortOrder((current) => (current === "asc" ? "desc" : "asc"))}
       />
 
       {/* 검색 */}

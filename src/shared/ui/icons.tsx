@@ -214,9 +214,13 @@ export function FilterIcon({ className, ...props }: IconSpanProps) {
 /**
  * @page  - [공통 UI]
  * @title - 정렬 아이콘 컴포넌트
- * @desc  - 정렬 기준 드롭다운 버튼 아이콘 렌더링
+ * @desc  - 정렬 방향(오름차순/내림차순)에 따라 화살표가 전환되는 정렬 아이콘 렌더링
  */
-export function SortIcon({ className, ...props }: IconSpanProps) {
+export function SortIcon({
+  className,
+  direction = "asc",
+  ...props
+}: IconSpanProps & { direction?: "asc" | "desc" }) {
   return (
     <span
       className={cn("relative block h-[18px] w-[18px] shrink-0", className)}
@@ -226,7 +230,14 @@ export function SortIcon({ className, ...props }: IconSpanProps) {
       <span className="absolute left-[2px] top-[8px] h-[2px] w-[8px] rounded-full bg-current/85" />
       <span className="absolute left-[2px] top-[13px] h-[2px] w-[5px] rounded-full bg-current/85" />
       <span className="absolute right-[3px] top-[3px] h-[12px] w-[2px] rounded-full bg-current/85" />
-      <span className="absolute right-[1px] top-[11px] h-[5px] w-[5px] rotate-45 border-r-[2px] border-b-[2px] border-current/85" />
+      <span
+        className={cn(
+          "absolute right-px h-1.25 w-1.25 rotate-45 border-current/85",
+          direction === "asc"
+            ? "top-0.75 border-t-2 border-l-2"
+            : "top-2.75 border-r-2 border-b-2",
+        )}
+      />
     </span>
   );
 }

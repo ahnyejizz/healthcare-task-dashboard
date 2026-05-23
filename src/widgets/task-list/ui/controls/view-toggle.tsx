@@ -13,7 +13,7 @@ type ViewToggleProps = {
 /**
  * @page  - [할 일 목록]
  * @title - 뷰 전환 토글 컴포넌트
- * @desc  - 카드형/리스트형 토글 버튼 제공
+ * @desc  - 클릭 시 카드형/리스트형 view 모드를 즉시 전환하는 토글 버튼
  */
 export function ViewToggle({ viewMode, onCardViewClick, onListViewClick }: ViewToggleProps) {
   return (
