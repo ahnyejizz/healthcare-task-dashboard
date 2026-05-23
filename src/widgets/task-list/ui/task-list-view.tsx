@@ -71,7 +71,7 @@ export function TaskListView({
   /* ================================================================================== */
 
   const [viewMode, setViewMode] = useState<TaskListViewMode>("card");
-  const [taskFilter, setTaskFilter] = useState<TaskFilter>("all");
+  const [taskFilter, setTaskFilter] = useState<TaskFilter>("todo");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [taskSort, setTaskSort] = useState<TaskSort>("TASK_ID");
   const [taskSortOrder, setTaskSortOrder] = useState<TaskSortOrder>("asc");
