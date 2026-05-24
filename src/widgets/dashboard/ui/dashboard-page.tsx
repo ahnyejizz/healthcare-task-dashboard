@@ -1,6 +1,9 @@
+// shared
 import type { DashboardResponse } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
 import { Panel } from "@/shared/ui/panel";
+
+// widgets
 import { MetricCard } from "@/widgets/dashboard/ui/metric-card";
 import { ChartCard } from "@/widgets/dashboard/ui/chart/chart-card";
 

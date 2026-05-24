@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+
+// shared
 import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button/button";
 

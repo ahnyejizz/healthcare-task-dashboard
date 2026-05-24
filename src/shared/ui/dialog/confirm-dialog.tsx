@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 import { useState } from "react";
+
+// shared
 import { Button } from "@/shared/ui/button/button";
 import { Dialog } from "@/shared/ui/dialog/dialog";
 

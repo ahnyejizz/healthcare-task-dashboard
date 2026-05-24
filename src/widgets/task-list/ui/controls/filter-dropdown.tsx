@@ -1,9 +1,12 @@
 "use client";
 
+// shared
 import { FilterIcon } from "@/shared/ui/icons";
 import { SelectOptionList } from "@/shared/ui/select-option-list";
 import { StatusBadge } from "@/shared/ui/status-badge";
 import { ViewToggleButton } from "@/shared/ui/button/view-toggle-button";
+
+// widgets
 import { type TaskFilter, taskFilterOptions } from "@/widgets/task-list/model/task-list-controls";
 
 type FilterDropdownProps = {

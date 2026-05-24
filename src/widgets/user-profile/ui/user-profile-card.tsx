@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
+// shared
 import { finishAuthRedirect, markSignedOut, startAuthRedirect } from "@/shared/api/auth-storage";
 import { signOut } from "@/shared/api/auth";
 import type { UserResponse } from "@/shared/api/contracts";

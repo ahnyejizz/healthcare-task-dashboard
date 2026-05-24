@@ -1,3 +1,4 @@
+// shared
 import type { AuthTokenResponse, ErrorResponse } from "@/shared/api/contracts";
 import { markSignedIn, markSignedOut } from "@/shared/api/auth-storage";
 

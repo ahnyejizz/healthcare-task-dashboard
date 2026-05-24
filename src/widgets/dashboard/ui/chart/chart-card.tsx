@@ -3,12 +3,16 @@
 import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
+
+// shared
 import type { DashboardResponse } from "@/shared/api/contracts";
 import { downloadElementAsImage } from "@/shared/lib/download-element-as-image";
 import { Button } from "@/shared/ui/button/button";
 import { DownloadIcon } from "@/shared/ui/icons";
 import { LoadingSpinner } from "@/shared/ui/loading/loading-spinner";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
+
+// widgets
 import { ChartCardHeader } from "@/widgets/dashboard/ui/chart/chart-card-header";
 import { ChartLegend } from "@/widgets/dashboard/ui/chart/chart-legend";
 import { chartCards, createChartOptions } from "@/widgets/dashboard/ui/chart/chart-options";

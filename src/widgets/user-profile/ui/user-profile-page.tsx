@@ -1,6 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+
+// shared
 import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
 import { queryKeys } from "@/shared/api/query-keys";
@@ -9,6 +11,8 @@ import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";
 import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 import { Panel } from "@/shared/ui/panel";
+
+// widgets
 import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
 
 /**

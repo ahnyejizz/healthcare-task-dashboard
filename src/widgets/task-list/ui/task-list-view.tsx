@@ -2,11 +2,17 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import type { TaskItem } from "@/shared/api/contracts";
+
+// entities
 import { TaskCard } from "@/entities/task/ui/task-card";
+
+// shared
+import type { TaskItem } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
 import { cn } from "@/shared/lib/cn";
 import { Panel } from "@/shared/ui/panel";
+
+// widgets
 import {
   type SearchField,
   type TaskFilter,

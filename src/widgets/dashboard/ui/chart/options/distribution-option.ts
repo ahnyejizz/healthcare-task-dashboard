@@ -1,4 +1,6 @@
 import type { EChartsOption } from "echarts";
+
+// widgets
 import type { DashboardChartOptionContext } from "@/widgets/dashboard/ui/chart/options/option-context";
 import { toRgba } from "@/widgets/dashboard/ui/chart/options/option-context";
 

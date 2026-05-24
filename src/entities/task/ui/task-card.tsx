@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+
+// shared
 import type { TaskItem } from "@/shared/api/contracts";
 import { cn } from "@/shared/lib/cn";
 import { StatusBadge } from "@/shared/ui/status-badge";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
+
+// widgets
 import { type TaskListViewMode } from "@/widgets/task-list/model/task-list-controls";
 
 type TaskCardProps = {

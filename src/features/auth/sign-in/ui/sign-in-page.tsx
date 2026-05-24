@@ -4,6 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+
+// features
+import { signInSchema, type SignInFormValues } from "@/features/auth/sign-in/model/sign-in-schema";
+
+// shared
 import { signIn } from "@/shared/api/auth";
 import { finishAuthRedirect, getIsAuthenticated, markSignedIn } from "@/shared/api/auth-storage";
 import { pageMeta } from "@/shared/config/page-meta";
@@ -14,7 +19,6 @@ import { Button, ButtonLink } from "@/shared/ui/button/button";
 import { HomeIcon } from "@/shared/ui/icons";
 import { Input } from "@/shared/ui/input";
 import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
-import { signInSchema, type SignInFormValues } from "@/features/auth/sign-in/model/sign-in-schema";
 
 /**
  * @page  - [로그인]

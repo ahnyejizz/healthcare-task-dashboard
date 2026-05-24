@@ -2,6 +2,8 @@
 
 import type { ReactNode } from "react";
 import { useSyncExternalStore } from "react";
+
+// shared
 import {
   getAuthRedirectServerSnapshot,
   getAuthRedirectSnapshot,
@@ -11,6 +13,8 @@ import {
   subscribeAuthState,
 } from "@/shared/api/auth-storage";
 import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
+
+// widgets
 import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
 
 /**

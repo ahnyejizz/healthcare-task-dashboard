@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+
+// shared
 import { pageMeta } from "@/shared/config/page-meta";
 import { dashboardFixture } from "@/shared/mocks/data/seed";
+
+// widgets
 import { DashboardPage } from "@/widgets/dashboard/ui/dashboard-page";
 
 export const metadata: Metadata = {

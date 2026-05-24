@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
+// shared
 import { cn } from "@/shared/lib/cn";
 import { CheckIcon, ChevronDownIcon, CloseIcon, SearchIcon } from "@/shared/ui/icons";
+
+// widgets
 import { type SearchField, searchFieldOptions } from "@/widgets/task-list/model/task-list-controls";
 
 type SearchBarProps = {

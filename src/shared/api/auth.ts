@@ -1,3 +1,4 @@
+// shared
 import type { AuthTokenResponse, SignInRequest, SuccessResponse } from "@/shared/api/contracts";
 import { apiRequest } from "@/shared/api/http";
 

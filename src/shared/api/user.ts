@@ -1,3 +1,4 @@
+// shared
 import type { SessionResponse, UserResponse } from "@/shared/api/contracts";
 import { apiRequest } from "@/shared/api/http";
 

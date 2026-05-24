@@ -1,5 +1,8 @@
-import type { TaskDetailResponse } from "@/shared/api/contracts";
+// features
 import { DeleteTaskDialog } from "@/features/task/delete-task/ui/delete-task-dialog";
+
+// shared
+import type { TaskDetailResponse } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { formatDateTime } from "@/shared/lib/format-date-time";

@@ -1,7 +1,10 @@
 "use client";
 
+// shared
 import { SortIcon } from "@/shared/ui/icons";
 import { ViewToggleButton } from "@/shared/ui/button/view-toggle-button";
+
+// widgets
 import { type TaskSortOrder } from "@/widgets/task-list/model/task-list-controls";
 
 type SortToggleProps = {

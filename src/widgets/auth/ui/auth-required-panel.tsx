@@ -1,6 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+
+// shared
 import { resolvePageMeta } from "@/shared/config/page-meta";
 import { LoginIcon } from "@/shared/ui/icons";
 import { Panel } from "@/shared/ui/panel";

@@ -1,3 +1,4 @@
+// shared
 import type { AuthTokenResponse } from "@/shared/api/contracts";
 import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "@/shared/api/mock-backend";
 

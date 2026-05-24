@@ -1,5 +1,9 @@
 import type { EChartsOption } from "echarts";
+
+// shared
 import type { DashboardResponse } from "@/shared/api/contracts";
+
+// widgets
 import { createComparisonCountOption } from "@/widgets/dashboard/ui/chart/options/comparison-count-option";
 import { createComparisonRatioOption } from "@/widgets/dashboard/ui/chart/options/comparison-ratio-option";
 import { createCompletionGaugeOption } from "@/widgets/dashboard/ui/chart/options/completion-gauge-option";
