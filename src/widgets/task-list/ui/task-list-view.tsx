@@ -10,6 +10,7 @@ import { TaskCard } from "@/entities/task/ui/task-card";
 import type { TaskItem } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
 import { cn } from "@/shared/lib/cn";
+import { EmptyState } from "@/shared/ui/empty-state";
 import { LoadingSpinner } from "@/shared/ui/loading/loading-spinner";
 import { Panel } from "@/shared/ui/panel";
 
@@ -294,22 +295,28 @@ export function TaskListView({
         onScroll={handleScroll}
       >
         <div
-          className="relative"
+          className="relative min-h-full"
           style={{
-            height: `${totalHeight}px`,
+            height: rows.length ? `${totalHeight}px` : "100%",
           }}
         >
           {/* 가상 스크롤 목록 */}
           {virtualRows.map(renderVirtualRow)}
 
-          {/* 빈 상태 */}
+          {/* 엠티셋 */}
           {!rows.length && !isFetchingNextPage && !hasNextPage ? (
-            <div className="absolute inset-0 flex items-center justify-center px-6">
-              <p className="text-sm font-medium text-text-muted">
-                {searchQuery.trim()
-                  ? `"${searchQuery.trim()}"에 해당하는 할 일이 없습니다.`
-                  : "선택한 필터에 해당하는 할 일이 없습니다."}
-              </p>
+            <div className="absolute inset-0 px-6 py-4">
+              <EmptyState
+                className="h-full"
+                title={
+                  searchQuery.trim() ? "검색 결과가 없습니다." : "조건에 맞는 할 일이 없습니다."
+                }
+                description={
+                  searchQuery.trim()
+                    ? `"${searchQuery.trim()}"에 해당하는 할 일이 없습니다. 검색어 또는 검색 기준을 다시 확인해주세요.`
+                    : "선택한 필터 조건에 맞는 할 일이 없습니다. 필터를 변경해 다른 상태의 할 일을 확인해보세요."
+                }
+              />
             </div>
           ) : null}
 

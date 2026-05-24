@@ -67,12 +67,16 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ## [대시보드]
 **1. 비 로그인 상태**
-- 로그인 안내 문구 제공
 ![대시보드 화면](../public/readme/dashboard/dashboard1.png)
+- 로그인 안내 문구 제공
+
+---
 
 **2. 로그인 완료 상태**
 ![대시보드 화면](../public/readme/dashboard/dashboard-loading1.png)
 - 차트가 렌더링 되기까지 로딩스피너 표시
+
+---
 
 ![대시보드 화면](../public/readme/dashboard/dashboard3.png)
 ![대시보드 화면](../public/readme/dashboard/dashboard4.png)
@@ -81,6 +85,8 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ![대시보드 화면](../public/readme/dashboard/dashboard6.png)
 - 4개의 차트 제공
 - 차트 호버 시 호버이벤트 및 툴팁 표시 및 이미지 다운로드 버튼 제공
+
+---
 
 - 카운트 비교 차트 - 이미지 다운로드
 ![대시보드 화면](../public/readme/dashboard/chart1.png)
@@ -97,34 +103,52 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ## [할 일 목록]
 **1. 비 로그인 상태**
-- 로그인 안내 문구 제공
 ![할 일 목록 화면](../public/readme/task-list/task-list1.png)
+- 로그인 안내 문구 제공
 
 **2. 로그인 완료 상태**
 ![할 일 목록 화면](../public/readme/task-list/task-list-loading1.png)
 - 초기 데이터를 불러오는 동안 로딩바 표시
 
+---
+
 ![할 일 목록 화면](../public/readme/task-list/task-list-loading2.png)
 - 전체 목록을 추가로 불러오는 동안 로딩 스피너, 안내 문구 표시
+
+---
 
 ![할 일 목록 화면](../public/readme/task-list/task-list6.png)
 - 페이지 특성에 맞게 기본값은 `TODO` 상태로 설정
 - 긴 메모의 경우 `말줄임표` 및 `툴팁` 처리
 
+---
+
 ![할 일 목록 화면](../public/readme/task-list/task-list2.png)
 - 필터링 버튼을 통해 `전체`, `DONE`, `TODO` 상태 필터링 가능
 - 상세/목록 화면을 `카드형, 리스트형` 형태로 볼 수 있도록 제공
 
+---
+
 ![할 일 목록 화면](../public/readme/task-list/task-list3.png)
 - 태스크 ID 오름차순, 내림차순에 따른 `정렬` 기능 제공
 
+---
+
 ![할 일 목록 화면](../public/readme/task-list/task-list4.png)
 - 태스크 ID, 태스크명, 메모 key에 따른 `검색` 기능 제공
+- 검색/필터 결과가 없는 경우 아이콘이 포함된 공통 `EmptyState` UI로 우측 콘텐츠 영역 전체를 활용해 엠티셋 안내 제공
+
+---
+
+![할 일 목록 화면](../public/readme/task-list/task-list-empty1.png)
+- 검색어에 따른 검색 결과가 존재하지 않는 경우 엠티셋 컴포넌트 표시
 
 
 ## [할 일 상세]
 ![할 일 상세 화면](../public/readme/task-detail/task-detail-loading1.png)
 - 초기 데이터를 불러오는 동안 로딩바 표시
+
+---
 
 ![할 일 상세 화면](../public/readme/task-detail/task-detail1.png)
 ![할 일 상세 화면](../public/readme/task-detail/task-detail2.png)
@@ -134,9 +158,11 @@ NEXT_PUBLIC_ENABLE_MSW=true
 - 삭제 액션을 위한 버튼 및 컨펌 다이얼로그, 확인 다이얼로그 제공
 
 
-[회원정보], [로그아웃]
-![회원정보 화면](../public/readme/user/user-loading.png)
+## [회원정보], [로그아웃]
+![회원정보 화면](../public/readme/user/user-loading1.png)
 - 초기 데이터를 불러오는 동안 로딩바 표시
+
+---
 
 ![회원정보 화면](../public/readme/user/user1.png)
 ![회원정보 화면](../public/readme/user/user2.png)
@@ -221,6 +247,7 @@ src/
       loading/
         loading-overlay.tsx           # 전체화면 오버레이 로딩 UI
         loading-spinner.tsx           # 공통 로딩 스피너
+      empty-state.tsx                 # 공통 엠티셋 UI
       icons.tsx                       # 공통 아이콘 모음
       input.tsx                       # 공통 입력 컴포넌트
       panel.tsx                       # 공통 패널 레이아웃
@@ -323,6 +350,7 @@ src/
 - (`/api/task` 응답에는 TODO, DONE 상태값이 모두 포함되지만, `해야할 일`이라는 페이지 특성과 사용자 편의성을 고려해 TODO 상태 태스크를 기본으로 노출하고, 전체 및 DONE 상태도 볼 수 있도록 `필터링` 기능 제공)
 - 태스크 ID 오름차순, 내림차순에 따른 `정렬` 기능 제공
 - 태스크 ID, 태스크명, 메모 key에 따른 `검색` 기능 제공
+- 검색/필터 결과가 없는 경우 아이콘이 포함된 공통 `EmptyState` UI로 우측 콘텐츠 영역 전체를 활용해 엠티셋 안내 제공
 - 상세/목록 화면을 `카드형, 리스트형` 형태로 볼 수 있도록 제공
 
 [회원정보]

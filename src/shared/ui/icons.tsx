@@ -314,6 +314,21 @@ export function CloseIcon(props: IconSvgProps) {
 
 /**
  * @page  - [공통 UI]
+ * @title - 엠티셋 아이콘 컴포넌트
+ * @desc  - 조회 결과가 없음을 나타내는 아이콘 렌더링
+ */
+export function EmptyStateIcon(props: IconSvgProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M3.5 8V6.5a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2V10" />
+      <path d="M3.5 10h17l-1.2 8a2 2 0 0 1-2 1.7H6.7a2 2 0 0 1-2-1.7Z" />
+      <path d="M9.5 14.5h5" />
+    </BaseIcon>
+  );
+}
+
+/**
+ * @page  - [공통 UI]
  * @title - 카드형 보기 아이콘 컴포넌트
  * @desc  - 카드형 뷰 전환 아이콘 렌더링
  */
