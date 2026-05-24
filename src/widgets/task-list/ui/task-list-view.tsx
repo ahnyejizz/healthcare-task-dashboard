@@ -10,6 +10,7 @@ import { TaskCard } from "@/entities/task/ui/task-card";
 import type { TaskItem } from "@/shared/api/contracts";
 import { pageMeta } from "@/shared/config/page-meta";
 import { cn } from "@/shared/lib/cn";
+import { LoadingSpinner } from "@/shared/ui/loading/loading-spinner";
 import { Panel } from "@/shared/ui/panel";
 
 // widgets
@@ -320,10 +321,19 @@ export function TaskListView({
                 top: `${rowVirtualizer.getTotalSize()}px`,
               }}
             >
-              <div className="flex items-center justify-center py-4 text-sm text-text-muted">
-                {taskFilter === "all"
-                  ? "다음 목록을 불러오는 중입니다."
-                  : "필터링을 위해 전체 목록을 불러오는 중입니다."}
+              <div className="flex flex-col items-center justify-center gap-3 py-4 text-sm text-text-muted">
+                <LoadingSpinner
+                  label={
+                    taskFilter === "all"
+                      ? "다음 목록을 불러오는 중입니다."
+                      : "필터링을 위해 전체 목록을 불러오는 중입니다."
+                  }
+                />
+                <p>
+                  {taskFilter === "all"
+                    ? "다음 목록을 불러오는 중입니다."
+                    : "필터링을 위해 전체 목록을 불러오는 중입니다."}
+                </p>
               </div>
             </div>
           ) : null}
