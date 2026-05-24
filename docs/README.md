@@ -24,6 +24,9 @@ FSD(Feature-Sliced Design) 구조 기반으로
 MSW 기반 모킹 환경과 Next.js Route Handler 기반 API를 함께 구성
 `NEXT_PUBLIC_ENABLE_MSW=true`일 때 MSW가 활성화
 
+- `shared/api/core`: 인증 상태 저장, 공통 HTTP 래퍼, React Query 키 등 인프라성 API 유틸
+- `shared/api/endpoints`: 화면/도메인에서 실제로 호출하는 endpoint 함수 모음
+
 ## 개발 명령어
 
 ```bash
@@ -217,14 +220,16 @@ src/
           delete-task-dialog.tsx      # [할 일 상세] 삭제 확인 다이얼로그
   shared/
     api/
-      auth-storage.ts                 # accessToken 저장/구독 처리
-      auth.ts                         # 로그인 / 로그아웃 API
+      core/
+        auth-storage.ts               # accessToken 저장/구독 처리
+        http.ts                       # 공통 fetch 래퍼 및 에러 처리
+        query-keys.ts                 # React Query key 정의
+      endpoints/
+        auth.ts                       # [로그인], [회원정보] 인증 관련 요청 API
+        dashboard.ts                  # [대시보드] 조회 API
+        task.ts                       # [할 일 목록], [할 일 상세] 요청 API
+        user.ts                       # [회원정보] 회원정보 / 세션 조회 API
       contracts.ts                    # API 응답/요청 타입 정의
-      http.ts                         # 공통 fetch 래퍼 및 에러 처리
-      mock-backend.ts                 # mock backend 동작 및 fixture 조합
-      query-keys.ts                   # React Query key 정의
-      tasks.ts                        # 할 일 목록 조회, 상세 조회, 삭제 요청 API
-      user.ts                         # 회원정보 / 세션 API
     config/
       page-meta.ts                    # 페이지 메타 정보
       routes.ts                       # 라우트 상수 및 네비게이션 정보
@@ -235,6 +240,7 @@ src/
     mocks/
       browser.ts                      # MSW browser worker 설정
       handlers.ts                     # MSW 핸들러 정의
+      mock-backend.ts                 # mock backend 동작 및 fixture 조합
       data/
         seed.ts                       # mock seed / fixture 데이터
     ui/
@@ -317,7 +323,7 @@ src/
 
 ## 인증 전략
 
-- `accessToken`: 클라이언트 측 저장 (`src/shared/api/auth-storage.ts`)
+- `accessToken`: 클라이언트 측 저장 (`src/shared/api/core/auth-storage.ts`)
 - `refreshToken`: 쿠키 기반 저장 (`token` 쿠키명)
 - 만료 시 `/api/refresh`를 통해 자동 재발급
 - `AccessTokenGate`가 인증 상태를 감시하고, 미인증 상태에서는 로그인 유도 화면 표시

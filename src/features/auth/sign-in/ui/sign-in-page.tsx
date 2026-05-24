@@ -9,11 +9,15 @@ import { useRouter } from "next/navigation";
 import { signInSchema, type SignInFormValues } from "@/features/auth/sign-in/model/sign-in-schema";
 
 // shared
-import { signIn } from "@/shared/api/auth";
-import { finishAuthRedirect, getIsAuthenticated, markSignedIn } from "@/shared/api/auth-storage";
+import {
+  finishAuthRedirect,
+  getIsAuthenticated,
+  markSignedIn,
+} from "@/shared/api/core/auth-storage";
+import { ApiError } from "@/shared/api/core/http";
+import { signIn } from "@/shared/api/endpoints/auth";
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
-import { ApiError } from "@/shared/api/http";
 import { cn } from "@/shared/lib/cn";
 import { Button, ButtonLink } from "@/shared/ui/button/button";
 import { HomeIcon } from "@/shared/ui/icons";

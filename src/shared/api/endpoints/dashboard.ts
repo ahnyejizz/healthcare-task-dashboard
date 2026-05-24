@@ -1,6 +1,6 @@
 // shared
 import type { DashboardResponse } from "@/shared/api/contracts";
-import { apiRequest } from "@/shared/api/http";
+import { apiRequest } from "@/shared/api/core/http";
 
 /**
  * @page  - [대시보드]

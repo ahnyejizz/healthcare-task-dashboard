@@ -4,12 +4,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 // shared
-import { finishAuthRedirect, markSignedOut, startAuthRedirect } from "@/shared/api/auth-storage";
-import { signOut } from "@/shared/api/auth";
+import {
+  finishAuthRedirect,
+  markSignedOut,
+  startAuthRedirect,
+} from "@/shared/api/core/auth-storage";
+import { ApiError } from "@/shared/api/core/http";
+import { signOut } from "@/shared/api/endpoints/auth";
 import type { UserResponse } from "@/shared/api/contracts";
 import { routes } from "@/shared/config/routes";
 import { pageMeta } from "@/shared/config/page-meta";
-import { ApiError } from "@/shared/api/http";
 import { ConfirmDialog } from "@/shared/ui/dialog/confirm-dialog";
 import { LogoutIcon, UserIcon } from "@/shared/ui/icons";
 import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";

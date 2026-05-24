@@ -24,7 +24,7 @@ import {
   isAuthorizedRequest,
   isValidSignIn,
   REFRESH_TOKEN_COOKIE_NAME,
-} from "@/shared/api/mock-backend";
+} from "@/shared/mocks/mock-backend";
 
 export const handlers = [
   // sign-in

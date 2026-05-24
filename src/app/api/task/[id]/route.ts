@@ -6,7 +6,7 @@ import {
   getTaskNotFoundError,
   getUnauthorizedError,
   isAuthorizedRequest,
-} from "@/shared/api/mock-backend";
+} from "@/shared/mocks/mock-backend";
 
 /**
  * @page  - [할 일 상세]

@@ -8,7 +8,7 @@ import {
   hasRefreshTokenCookie,
   hasValidRefreshTokenCookie,
   REFRESH_TOKEN_COOKIE_NAME,
-} from "@/shared/api/mock-backend";
+} from "@/shared/mocks/mock-backend";
 
 /**
  * @page  - [로그인]

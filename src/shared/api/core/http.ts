@@ -1,6 +1,6 @@
 // shared
 import type { AuthTokenResponse, ErrorResponse } from "@/shared/api/contracts";
-import { getAccessToken, markSignedIn, markSignedOut } from "@/shared/api/auth-storage";
+import { getAccessToken, markSignedIn, markSignedOut } from "@/shared/api/core/auth-storage";
 
 type RequestOptions = RequestInit & {
   isPublic?: boolean;

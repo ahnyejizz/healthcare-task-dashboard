@@ -9,7 +9,7 @@ import {
   getAuthStateServerSnapshot,
   getAuthStateSnapshot,
   subscribeAuthState,
-} from "@/shared/api/auth-storage";
+} from "@/shared/api/core/auth-storage";
 import { primaryNavigation, routes } from "@/shared/config/routes";
 import { cn } from "@/shared/lib/cn";
 import {

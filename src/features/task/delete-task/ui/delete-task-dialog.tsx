@@ -7,9 +7,9 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 // shared
-import { queryKeys } from "@/shared/api/query-keys";
-import { deleteTask } from "@/shared/api/tasks";
-import { ApiError } from "@/shared/api/http";
+import { ApiError } from "@/shared/api/core/http";
+import { queryKeys } from "@/shared/api/core/query-keys";
+import { deleteTask } from "@/shared/api/endpoints/task";
 import { routes } from "@/shared/config/routes";
 import { Button } from "@/shared/ui/button/button";
 import { Dialog } from "@/shared/ui/dialog/dialog";

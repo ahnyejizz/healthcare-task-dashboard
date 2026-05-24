@@ -1,3 +1,5 @@
+// API 요청/응답 계약 타입과 fixture를 조합해 mock 서버 동작을 재현하는 백엔드 시뮬레이션 모듈
+
 // shared
 import type {
   AuthTokenResponse,

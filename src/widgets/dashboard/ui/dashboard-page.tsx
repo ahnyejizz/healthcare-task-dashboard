@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 // shared
-import { getDashboard } from "@/shared/api/dashboard";
-import { ApiError } from "@/shared/api/http";
-import { queryKeys } from "@/shared/api/query-keys";
+import { ApiError } from "@/shared/api/core/http";
+import { queryKeys } from "@/shared/api/core/query-keys";
+import { getDashboard } from "@/shared/api/endpoints/dashboard";
 import { pageMeta } from "@/shared/config/page-meta";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";

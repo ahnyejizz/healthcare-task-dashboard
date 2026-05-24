@@ -29,13 +29,14 @@
 ``;
 ```
 
-## shared 레이어 규칙
+## shared 레이어 규칙 (@page)
 
-- `shared/ui`      -> `[공통 UI]`
-- `shared/api`     -> `[공통 API]`
-- `shared/lib`     -> `[공통 유틸]`
-- `shared/config`  -> `[공통 설정]`
-- `shared/mocks`   -> `[공통 Mock]`
+- `shared/ui`            -> `[공통 UI]`
+- `shared/api/core`      -> `[공통 API]`
+- `shared/api/endpoints` -> `[각 페이지명]`
+- `shared/lib`           -> `[공통 유틸]`
+- `shared/config`        -> `[공통 설정]`
+- `shared/mocks`         -> `[공통 Mock]`
 
 ### Example
 

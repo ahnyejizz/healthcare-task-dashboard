@@ -11,7 +11,7 @@ import {
   getAuthStateSnapshot,
   subscribeAuthRedirectState,
   subscribeAuthState,
-} from "@/shared/api/auth-storage";
+} from "@/shared/api/core/auth-storage";
 import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";
 
 // widgets

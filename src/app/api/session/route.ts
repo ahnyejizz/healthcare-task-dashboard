@@ -4,7 +4,7 @@ import {
   getSession,
   getUnauthorizedError,
   isAuthorizedRequest,
-} from "@/shared/api/mock-backend";
+} from "@/shared/mocks/mock-backend";
 
 /**
  * @page  - [공통]

@@ -3,10 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 // shared
+import { ApiError } from "@/shared/api/core/http";
+import { queryKeys } from "@/shared/api/core/query-keys";
+import { getSession, getUser } from "@/shared/api/endpoints/user";
 import { pageMeta } from "@/shared/config/page-meta";
-import { ApiError } from "@/shared/api/http";
-import { queryKeys } from "@/shared/api/query-keys";
-import { getSession, getUser } from "@/shared/api/user";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";
 import { LoadingOverlay } from "@/shared/ui/loading/loading-overlay";

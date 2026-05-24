@@ -1,5 +1,4 @@
 import type {
-  DashboardResponse,
   SignInRequest,
   TaskItem,
   UserResponse,

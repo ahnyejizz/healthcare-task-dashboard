@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "@/shared/api/mock-backend";
+import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "@/shared/mocks/mock-backend";
 
 /**
  * @page  - [로그인]

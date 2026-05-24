@@ -1,3 +1,5 @@
+// OpenAPI 명세와 클라이언트/서버 구현 사이의 요청·응답 데이터 형태를 맞추기 위한 API 계약 타입 모음
+
 export type TaskStatus = "TODO" | "DONE";
 
 export type SignInRequest = {

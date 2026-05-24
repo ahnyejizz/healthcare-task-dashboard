@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getTaskPage, getUnauthorizedError, isAuthorizedRequest } from "@/shared/api/mock-backend";
+import { getTaskPage, getUnauthorizedError, isAuthorizedRequest } from "@/shared/mocks/mock-backend";
 
 /**
  * @page  - [할 일 목록]

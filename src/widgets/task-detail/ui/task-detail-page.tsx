@@ -5,10 +5,10 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 // shared
+import { ApiError } from "@/shared/api/core/http";
+import { queryKeys } from "@/shared/api/core/query-keys";
+import { getTaskDetail } from "@/shared/api/endpoints/task";
 import { pageMeta } from "@/shared/config/page-meta";
-import { ApiError } from "@/shared/api/http";
-import { queryKeys } from "@/shared/api/query-keys";
-import { getTaskDetail } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";
 import { ArrowLeftIcon } from "@/shared/ui/icons";
