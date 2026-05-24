@@ -57,29 +57,29 @@ NEXT_PUBLIC_ENABLE_MSW=true
 | `/sign-in`   | 로그인     | `(public)`    |
 
 [로그인]
-![로그인 화면 1](/readme/login/login1.png)
-![로그인 화면 2](/readme/login/login2.png)
+![로그인 화면 1](../public/readme/login/login1.png)
+![로그인 화면 2](../public/readme/login/login2.png)
 
 [대시보드]
-![대시보드 화면 1](/readme/dashboard/dashboard1.png)
-![대시보드 화면 2](/readme/dashboard/dashboard2.png)
+![대시보드 화면 1](../public/readme/dashboard/dashboard1.png)
+![대시보드 화면 2](../public/readme/dashboard/dashboard2.png)
 
 [할 일 목록]
-![할 일 목록 화면 1](/readme/task-list/task-list1.png)
-![할 일 목록 화면 2](/readme/task-list/task-list2.png)
-![할 일 목록 화면 3](/readme/task-list/task-list3.png)
-![할 일 목록 화면 4](/readme/task-list/task-list4.png)
-![할 일 목록 화면 5](/readme/task-list/task-list6.png)
+![할 일 목록 화면 1](../public/readme/task-list/task-list1.png)
+![할 일 목록 화면 2](../public/readme/task-list/task-list2.png)
+![할 일 목록 화면 3](../public/readme/task-list/task-list3.png)
+![할 일 목록 화면 4](../public/readme/task-list/task-list4.png)
+![할 일 목록 화면 5](../public/readme/task-list/task-list6.png)
 
 [할 일 상세]
-![할 일 상세 화면 1](/readme/task-detail/task-detail1.png)
-![할 일 상세 화면 2](/readme/task-detail/task-detail2.png)
-![할 일 상세 화면 3](/readme/task-detail/task-detail3.png)
-![할 일 상세 화면 4](/readme/task-detail/task-detail4.png)
+![할 일 상세 화면 1](../public/readme/task-detail/task-detail1.png)
+![할 일 상세 화면 2](../public/readme/task-detail/task-detail2.png)
+![할 일 상세 화면 3](../public/readme/task-detail/task-detail3.png)
+![할 일 상세 화면 4](../public/readme/task-detail/task-detail4.png)
 
 [회원정보], [로그아웃]
-![회원정보 화면 1](/readme/user/user1.png)
-![회원정보 화면 2](/readme/user/user2.png)
+![회원정보 화면 1](../public/readme/user/user1.png)
+![회원정보 화면 2](../public/readme/user/user2.png)
 
 
 ## 디렉토리 구조
