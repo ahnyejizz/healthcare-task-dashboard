@@ -57,43 +57,43 @@ NEXT_PUBLIC_ENABLE_MSW=true
 | `/sign-in`   | 로그인     | `(public)`    |
 
 
-[로그인]
-* 유효하지 않은 email, pw 입력 시
+## [로그인]
+- 유효하지 않은 email, pw 입력 시
 ![로그인 화면 1](../public/readme/login/login1.png)
 
-* 유효한 email, pw 입력 시
+- 유효한 email, pw 입력 시
 ![로그인 화면 2](../public/readme/login/login2.png)
 
 
-[대시보드]
-* 비 로그인 상태
+## [대시보드]
+**비 로그인 상태**
 - 로그인 안내 문구 제공
 ![대시보드 화면 1](../public/readme/dashboard/dashboard1.png)
 
-* 로그인 완료 상태
+**로그인 완료 상태**
 - 4개의 차트 제공
 - 차트 호버 시 툴팁 및 이미지 다운로드 버튼 제공
 ![대시보드 화면 2](../public/readme/dashboard/dashboard2.png)
 
-* 카운트 비교 차트 - 이미지 다운로드
+- 카운트 비교 차트 - 이미지 다운로드
 ![대시보드 화면 3](../public/readme/dashboard/chart1.png)
 
-* 완료/잔여 비중 차트 - 이미지 다운로드
+- 완료/잔여 비중 차트 - 이미지 다운로드
 ![대시보드 화면 4](../public/readme/dashboard/chart2.png)
 
-* 완료율 차트 - 이미지 다운로드
+- 완료율 차트 - 이미지 다운로드
 ![대시보드 화면 5](../public/readme/dashboard/chart3.png)
 
-* 분포도 차트 - 이미지 다운로드
+- 분포도 차트 - 이미지 다운로드
 ![대시보드 화면 5](../public/readme/dashboard/chart4.png)
 
 
-[할 일 목록]
-* 비 로그인 상태
+## [할 일 목록]
+**비 로그인 상태**
 - 로그인 안내 문구 제공
 ![할 일 목록 화면 1](../public/readme/task-list/task-list1.png)
 
-* 로그인 완료 상태
+**로그인 완료 상태**
 - 페이지 특성에 맞게 기본값은 `TODO` 상태로 설정
 - 긴 메모의 경우 `말줄임표` 및 `툴팁` 처리
 ![할 일 목록 화면 5](../public/readme/task-list/task-list6.png)
@@ -109,7 +109,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ![할 일 목록 화면 4](../public/readme/task-list/task-list4.png)
 
 
-[할 일 상세]
+## [할 일 상세]
 - 태스크 ID, 등록일시, 메모 정보 제공
 - 삭제 액션을 위한 버튼 및 컨펌 다이얼로그, 확인 다이얼로그 제공
 ![할 일 상세 화면 1](../public/readme/task-detail/task-detail1.png)
