@@ -2,6 +2,15 @@
  * @page  - [공통 API]
  * @title - React Query 키 상수
  * @desc  - 캐시 키 불일치를 방지하기 위한 중앙 관리 쿼리 키
+ *
+ * [queryKey가 없는 페이지]
+ * - /sign-in (로그인): 데이터를 조회(GET)하는 게 아니라 자격증명을 서버에 제출(POST)하는 동작이므로
+ *   useQuery 대신 react-hook-form의 handleSubmit + 직접 API 호출로 처리함
+ *   (실제 서비스라면 useMutation 사용 권장)
+ *
+ * - /task (할 일 목록): useQuery가 아닌 useInfiniteQuery를 사용하므로 위 queryKeys와 별도 맥락.
+ *   useQuery는 단건 fetch용이고, useInfiniteQuery는 페이지를 누적해서 불러오는 무한 스크롤 전용임
+ *   queryKey 자체는 동일하게 이 파일의 taskList를 공유함
  */
 export const queryKeys = {
   // 실제 서비스라면 userId를 키에 포함해야 하지만, 과제 특성상 유저 1명만 조회하므로 고정값 사용
