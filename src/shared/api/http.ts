@@ -1,6 +1,6 @@
 // shared
 import type { AuthTokenResponse, ErrorResponse } from "@/shared/api/contracts";
-import { markSignedIn, markSignedOut } from "@/shared/api/auth-storage";
+import { getAccessToken, markSignedIn, markSignedOut } from "@/shared/api/auth-storage";
 
 type RequestOptions = RequestInit & {
   isPublic?: boolean;
@@ -24,9 +24,14 @@ export class ApiError extends Error {
 
 async function sendRequest(path: string, options: RequestOptions = {}) {
   const headers = new Headers(options.headers);
+  const accessToken = getAccessToken();
 
   if (options.body && !headers.has("Content-Type")) {
     headers.set("Content-Type", "application/json");
+  }
+
+  if (!options.isPublic && accessToken && !headers.has("Authorization")) {
+    headers.set("Authorization", `Bearer ${accessToken}`);
   }
 
   let response: Response;

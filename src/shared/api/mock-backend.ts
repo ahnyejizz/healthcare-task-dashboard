@@ -58,8 +58,18 @@ function getCookieValue(request: Request, cookieName: string) {
     ?.slice(`${cookieName}=`.length);
 }
 
+function getBearerToken(request: Request) {
+  const authorization = request.headers.get("authorization");
+
+  if (!authorization?.startsWith("Bearer ")) {
+    return null;
+  }
+
+  return authorization.slice("Bearer ".length) || null;
+}
+
 export function getAuthorizedEmail(request: Request) {
-  return parseAccessToken(getCookieValue(request, ACCESS_TOKEN_COOKIE_NAME) ?? null);
+  return parseAccessToken(getBearerToken(request));
 }
 
 export function isAuthorizedRequest(request: Request) {

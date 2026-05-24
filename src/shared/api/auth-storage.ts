@@ -4,6 +4,7 @@ import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "@/shared/ap
 
 const AUTH_STATE_CHANGE_EVENT = "healthcare-task-dashboard-auth-state-change";
 const AUTH_REDIRECT_EVENT = "healthcare-task-dashboard-auth-redirect-change";
+const ACCESS_TOKEN_STORAGE_KEY = "healthcare-task-dashboard-access-token";
 
 let isAuthRedirecting = false;
 let authState: boolean | null = null;
@@ -24,23 +25,6 @@ function notifyAuthRedirectChange() {
   window.dispatchEvent(new Event(AUTH_REDIRECT_EVENT));
 }
 
-function readCookie(cookieName: string) {
-  if (typeof document === "undefined") {
-    return null;
-  }
-
-  const cookie = document.cookie
-    .split(";")
-    .map((value) => value.trim())
-    .find((value) => value.startsWith(`${cookieName}=`));
-
-  if (!cookie) {
-    return null;
-  }
-
-  return cookie.slice(`${cookieName}=`.length) || null;
-}
-
 function writeCookie(cookieName: string, value: string, maxAge?: number) {
   if (typeof document === "undefined") {
     return;
@@ -55,12 +39,40 @@ function writeCookie(cookieName: string, value: string, maxAge?: number) {
   document.cookie = `${cookieName}=${value}; ${attributes.join("; ")}`;
 }
 
-export function hasAccessTokenCookie() {
-  return Boolean(readCookie(ACCESS_TOKEN_COOKIE_NAME));
+function readAccessToken() {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return window.localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
+}
+
+function writeAccessToken(accessToken: string) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken);
+}
+
+function clearAccessToken() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
+}
+
+export function hasAccessToken() {
+  return Boolean(readAccessToken());
+}
+
+export function getAccessToken() {
+  return readAccessToken();
 }
 
 export function getIsAuthenticated() {
-  return authState ?? hasAccessTokenCookie();
+  return authState ?? hasAccessToken();
 }
 
 export function syncAuthCookies(tokens: AuthTokenResponse) {
@@ -75,6 +87,7 @@ export function clearAuthCookies() {
 
 export function markSignedIn(tokens?: AuthTokenResponse) {
   if (tokens) {
+    writeAccessToken(tokens.accessToken);
     syncAuthCookies(tokens);
   }
 
@@ -83,6 +96,7 @@ export function markSignedIn(tokens?: AuthTokenResponse) {
 }
 
 export function markSignedOut() {
+  clearAccessToken();
   clearAuthCookies();
   authState = false;
   notifyAuthStateChange();
