@@ -244,36 +244,6 @@ export function SortIcon({
 
 /**
  * @page  - [공통 UI]
- * @title - 정렬 방향 아이콘 컴포넌트
- * @desc  - 오름차순 또는 내림차순 방향 아이콘 렌더링
- */
-export function SortDirectionIcon({
-  className,
-  direction,
-  ...props
-}: IconSpanProps & { direction: "asc" | "desc" }) {
-  const isAscending = direction === "asc";
-
-  return (
-    <span
-      className={cn("relative block h-[18px] w-[18px] shrink-0", className)}
-      {...props}
-    >
-      <span className="absolute left-1/2 top-[2px] h-[14px] w-[2px] -translate-x-1/2 rounded-full bg-current/85" />
-      <span
-        className={cn(
-          "absolute left-1/2 h-[5px] w-[5px] -translate-x-1/2 rotate-45 border-current/85",
-          isAscending
-            ? "top-[2px] border-t-[2px] border-l-[2px]"
-            : "top-[10px] border-r-[2px] border-b-[2px]",
-        )}
-      />
-    </span>
-  );
-}
-
-/**
- * @page  - [공통 UI]
  * @title - 아래 방향 화살표 아이콘 컴포넌트
  * @desc  - 드롭다운 열림/닫힘 방향 표시 아이콘 렌더링
  */

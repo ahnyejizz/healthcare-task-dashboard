@@ -50,7 +50,7 @@ export function Tooltip({
 
   return createPortal(
     <div
-      className="fixed z-[9999] cursor-pointer"
+      className="fixed z-[9999]"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={containerStyle}

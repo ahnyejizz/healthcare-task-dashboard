@@ -98,7 +98,7 @@ function clearAccessToken() {
  * @title - 액세스 토큰 존재 여부 확인 함수
  * @desc  - 현재 액세스 토큰이 저장되어 있는지 boolean 값으로 반환
  */
-export function hasAccessToken() {
+function hasAccessToken() {
   return Boolean(readAccessToken());
 }
 
@@ -125,7 +125,7 @@ export function getIsAuthenticated() {
  * @title - 인증 쿠키 동기화 함수
  * @desc  - 액세스 토큰과 리프레시 토큰을 브라우저 쿠키에 반영
  */
-export function syncAuthCookies(tokens: AuthTokenResponse) {
+function syncAuthCookies(tokens: AuthTokenResponse) {
   writeCookie(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken);
   writeCookie(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken);
 }
@@ -135,7 +135,7 @@ export function syncAuthCookies(tokens: AuthTokenResponse) {
  * @title - 인증 쿠키 삭제 함수
  * @desc  - 액세스 토큰과 리프레시 토큰 쿠키를 만료 처리
  */
-export function clearAuthCookies() {
+function clearAuthCookies() {
   writeCookie(ACCESS_TOKEN_COOKIE_NAME, "", 0);
   writeCookie(REFRESH_TOKEN_COOKIE_NAME, "", 0);
 }
@@ -172,7 +172,7 @@ export function markSignedOut() {
  * @title - 인증 리다이렉트 상태 조회 함수
  * @desc  - 현재 인증 리다이렉트 진행 여부를 반환
  */
-export function getIsAuthRedirecting() {
+function getIsAuthRedirecting() {
   return isAuthRedirecting;
 }
 
@@ -201,7 +201,7 @@ export function finishAuthRedirect() {
  * @title - 인증 상태 구독 함수
  * @desc  - 인증 상태 변경 이벤트를 구독하고 해제 함수를 반환
  */
-export function subscribeToAuthStateChange(onChange: (value: boolean) => void) {
+function subscribeToAuthStateChange(onChange: (value: boolean) => void) {
   if (typeof window === "undefined") {
     return () => {};
   }
@@ -222,7 +222,7 @@ export function subscribeToAuthStateChange(onChange: (value: boolean) => void) {
  * @title - 인증 리다이렉트 상태 구독 함수
  * @desc  - 인증 리다이렉트 상태 변경 이벤트를 구독하고 해제 함수를 반환
  */
-export function subscribeToAuthRedirectChange(onChange: (value: boolean) => void) {
+function subscribeToAuthRedirectChange(onChange: (value: boolean) => void) {
   if (typeof window === "undefined") {
     return () => {};
   }
