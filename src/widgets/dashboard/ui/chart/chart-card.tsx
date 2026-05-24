@@ -15,7 +15,8 @@ import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
 // widgets
 import { ChartCardHeader } from "@/widgets/dashboard/ui/chart/chart-card-header";
 import { ChartLegend } from "@/widgets/dashboard/ui/chart/chart-legend";
-import { chartCards, createChartOptions } from "@/widgets/dashboard/ui/chart/chart-options";
+import { chartCards } from "@/widgets/dashboard/model/chart-card-meta";
+import { createChartOptions } from "@/widgets/dashboard/ui/chart/chart-options";
 import {
   createDashboardChartOptionContext,
   resolveDashboardTooltipItem,
