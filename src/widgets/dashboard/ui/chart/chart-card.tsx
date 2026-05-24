@@ -6,7 +6,7 @@ import * as echarts from "echarts";
 
 // shared
 import type { DashboardResponse } from "@/shared/api/contracts";
-import { downloadElementAsImage } from "@/shared/lib/download-element-as-image";
+import { downloadChartAsImage } from "@/shared/lib/download-chart-as-image";
 import { Button } from "@/shared/ui/button/button";
 import { DownloadIcon } from "@/shared/ui/icons";
 import { LoadingSpinner } from "@/shared/ui/loading/loading-spinner";
@@ -40,7 +40,6 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
   /* ================================================================================== */
 
   const chartRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [readyCharts, setReadyCharts] = useState<boolean[]>(() => chartCards.map(() => false));
   const [tooltipState, setTooltipState] = useState<ChartTooltipState>(null);
   const tooltipContext = useMemo(() => createDashboardChartOptionContext(metrics), [metrics]);
@@ -51,17 +50,28 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
 
   // 차트 카드를 이미지로 저장
   async function handleDownloadChartCard(index: number) {
-    const target = cardRefs.current[index];
+    const chartNode = chartRefs.current[index];
+    const card = chartCards[index];
+    const chart = chartNode ? echarts.getInstanceByDom(chartNode) : null;
 
-    if (!target) {
+    if (!chart || !chartNode) {
       return;
     }
 
-    const fileName = chartCards[index].title.replace(/\s*\/\s*/g, "／").replace(/\//g, "／");
-
-    await downloadElementAsImage({
-      element: target,
-      fileName: `${fileName}.png`,
+    await downloadChartAsImage({
+      card,
+      chart,
+      chartNode,
+      legendItems:
+        card.legendItems?.map((item) => ({
+          color:
+            item.colorKey === "todoStrong"
+              ? tooltipContext.todoStrong
+              : item.colorKey === "doneStrong"
+                ? tooltipContext.doneStrong
+                : tooltipContext.primary,
+          label: item.label,
+        })) ?? [],
     });
   }
 
@@ -192,9 +202,6 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
           return (
             <div
               key={card.title}
-              ref={(node) => {
-                cardRefs.current[index] = node;
-              }}
               className="group/chart-card flex h-full flex-col rounded-[24px] border border-border bg-white p-4 text-primary"
             >
               <ChartCardHeader
