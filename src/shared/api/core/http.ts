@@ -1,5 +1,5 @@
 // shared
-import type { AuthTokenResponse, ErrorResponse } from "@/shared/api/contracts";
+import type { AuthTokenResponse, ErrorResponse } from "@/shared/api/api-types";
 import { getAccessToken, markSignedIn, markSignedOut } from "@/shared/api/core/auth-storage";
 
 type RequestOptions = RequestInit & {
@@ -8,7 +8,7 @@ type RequestOptions = RequestInit & {
 };
 
 /**
- * @page  - [공통 API]
+ * @page  - [공통]
  * @title - API 에러 클래스
  * @desc  - 상태 코드를 포함한 공통 API 에러 객체 제공
  */
@@ -22,6 +22,11 @@ export class ApiError extends Error {
   }
 }
 
+/**
+ * @page  - [공통]
+ * @title - API 요청 전송 함수
+ * @desc  - 공통 헤더와 인증 토큰을 포함해 실제 fetch 요청을 전송
+ */
 async function sendRequest(path: string, options: RequestOptions = {}) {
   const headers = new Headers(options.headers);
   const accessToken = getAccessToken();
@@ -49,6 +54,11 @@ async function sendRequest(path: string, options: RequestOptions = {}) {
   return response;
 }
 
+/**
+ * @page  - [공통]
+ * @title - 액세스 토큰 재발급 함수
+ * @desc  - 리프레시 토큰 기반으로 액세스 토큰을 재발급하고 인증 상태를 갱신
+ */
 async function refreshAccessToken() {
   const response = await fetch("/api/refresh", {
     method: "POST",
@@ -68,7 +78,7 @@ async function refreshAccessToken() {
 }
 
 /**
- * @page  - [공통 API]
+ * @page  - [공통]
  * @title - API 요청 함수
  * @desc  - 인증 갱신을 포함한 공통 API 요청 처리
  */

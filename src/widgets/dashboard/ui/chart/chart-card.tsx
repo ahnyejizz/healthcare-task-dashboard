@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import * as echarts from "echarts";
 
 // shared
-import type { DashboardResponse } from "@/shared/api/contracts";
+import type { DashboardResponse } from "@/shared/api/api-types";
 import { downloadChartAsImage } from "@/shared/lib/download-chart-as-image";
 import { Button } from "@/shared/ui/button/button";
 import { DownloadIcon } from "@/shared/ui/icons";

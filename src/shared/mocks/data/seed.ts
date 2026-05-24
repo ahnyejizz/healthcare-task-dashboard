@@ -2,7 +2,7 @@ import type {
   SignInRequest,
   TaskItem,
   UserResponse,
-} from "@/shared/api/contracts";
+} from "@/shared/api/api-types";
 
 const TOTAL_TASKS = 80;
 

@@ -1,4 +1,8 @@
-// API 요청/응답 계약 타입과 fixture를 조합해 mock 서버 동작을 재현하는 백엔드 시뮬레이션 모듈
+/**
+ * @page  - [공통 Mock]
+ * @title - Mock 백엔드 모듈
+ * @desc  - API 타입과 fixture를 조합해 MSW 및 Route Handler에서 공통으로 사용하는 mock 서버 동작을 재현
+ */
 
 // shared
 import type {
@@ -11,7 +15,7 @@ import type {
   TaskDetailResponse,
   TaskListResponse,
   UserResponse,
-} from "@/shared/api/contracts";
+} from "@/shared/api/api-types";
 import { mockCredentials, tasksFixture, userFixtureByEmail } from "@/shared/mocks/data/seed";
 
 const ACCESS_TOKEN_PREFIX = "mock-access-token";

@@ -11,7 +11,7 @@ import {
 } from "@/shared/api/core/auth-storage";
 import { ApiError } from "@/shared/api/core/http";
 import { signOut } from "@/shared/api/endpoints/auth";
-import type { UserResponse } from "@/shared/api/contracts";
+import type { UserResponse } from "@/shared/api/api-types";
 import { routes } from "@/shared/config/routes";
 import { pageMeta } from "@/shared/config/page-meta";
 import { ConfirmDialog } from "@/shared/ui/dialog/confirm-dialog";

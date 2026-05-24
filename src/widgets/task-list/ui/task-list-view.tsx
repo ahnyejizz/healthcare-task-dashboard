@@ -7,7 +7,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { TaskCard } from "@/entities/task/ui/task-card";
 
 // shared
-import type { TaskItem } from "@/shared/api/contracts";
+import type { TaskItem } from "@/shared/api/api-types";
 import { pageMeta } from "@/shared/config/page-meta";
 import { cn } from "@/shared/lib/cn";
 import { EmptyState } from "@/shared/ui/empty-state";

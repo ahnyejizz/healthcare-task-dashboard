@@ -1,5 +1,5 @@
 // shared
-import type { SessionResponse, UserResponse } from "@/shared/api/contracts";
+import type { SessionResponse, UserResponse } from "@/shared/api/api-types";
 import { apiRequest } from "@/shared/api/core/http";
 
 /**

@@ -24,9 +24,6 @@ FSD(Feature-Sliced Design) 구조 기반으로
 MSW 기반 모킹 환경과 Next.js Route Handler 기반 API를 함께 구성
 `NEXT_PUBLIC_ENABLE_MSW=true`일 때 MSW가 활성화
 
-- `shared/api/core`: 인증 상태 저장, 공통 HTTP 래퍼, React Query 키 등 인프라성 API 유틸
-- `shared/api/endpoints`: 화면/도메인에서 실제로 호출하는 endpoint 함수 모음
-
 ## 개발 명령어
 
 ```bash
@@ -197,7 +194,7 @@ src/
       sign-in/route.ts    # [로그인] API Route Handler
       sign-out/route.ts   # [로그아웃] API Route Handler
       task/route.ts       # [할 일 목록] API Route Handler
-      task/[id]/route.ts  # [할 일 상세] 삭제 API Route Handler
+      task/[id]/route.ts  # [할 일 상세] 조회 / 삭제 API Route Handler
       user/route.ts       # [회원정보] API Route Handler
     favicon.ico           # favicon
     globals.css           # CSS 토큰 + Tailwind + Pretendard import
@@ -229,7 +226,7 @@ src/
         dashboard.ts                  # [대시보드] 조회 API
         task.ts                       # [할 일 목록], [할 일 상세] 요청 API
         user.ts                       # [회원정보] 회원정보 / 세션 조회 API
-      contracts.ts                    # API 응답/요청 타입 정의
+      api-types.ts                    # API 요청/응답 타입 정의
     config/
       page-meta.ts                    # 페이지 메타 정보
       routes.ts                       # 라우트 상수 및 네비게이션 정보
@@ -240,7 +237,7 @@ src/
     mocks/
       browser.ts                      # MSW browser worker 설정
       handlers.ts                     # MSW 핸들러 정의
-      mock-backend.ts                 # mock backend 동작 및 fixture 조합
+      mock-backend.ts                 # MSW / Route Handler 공용 mock 백엔드 동작
       data/
         seed.ts                       # mock seed / fixture 데이터
     ui/

@@ -1,5 +1,5 @@
 // shared
-import type { AuthTokenResponse, SignInRequest, SuccessResponse } from "@/shared/api/contracts";
+import type { AuthTokenResponse, SignInRequest, SuccessResponse } from "@/shared/api/api-types";
 import { apiRequest } from "@/shared/api/core/http";
 
 /**

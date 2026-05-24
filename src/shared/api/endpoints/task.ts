@@ -3,7 +3,7 @@ import type {
   DeleteTaskResponse,
   TaskDetailResponse,
   TaskListResponse,
-} from "@/shared/api/contracts";
+} from "@/shared/api/api-types";
 import { apiRequest } from "@/shared/api/core/http";
 
 /**

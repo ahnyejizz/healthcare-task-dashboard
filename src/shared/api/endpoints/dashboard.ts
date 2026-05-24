@@ -1,5 +1,5 @@
 // shared
-import type { DashboardResponse } from "@/shared/api/contracts";
+import type { DashboardResponse } from "@/shared/api/api-types";
 import { apiRequest } from "@/shared/api/core/http";
 
 /**

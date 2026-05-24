@@ -1,7 +1,7 @@
 import type { EChartsOption } from "echarts";
 
 // shared
-import type { DashboardResponse } from "@/shared/api/contracts";
+import type { DashboardResponse } from "@/shared/api/api-types";
 
 // widgets
 import { createComparisonCountOption } from "@/widgets/dashboard/ui/chart/options/comparison-count-option";

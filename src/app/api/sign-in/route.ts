@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 // shared
-import type { SignInRequest } from "@/shared/api/contracts";
+import type { SignInRequest } from "@/shared/api/api-types";
 import {
   ACCESS_TOKEN_COOKIE_NAME,
   getAuthTokens,

@@ -1,7 +1,7 @@
 import { delay, http, HttpResponse } from "msw";
 
 // shared
-import type { SignInRequest } from "@/shared/api/contracts";
+import type { SignInRequest } from "@/shared/api/api-types";
 import {
   ACCESS_TOKEN_COOKIE_NAME,
   deleteTaskById,

@@ -1,4 +1,4 @@
-import type { DashboardResponse } from "@/shared/api/contracts";
+import type { DashboardResponse } from "@/shared/api/api-types";
 
 export type DashboardChartOptionContext = {
   border: string;

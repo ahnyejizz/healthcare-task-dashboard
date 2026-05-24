@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // shared
-import type { TaskItem } from "@/shared/api/contracts";
+import type { TaskItem } from "@/shared/api/api-types";
 import { cn } from "@/shared/lib/cn";
 import { StatusBadge } from "@/shared/ui/status-badge";
 import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
