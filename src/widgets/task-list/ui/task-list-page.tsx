@@ -4,6 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
+import { queryKeys } from "@/shared/api/query-keys";
 import { getTaskPage } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";
@@ -20,7 +21,7 @@ export function TaskListPage({ initialPage }: { initialPage: number }) {
   const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery({
       initialPageParam: initialPage,
-      queryKey: ["tasks", initialPage],
+      queryKey: queryKeys.taskList(initialPage),
       queryFn: ({ pageParam }) => getTaskPage(pageParam),
       getNextPageParam: (lastPage, _allPages, lastPageParam) =>
         lastPage.hasNext ? lastPageParam + 1 : undefined,

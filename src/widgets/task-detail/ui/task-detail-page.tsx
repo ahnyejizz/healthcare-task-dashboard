@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
+import { queryKeys } from "@/shared/api/query-keys";
 import { getTaskDetail } from "@/shared/api/tasks";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";
@@ -21,7 +22,7 @@ import { TaskDetailView } from "@/widgets/task-detail/ui/task-detail-view";
 export function TaskDetailPage({ id }: { id: string }) {
   const router = useRouter();
   const { data, error, isLoading } = useQuery({
-    queryKey: ["task-detail", id],
+    queryKey: queryKeys.taskDetail(id),
     queryFn: () => getTaskDetail(id),
     retry: false,
   });

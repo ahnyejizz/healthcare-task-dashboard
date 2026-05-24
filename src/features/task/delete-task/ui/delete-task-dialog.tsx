@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { queryKeys } from "@/shared/api/query-keys";
 import { deleteTask } from "@/shared/api/tasks";
 import { ApiError } from "@/shared/api/http";
 import { routes } from "@/shared/config/routes";
@@ -52,8 +53,8 @@ export function DeleteTaskDialog({ children, id }: DeleteTaskDialogProps) {
       await deleteTask(id);
       setIsConfirmOpen(false);
       reset();
-      queryClient.removeQueries({ queryKey: ["tasks"] });
-      queryClient.removeQueries({ queryKey: ["task-detail", id] });
+      queryClient.removeQueries({ queryKey: queryKeys.taskListPrefix });
+      queryClient.removeQueries({ queryKey: queryKeys.taskDetail(id) });
       setIsSuccessOpen(true);
     } catch (error) {
       setErrorMessage(error instanceof ApiError ? error.message : "삭제 처리에 실패했습니다.");

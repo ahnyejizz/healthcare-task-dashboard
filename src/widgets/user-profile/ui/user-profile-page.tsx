@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { pageMeta } from "@/shared/config/page-meta";
 import { ApiError } from "@/shared/api/http";
+import { queryKeys } from "@/shared/api/query-keys";
 import { getSession, getUser } from "@/shared/api/user";
 import { routes } from "@/shared/config/routes";
 import { ButtonLink } from "@/shared/ui/button/button";
@@ -17,7 +18,7 @@ import { UserProfileCard } from "@/widgets/user-profile/ui/user-profile-card";
  */
 export function UserProfilePage() {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["user"],
+    queryKey: queryKeys.user,
     queryFn: async () => {
       const [user, session] = await Promise.all([getUser(), getSession()]);
       return {
