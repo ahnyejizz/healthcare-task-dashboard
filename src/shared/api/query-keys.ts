@@ -13,6 +13,15 @@
  *   queryKey 자체는 동일하게 이 파일의 taskList를 공유함
  */
 export const queryKeys = {
+  // 실제 서비스라면 userId, 기간(range), 조직/프로젝트 식별자 등을 포함해 조건별 캐시를 분리하는 편이 안전함
+  dashboard: ["dashboard"] as const,
+  /*
+  실제 서비스 예시:
+  dashboard: (userId: string, range: "week" | "month") =>
+    ["dashboard", userId, range] as const
+  → 같은 사용자의 주간/월간 대시보드가 서로 다른 캐시로 관리됨
+  */
+
   // 실제 서비스라면 userId를 키에 포함해야 하지만, 과제 특성상 유저 1명만 조회하므로 고정값 사용
   user: ["user"] as const,
   /*

@@ -28,9 +28,3 @@ export const tasksFixture: TaskItem[] = Array.from({ length: TOTAL_TASKS }, (_, 
       : "긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트 긴메모테스트",
   status: index % 3 === 0 ? "DONE" : "TODO",
 }));
-
-export const dashboardFixture: DashboardResponse = {
-  numOfTask: tasksFixture.length,
-  numOfRestTask: tasksFixture.filter((task) => task.status === "TODO").length,
-  numOfDoneTask: tasksFixture.filter((task) => task.status === "DONE").length,
-};
