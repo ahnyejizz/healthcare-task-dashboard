@@ -56,6 +56,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 | `/user`      | 회원정보   | `(protected)` |
 | `/sign-in`   | 로그인     | `(public)`    |
 
+---
 
 ## [로그인]
 - 유효하지 않은 email, pw 입력 시
@@ -64,6 +65,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 - 유효한 email, pw 입력 시
 ![로그인 화면](../public/readme/login/login2.png)
 
+---
 
 ## [대시보드]
 **1. 비 로그인 상태**
@@ -100,20 +102,18 @@ NEXT_PUBLIC_ENABLE_MSW=true
 - 분포도 차트 - 이미지 다운로드
 ![대시보드 화면](../public/readme/dashboard/chart4.png)
 
+---
 
 ## [할 일 목록]
 **1. 비 로그인 상태**
 ![할 일 목록 화면](../public/readme/task-list/task-list1.png)
 - 로그인 안내 문구 제공
 
+---
+
 **2. 로그인 완료 상태**
 ![할 일 목록 화면](../public/readme/task-list/task-list-loading1.png)
 - 초기 데이터를 불러오는 동안 로딩바 표시
-
----
-
-![할 일 목록 화면](../public/readme/task-list/task-list-loading2.png)
-- 전체 목록을 추가로 불러오는 동안 로딩 스피너, 안내 문구 표시
 
 ---
 
@@ -123,8 +123,13 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ---
 
+![할 일 목록 화면](../public/readme/task-list/task-list-loading2.png)
+- 스크롤 시, 전체 목록을 추가로 불러오는 동안 로딩 스피너, 안내 문구 표시
+
+---
+
 ![할 일 목록 화면](../public/readme/task-list/task-list2.png)
-- 필터링 버튼을 통해 `전체`, `DONE`, `TODO` 상태 필터링 가능
+- 필터링 버튼을 통해 `전체`, `TODO`, `DONE` 상태 필터링 가능
 - 상세/목록 화면을 `카드형, 리스트형` 형태로 볼 수 있도록 제공
 
 ---
@@ -135,14 +140,11 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ---
 
 ![할 일 목록 화면](../public/readme/task-list/task-list4.png)
-- 태스크 ID, 태스크명, 메모 key에 따른 `검색` 기능 제공
-- 검색/필터 결과가 없는 경우 아이콘이 포함된 공통 `EmptyState` UI로 우측 콘텐츠 영역 전체를 활용해 엠티셋 안내 제공
-
----
-
 ![할 일 목록 화면](../public/readme/task-list/task-list-empty1.png)
+- 태스크 ID, 태스크명, 메모 key에 따른 `검색` 기능 제공
 - 검색어에 따른 검색 결과가 존재하지 않는 경우 엠티셋 컴포넌트 표시
 
+---
 
 ## [할 일 상세]
 ![할 일 상세 화면](../public/readme/task-detail/task-detail-loading1.png)
@@ -151,12 +153,16 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ---
 
 ![할 일 상세 화면](../public/readme/task-detail/task-detail1.png)
+- 태스크 ID, 등록일시, 메모 정보 제공
+
+---
+
 ![할 일 상세 화면](../public/readme/task-detail/task-detail2.png)
 ![할 일 상세 화면](../public/readme/task-detail/task-detail3.png)
 ![할 일 상세 화면](../public/readme/task-detail/task-detail4.png)
-- 태스크 ID, 등록일시, 메모 정보 제공
 - 삭제 액션을 위한 버튼 및 컨펌 다이얼로그, 확인 다이얼로그 제공
 
+---
 
 ## [회원정보], [로그아웃]
 ![회원정보 화면](../public/readme/user/user-loading1.png)
@@ -169,6 +175,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 - 이름, 이메일, 메모 정보 제공
 - 로그아웃 액션을 위한 버튼 및 컨펌 다이얼로그 제공
 
+---
 
 ## 디렉토리 구조
 
@@ -349,7 +356,7 @@ src/
 [할 일 목록, 할 일 상세]
 - 할 일 상세 → 할 일 목록 `돌아가기` 버튼 추가
 - 긴 메모의 경우 `말줄임표` 및 `툴팁` 처리
-- 전체, TODO, DONE 상태값에 따른 `필터링` 기능 제공
+- `전체`, `TODO`, `DONE` 상태값에 따른 `필터링` 기능 제공
 - (`/api/task` 응답에는 TODO, DONE 상태값이 모두 포함되지만, `해야할 일`이라는 페이지 특성과 사용자 편의성을 고려해 TODO 상태 태스크를 기본으로 노출하고, 전체 및 DONE 상태도 볼 수 있도록 `필터링` 기능 제공)
 - 태스크 ID 오름차순, 내림차순에 따른 `정렬` 기능 제공
 - 태스크 ID, 태스크명, 메모 key에 따른 `검색` 기능 제공
