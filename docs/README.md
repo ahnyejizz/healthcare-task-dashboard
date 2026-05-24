@@ -59,70 +59,89 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ## [로그인]
 - 유효하지 않은 email, pw 입력 시
-![로그인 화면 1](../public/readme/login/login1.png)
+![로그인 화면](../public/readme/login/login1.png)
 
 - 유효한 email, pw 입력 시
-![로그인 화면 2](../public/readme/login/login2.png)
+![로그인 화면](../public/readme/login/login2.png)
 
 
 ## [대시보드]
-**비 로그인 상태**
+**1. 비 로그인 상태**
 - 로그인 안내 문구 제공
-![대시보드 화면 1](../public/readme/dashboard/dashboard1.png)
+![대시보드 화면](../public/readme/dashboard/dashboard1.png)
 
-**로그인 완료 상태**
+**2. 로그인 완료 상태**
+![대시보드 화면](../public/readme/dashboard/dashboard-loading1.png)
+- 차트가 렌더링 되기까지 로딩스피너 표시
+
+![대시보드 화면](../public/readme/dashboard/dashboard3.png)
+![대시보드 화면](../public/readme/dashboard/dashboard4.png)
+![대시보드 화면](../public/readme/dashboard/dashboard2.png)
+![대시보드 화면](../public/readme/dashboard/dashboard5.png)
+![대시보드 화면](../public/readme/dashboard/dashboard6.png)
 - 4개의 차트 제공
-- 차트 호버 시 툴팁 및 이미지 다운로드 버튼 제공
-![대시보드 화면 2](../public/readme/dashboard/dashboard2.png)
+- 차트 호버 시 호버이벤트 및 툴팁 표시 및 이미지 다운로드 버튼 제공
 
 - 카운트 비교 차트 - 이미지 다운로드
-![대시보드 화면 3](../public/readme/dashboard/chart1.png)
+![대시보드 화면](../public/readme/dashboard/chart1.png)
 
 - 완료/잔여 비중 차트 - 이미지 다운로드
-![대시보드 화면 4](../public/readme/dashboard/chart2.png)
+![대시보드 화면](../public/readme/dashboard/chart2.png)
 
 - 완료율 차트 - 이미지 다운로드
-![대시보드 화면 5](../public/readme/dashboard/chart3.png)
+![대시보드 화면](../public/readme/dashboard/chart3.png)
 
 - 분포도 차트 - 이미지 다운로드
-![대시보드 화면 5](../public/readme/dashboard/chart4.png)
+![대시보드 화면](../public/readme/dashboard/chart4.png)
 
 
 ## [할 일 목록]
-**비 로그인 상태**
+**1. 비 로그인 상태**
 - 로그인 안내 문구 제공
-![할 일 목록 화면 1](../public/readme/task-list/task-list1.png)
+![할 일 목록 화면](../public/readme/task-list/task-list1.png)
 
-**로그인 완료 상태**
+**2. 로그인 완료 상태**
+![할 일 목록 화면](../public/readme/task-list/task-list-loading1.png)
+- 초기 데이터를 불러오는 동안 로딩바 표시
+
+![할 일 목록 화면](../public/readme/task-list/task-list-loading2.png)
+- 전체 목록을 추가로 불러오는 동안 로딩 스피너, 안내 문구 표시
+
+![할 일 목록 화면](../public/readme/task-list/task-list6.png)
 - 페이지 특성에 맞게 기본값은 `TODO` 상태로 설정
 - 긴 메모의 경우 `말줄임표` 및 `툴팁` 처리
-![할 일 목록 화면 5](../public/readme/task-list/task-list6.png)
 
+![할 일 목록 화면](../public/readme/task-list/task-list2.png)
 - 필터링 버튼을 통해 `전체`, `DONE`, `TODO` 상태 필터링 가능
 - 상세/목록 화면을 `카드형, 리스트형` 형태로 볼 수 있도록 제공
-![할 일 목록 화면 2](../public/readme/task-list/task-list2.png)
 
+![할 일 목록 화면](../public/readme/task-list/task-list3.png)
 - 태스크 ID 오름차순, 내림차순에 따른 `정렬` 기능 제공
-![할 일 목록 화면 3](../public/readme/task-list/task-list3.png)
 
+![할 일 목록 화면](../public/readme/task-list/task-list4.png)
 - 태스크 ID, 태스크명, 메모 key에 따른 `검색` 기능 제공
-![할 일 목록 화면 4](../public/readme/task-list/task-list4.png)
 
 
 ## [할 일 상세]
+![할 일 상세 화면](../public/readme/task-detail/task-detail-loading1.png)
+- 초기 데이터를 불러오는 동안 로딩바 표시
+
+![할 일 상세 화면](../public/readme/task-detail/task-detail1.png)
+![할 일 상세 화면](../public/readme/task-detail/task-detail2.png)
+![할 일 상세 화면](../public/readme/task-detail/task-detail3.png)
+![할 일 상세 화면](../public/readme/task-detail/task-detail4.png)
 - 태스크 ID, 등록일시, 메모 정보 제공
 - 삭제 액션을 위한 버튼 및 컨펌 다이얼로그, 확인 다이얼로그 제공
-![할 일 상세 화면 1](../public/readme/task-detail/task-detail1.png)
-![할 일 상세 화면 2](../public/readme/task-detail/task-detail2.png)
-![할 일 상세 화면 3](../public/readme/task-detail/task-detail3.png)
-![할 일 상세 화면 4](../public/readme/task-detail/task-detail4.png)
 
 
 [회원정보], [로그아웃]
+![회원정보 화면](../public/readme/user/user-loading.png)
+- 초기 데이터를 불러오는 동안 로딩바 표시
+
+![회원정보 화면](../public/readme/user/user1.png)
+![회원정보 화면](../public/readme/user/user2.png)
 - 이름, 이메일, 메모 정보 제공
 - 로그아웃 액션을 위한 버튼 및 컨펌 다이얼로그 제공
-![회원정보 화면 1](../public/readme/user/user1.png)
-![회원정보 화면 2](../public/readme/user/user2.png)
 
 
 ## 디렉토리 구조
