@@ -1,4 +1,4 @@
-import { ChartLegendItem } from "../../model/dashboard-model";
+import type { ChartLegendItem } from "@/widgets/dashboard/model/dashboard-model";
 
 /**
  * @page  - [대시보드]
