@@ -1,7 +1,7 @@
 import type { ECharts } from "echarts";
 
 // widgets
-import type { ChartCardMeta } from "@/widgets/dashboard/model/chart-card-meta";
+import type { ChartCardMeta } from "@/widgets/dashboard/model/dashboard-model";
 
 const EXPORT_BACKGROUND = "#ffffff";
 const EXPORT_BORDER = "rgba(252, 175, 24, 0.24)";

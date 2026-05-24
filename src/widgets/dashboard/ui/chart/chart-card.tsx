@@ -10,25 +10,18 @@ import { downloadChartAsImage } from "@/shared/lib/download-chart-as-image";
 import { Button } from "@/shared/ui/button/button";
 import { DownloadIcon } from "@/shared/ui/icons";
 import { LoadingSpinner } from "@/shared/ui/loading/loading-spinner";
-import { Tooltip, type TooltipPosition } from "@/shared/ui/tooltip";
+import { Tooltip } from "@/shared/ui/tooltip";
 
 // widgets
 import { ChartCardHeader } from "@/widgets/dashboard/ui/chart/chart-card-header";
 import { ChartLegend } from "@/widgets/dashboard/ui/chart/chart-legend";
-import { chartCards } from "@/widgets/dashboard/model/chart-card-meta";
+import { chartCards, ChartTooltip } from "@/widgets/dashboard/model/dashboard-model";
 import { createChartOptions } from "@/widgets/dashboard/ui/chart/chart-options";
 import {
   createDashboardChartOptionContext,
   resolveDashboardTooltipItem,
   resolveDashboardTooltipLabel,
 } from "@/widgets/dashboard/ui/chart/options/option-context";
-
-type ChartTooltipState = {
-  color: string;
-  label: string;
-  position: TooltipPosition;
-  value: number;
-} | null;
 
 /**
  * @page  - [대시보드]
@@ -42,7 +35,7 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
 
   const chartRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [readyCharts, setReadyCharts] = useState<boolean[]>(() => chartCards.map(() => false));
-  const [tooltipState, setTooltipState] = useState<ChartTooltipState>(null);
+  const [tooltipState, setTooltipState] = useState<ChartTooltip>(null);
   const tooltipContext = useMemo(() => createDashboardChartOptionContext(metrics), [metrics]);
 
   /* ================================================================================== */

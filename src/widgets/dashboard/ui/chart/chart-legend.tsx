@@ -1,7 +1,4 @@
-type ChartLegendItem = {
-  color: string;
-  label: string;
-};
+import { ChartLegendItem } from "../../model/dashboard-model";
 
 /**
  * @page  - [대시보드]

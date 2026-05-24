@@ -1,15 +1,29 @@
+import { TooltipPosition } from "@/shared/ui/tooltip";
+
+export type ChartTooltip = {
+  color: string;
+  label: string;
+  position: TooltipPosition;
+  value: number;
+} | null;
+
 export type ChartLegendItem = {
+  color: string;
+  label: string;
+};
+
+export type ChartLegendItems = {
   colorKey: "todoStrong" | "doneStrong" | "primary";
   label: string;
 };
 
 export type ChartCardMeta = {
   description: string;
-  legendItems?: ChartLegendItem[];
+  legendItems?: ChartLegendItems[];
   title: string;
 };
 
-const progressLegendItems: ChartLegendItem[] = [
+const progressLegendItems: ChartLegendItems[] = [
   { colorKey: "todoStrong", label: "해야할 일" },
   { colorKey: "doneStrong", label: "한 일" },
 ];
