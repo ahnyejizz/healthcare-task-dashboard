@@ -164,15 +164,18 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ---
 
-## [회원정보], [로그아웃]
+## [회원정보]
 ![회원정보 화면](../public/readme/user/user-loading1.png)
 - 초기 데이터를 불러오는 동안 로딩바 표시
 
 ---
 
 ![회원정보 화면](../public/readme/user/user1.png)
-![회원정보 화면](../public/readme/user/user2.png)
 - 이름, 이메일, 메모 정보 제공
+
+---
+
+![회원정보 화면](../public/readme/user/user2.png)
 - 로그아웃 액션을 위한 버튼 및 컨펌 다이얼로그 제공
 
 ---
