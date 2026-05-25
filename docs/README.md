@@ -282,7 +282,10 @@ src/
     mocks/
       browser.ts                      # MSW browser worker 설정
       handlers.ts                     # MSW 핸들러 정의
-      mock-backend.ts                 # MSW / Route Handler 공용 mock 백엔드 동작
+      mock-auth.ts                    # mock JWT / Bearer / refresh 인증 처리
+      mock-data.ts                    # mock 회원정보 / 대시보드 / 태스크 응답 생성
+      mock-errors.ts                  # mock 공통 에러 응답 생성
+      mock-backend.ts                 # mock 모듈 재-export 진입점
       data/
         seed.ts                       # mock seed / fixture 데이터
     ui/
