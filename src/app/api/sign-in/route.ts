@@ -19,14 +19,19 @@ export async function POST(request: Request) {
   const payload = (await request.json()) as SignInRequest;
 
   if (!isValidSignIn(payload)) {
+    // 이메일/비밀번호가 mock 기준 계정과 맞지 않으면
     return NextResponse.json(getInvalidCredentialsError(), {
       status: 400,
     });
   }
 
+  // 토큰 생성
   const tokens = getAuthTokens(payload.email);
+
+  // 응답 본문 생성
   const response = NextResponse.json(tokens);
 
+  // 쿠키 설정
   response.cookies.set(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken, {
     path: "/",
     sameSite: "lax",

@@ -60,18 +60,21 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ---
 
 ## [로그인]
-**유효하지 않은 email, pw 입력 시**
+**1. 유효하지 않은 email, pw 입력 시**
 ![로그인 화면](../public/readme/login/login1.png)
-- form의 input에 대한 label 표기
 - form의 input에 대한 유효성 검증이 통과되지 않는 경우 적절히 표시
 
-**유효한 email, pw 입력 후 로그인 요청은 갔지만 서버가 실패 응답을 준 경우**
+---
+
+**2. 유효한 email, pw 입력 후 로그인 요청은 갔지만 서버가 실패 응답을 준 경우**
 ![로그인 화면](../public/readme/login/login3.png)
 - API Status Code가 200이 아닌 경우, `errorMessage`을 제공하는 모달 표시
 
-**유효한 email, pw 입력 후 서버가 성공 응답을 준 경우**
+---
+
+**3. 유효한 email, pw 입력 후 서버가 성공 응답을 준 경우**
 ![로그인 화면](../public/readme/login/login2.png)
-- [POST] /api/sign-in 제출
+- [POST] /api/sign-in 호출
 
 ---
 
@@ -84,6 +87,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 **2. 로그인 완료 상태**
 ![대시보드 화면](../public/readme/dashboard/dashboard-loading1.png)
+- [GET] /api/dashboard 호출
 - 차트가 렌더링 되기까지 로딩스피너 표시
 
 ---
@@ -121,6 +125,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 **2. 로그인 완료 상태**
 ![할 일 목록 화면](../public/readme/task-list/task-list-loading1.png)
+- [GET] /api/task?page={page} 호출
 - 초기 데이터를 불러오는 동안 로딩바 표시
 
 ---
@@ -133,7 +138,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ![할 일 목록 화면](../public/readme/task-list/task-list-loading2.png)
 - 스크롤 영역에서 화면에 보여지는 요소 또는 보여질 요소에 대해서만 렌더링 (가상 스크롤링)
-- 목록에 끝에 도달하는 경우 다음 페이지의 API를 호출 (무한 스크롤)
+- 목록의 끝에 도달하는 경우 다음 페이지의 [GET] /api/task?page={page} 호출 (무한 스크롤)
 - 스크롤 시, 전체 목록을 추가로 불러오는 동안 로딩 스피너, 안내 문구 표시
 
 ---
@@ -158,7 +163,8 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ## [할 일 상세]
 ![할 일 상세 화면](../public/readme/task-detail/task-detail-loading1.png)
-- 할 일 카드 클릭 시 각 상세페이지로 이동
+- [할 일 목록] 페이지에서 할 일 카드 클릭 시 각 상세페이지로 이동
+- [GET] /api/task/:id 호출
 - 초기 데이터를 불러오는 동안 로딩바 표시
 
 ---
@@ -171,20 +177,21 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ![할 일 상세 화면](../public/readme/task-detail/task-detail2.png)
 ![할 일 상세 화면](../public/readme/task-detail/task-detail3.png)
 ![할 일 상세 화면](../public/readme/task-detail/task-detail4.png)
-- 삭제 액션을 위한 버튼 및 컨펌 다이얼로그, 확인 다이얼로그 제공
-- 삭제 버튼 클릭 시, 삭제 여부를 확인하는 input을 포함한 모달 표시
-- input에 해당 id와 동일한 값을 기입한 후 `제출` 버튼을 클릭하면, 목록으로 redirect
+- 삭제 버튼 (휴지통 아이콘) 클릭 시, 삭제 여부를 확인하는 input을 포함한 모달 표시
+- input에 해당 id와 동일한 값을 기입한 후 `제출` 버튼을 클릭하면, [DELETE] /api/task/:id 호출 및 목록으로 redirect
 - input에 해당 id와 동일한 값을 기입되지 않은 경우 `제출` 버튼은 비활성화
 
 ---
 
 ![할 일 상세 화면](../public/readme/task-detail/task-detail5.png)
-- 404 코드가 반환된 경우, 목록으로 돌아갈 수 있는 버튼을 포함한 리소스가 없는 경우의 화면 제공
+- 404 코드가 반환된 경우, 존재하지 않는 리소스임을 안내하는 예외 화면을 표시하고, 할 일 목록으로 돌아갈 수 있는 버튼 제공
 
 ---
 
 ## [회원정보]
 ![회원정보 화면](../public/readme/user/user-loading1.png)
+- [GET] /api/user 호출
+- 추가로 이메일 정보도 조회해오기 위해, [GET] /api/session 호출
 - 초기 데이터를 불러오는 동안 로딩바 표시
 
 ---
@@ -196,6 +203,13 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ![회원정보 화면](../public/readme/user/user2.png)
 - 로그아웃 액션을 위한 버튼 및 컨펌 다이얼로그 제공
+- [POST] /api/sign-out 호출
+
+---
+
+## [공통 인증 흐름]
+- 인증이 필요한 API 요청이 401을 반환하는 경우 [POST] /api/refresh를 자동 호출해 accessToken 재발급 시도
+- 재발급에 성공하면 기존 요청을 한 번 더 재시도하고, 실패하면 로그아웃 상태로 전환
 
 ---
 
