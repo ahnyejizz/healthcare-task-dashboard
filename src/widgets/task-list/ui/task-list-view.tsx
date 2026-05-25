@@ -261,7 +261,10 @@ export function TaskListView({
 
   // 컨트롤 묶음 (필터링 + 정렬 + 검색 + 뷰 모드 토글)
   const controls = (
-    <div ref={controlsRef} className="flex items-center gap-2">
+    <div
+      ref={controlsRef}
+      className="ml-auto flex w-full max-w-full flex-wrap items-center justify-end gap-2"
+    >
       {/* 필터링 */}
       <FilterDropdown
         isOpen={isFilterOpen}

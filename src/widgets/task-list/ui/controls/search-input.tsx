@@ -43,15 +43,15 @@ export function SearchBar({ searchField, value, onChange, onFieldChange }: Searc
   }, [isDropdownOpen]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative min-w-0 flex-1 sm:flex-none">
       {/* 통합 검색 컨테이너 */}
-      <div className="focus-within-ring flex h-9 w-80 items-center rounded-xl border border-border bg-white">
+      <div className="focus-within-ring flex h-9 w-full min-w-0 sm:w-80 items-center rounded-xl border border-border bg-white">
         {/* 좌측: 검색 필드 선택 버튼 */}
         <button
           type="button"
           aria-label="검색 기준 선택"
           className={cn(
-            "flex h-full w-30 shrink-0 items-center justify-between rounded-l-xl pl-3 pr-2 text-xs font-medium transition-colors",
+            "flex h-full w-26 shrink-0 items-center justify-between rounded-l-xl pl-3 pr-2 text-xs font-medium transition-colors sm:w-30",
             searchField !== "all" ? "text-primary" : "text-text-muted hover:text-text",
           )}
           onClick={() => setIsDropdownOpen((prev) => !prev)}
@@ -105,7 +105,7 @@ export function SearchBar({ searchField, value, onChange, onFieldChange }: Searc
 
       {/* 필드 선택 드롭다운 목록 */}
       {isDropdownOpen ? (
-        <div className="absolute left-0 top-full z-20 mt-2 w-30">
+        <div className="absolute left-0 top-full z-20 mt-2 w-26 sm:w-30">
           <div className="rounded-[18px] border border-border bg-white p-2 shadow-[0_18px_32px_rgba(23,32,51,0.12)]">
             {searchFieldOptions.map((option, index) => (
               <div

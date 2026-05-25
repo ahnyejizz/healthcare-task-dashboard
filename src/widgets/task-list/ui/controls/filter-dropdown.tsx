@@ -44,7 +44,7 @@ export function FilterDropdown({
   onSelect,
 }: FilterDropdownProps) {
   return (
-    <div className="relative ml-5">
+    <div className="relative">
       <ViewToggleButton
         className="bg-white"
         isActive={taskFilter !== "all"}
