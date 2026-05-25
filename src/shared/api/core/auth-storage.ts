@@ -141,7 +141,7 @@ function clearAuthCookies() {
 /**
  * @page  - [공통]
  * @title - 로그인 상태 반영 함수
- * @desc  - 액세스 토큰 저장과 쿠키 동기화 후 인증 상태를 로그인 상태로 갱신
+ * @desc  - 액세스 토큰 저장과 리프레시 토큰 쿠키 동기화 후 인증 상태를 로그인 상태로 갱신
  */
 export function markSignedIn(tokens?: AuthTokenResponse) {
   if (tokens) {
@@ -156,7 +156,7 @@ export function markSignedIn(tokens?: AuthTokenResponse) {
 /**
  * @page  - [공통]
  * @title - 로그아웃 상태 반영 함수
- * @desc  - 액세스 토큰과 인증 쿠키를 제거하고 인증 상태를 로그아웃 상태로 갱신
+ * @desc  - 액세스 토큰과 리프레시 토큰 쿠키를 제거하고 인증 상태를 로그아웃 상태로 갱신
  */
 export function markSignedOut() {
   clearAccessToken();

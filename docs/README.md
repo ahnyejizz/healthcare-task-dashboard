@@ -370,6 +370,7 @@ src/
 - `accessToken`, `refreshToken`은 모두 JWT 형식 문자열(`header.payload.signature`)로 발급
 - payload에는 `id`, `exp` 정보를 포함
 - 로그인 후 접근 가능한 API는 `Authorization: Bearer <accessToken>` 헤더 기준으로 인증하고, `/api/refresh`는 `refreshToken` 쿠키 기준으로 재발급 처리
+- 로그아웃 시에는 클라이언트에 저장된 `accessToken`을 제거하고, 서버에서 `refreshToken` 쿠키를 만료 처리
 - 만료 시 `/api/refresh`를 통해 자동 재발급
 - `AccessTokenGate`가 인증 상태를 감시하고, 미인증 상태에서는 로그인 유도 화면 표시
 
