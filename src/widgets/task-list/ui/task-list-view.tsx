@@ -359,17 +359,9 @@ export function TaskListView({
             >
               <div className="flex flex-col items-center justify-center gap-3 py-4 text-sm text-text-muted">
                 <LoadingSpinner
-                  label={
-                    taskFilter === "all"
-                      ? "다음 목록을 불러오는 중입니다."
-                      : "필터링을 위해 전체 목록을 불러오는 중입니다."
-                  }
+                  label="다음 목록을 불러오는 중입니다."
                 />
-                <p>
-                  {taskFilter === "all"
-                    ? "다음 목록을 불러오는 중입니다."
-                    : "필터링을 위해 전체 목록을 불러오는 중입니다."}
-                </p>
+                <p>다음 목록을 불러오는 중입니다.</p>
               </div>
             </div>
           ) : null}
