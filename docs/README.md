@@ -221,7 +221,7 @@ NEXT_PUBLIC_ENABLE_MSW=true
 src/
   app/
     (protected)/
-      layout.tsx          # 보호 라우트 공통 레이아웃
+      layout.tsx          # 로그인 사용자 공통 레이아웃
       page.tsx            # [대시보드] 라우트 진입점
       task/
         page.tsx          # [할 일 목록] 라우트 진입점
@@ -290,20 +290,20 @@ src/
         seed.ts                       # mock seed / fixture 데이터
     ui/
       button/
-        button.tsx                    # 공통 버튼 / 링크 버튼
+        button.tsx                    # 공통 버튼
         view-toggle-button.tsx        # 뷰 토글 버튼
       dialog/
         confirm-dialog.tsx            # 확인 다이얼로그
-        dialog.tsx                    # 공통 다이얼로그 베이스
+        dialog.tsx                    # 공통 다이얼로그 틀
       loading/
-        loading-overlay.tsx           # 전체화면 오버레이 로딩 UI
+        loading-overlay.tsx           # 공통 로딩 바
         loading-spinner.tsx           # 공통 로딩 스피너
-      empty-state.tsx                 # 공통 엠티셋 UI
+      empty-state.tsx                 # 공통 엠티셋
       icons.tsx                       # 공통 아이콘 모음
       input.tsx                       # 공통 입력 컴포넌트
       panel.tsx                       # 공통 패널 레이아웃
-      select-option-list.tsx          # 옵션 선택 리스트
-      status-badge.tsx                # 상태 배지
+      select-option-list.tsx          # 공통 드롭다운 리스트
+      status-badge.tsx                # 공통 상태 뱃지 모음
       tooltip.tsx                     # 공통 툴팁
   widgets/
     auth/
@@ -317,15 +317,15 @@ src/
         dashboard-page.tsx            # [대시보드] 페이지 메인
         metric-card.tsx               # [대시보드] 페이지 지표 카드
         chart/
-          chart-card.tsx              # [대시보드] 페이지 차트 카드 + 다운로드 액션
+          chart-card.tsx              # [대시보드] 페이지 차트 카드
           chart-card-header.tsx       # [대시보드] 페이지 차트 헤더
           chart-legend.tsx            # [대시보드] 페이지 차트 범례
           chart-options.ts            # [대시보드] 페이지 차트 옵션 조합
           options/
-            comparison-count-option.ts  # [대시보드] 페이지 비교 건수 차트 옵션
-            comparison-ratio-option.ts  # [대시보드] 페이지 비교 비율 차트 옵션
-            completion-gauge-option.ts  # [대시보드] 페이지 완료율 게이지 옵션
-            distribution-option.ts      # [대시보드] 페이지 분포 차트 옵션
+            comparison-count-option.ts  # [대시보드] 페이지 '카운트 비교' 차트 옵션
+            comparison-ratio-option.ts  # [대시보드] 페이지 '완료/잔여 비중' 차트 옵션
+            completion-gauge-option.ts  # [대시보드] 페이지 '완료율' 차트 옵션
+            distribution-option.ts      # [대시보드] 페이지 '분포도' 차트 옵션
             option-context.ts           # [대시보드] 페이지 차트 공통 옵션 컨텍스트
     navigation/
       ui/
@@ -343,7 +343,7 @@ src/
         task-list-view.tsx              # [할 일 목록] 페이지 UI
         controls/
           filter-dropdown.tsx           # [할 일 목록] 페이지 필터 드롭다운 컴포넌트
-          search-input.tsx              # [할 일 목록] 페이지 검색 입력 컴포넌트
+          search-input.tsx              # [할 일 목록] 페이지 검색 컴포넌트
           sort-toggle.tsx               # [할 일 목록] 페이지 정렬 토글 컴포넌트
           view-toggle.tsx               # [할 일 목록] 페이지 카드/리스트 뷰 전환 컴포넌트
     user-profile/
