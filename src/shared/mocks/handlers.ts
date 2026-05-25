@@ -3,7 +3,6 @@ import { delay, http, HttpResponse } from "msw";
 // shared
 import type { SignInRequest } from "@/shared/api/api-types";
 import {
-  ACCESS_TOKEN_COOKIE_NAME,
   deleteTaskById,
   getAuthTokens,
   getAuthorizedEmail,
@@ -41,10 +40,6 @@ export const handlers = [
 
     headers.append(
       "Set-Cookie",
-      `${ACCESS_TOKEN_COOKIE_NAME}=${tokens.accessToken}; Path=/; SameSite=Lax`,
-    );
-    headers.append(
-      "Set-Cookie",
       `${REFRESH_TOKEN_COOKIE_NAME}=${tokens.refreshToken}; Path=/; SameSite=Lax`,
     );
 
@@ -75,10 +70,6 @@ export const handlers = [
     const tokens = getAuthTokens(email);
     const headers = new Headers();
 
-    headers.append(
-      "Set-Cookie",
-      `${ACCESS_TOKEN_COOKIE_NAME}=${tokens.accessToken}; Path=/; SameSite=Lax`,
-    );
     headers.append(
       "Set-Cookie",
       `${REFRESH_TOKEN_COOKIE_NAME}=${tokens.refreshToken}; Path=/; SameSite=Lax`,
@@ -189,7 +180,6 @@ export const handlers = [
 
     const headers = new Headers();
 
-    headers.append("Set-Cookie", `${ACCESS_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`);
     headers.append("Set-Cookie", `${REFRESH_TOKEN_COOKIE_NAME}=; Path=/; SameSite=Lax; Max-Age=0`);
 
     return HttpResponse.json(

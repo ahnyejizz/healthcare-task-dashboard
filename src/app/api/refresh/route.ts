@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import {
-  ACCESS_TOKEN_COOKIE_NAME,
   getMissingRefreshTokenError,
   getAuthTokens,
   getInvalidRefreshTokenError,
@@ -38,11 +37,6 @@ export async function POST(request: Request) {
 
   const tokens = getAuthTokens(email);
   const response = NextResponse.json(tokens);
-
-  response.cookies.set(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken, {
-    path: "/",
-    sameSite: "lax",
-  });
   response.cookies.set(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken, {
     path: "/",
     sameSite: "lax",

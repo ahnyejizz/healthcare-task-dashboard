@@ -1,6 +1,6 @@
 // shared
 import type { AuthTokenResponse } from "@/shared/api/api-types";
-import { ACCESS_TOKEN_COOKIE_NAME, REFRESH_TOKEN_COOKIE_NAME } from "@/shared/mocks/mock-backend";
+import { REFRESH_TOKEN_COOKIE_NAME } from "@/shared/mocks/mock-backend";
 
 const AUTH_STATE_CHANGE_EVENT = "healthcare-task-dashboard-auth-state-change";
 const AUTH_REDIRECT_EVENT = "healthcare-task-dashboard-auth-redirect-change";
@@ -123,20 +123,18 @@ export function getIsAuthenticated() {
 /**
  * @page  - [공통]
  * @title - 인증 쿠키 동기화 함수
- * @desc  - 액세스 토큰과 리프레시 토큰을 브라우저 쿠키에 반영
+ * @desc  - 리프레시 토큰을 브라우저 쿠키에 반영
  */
 function syncAuthCookies(tokens: AuthTokenResponse) {
-  writeCookie(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken);
   writeCookie(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken);
 }
 
 /**
  * @page  - [공통]
  * @title - 인증 쿠키 삭제 함수
- * @desc  - 액세스 토큰과 리프레시 토큰 쿠키를 만료 처리
+ * @desc  - 리프레시 토큰 쿠키를 만료 처리
  */
 function clearAuthCookies() {
-  writeCookie(ACCESS_TOKEN_COOKIE_NAME, "", 0);
   writeCookie(REFRESH_TOKEN_COOKIE_NAME, "", 0);
 }
 

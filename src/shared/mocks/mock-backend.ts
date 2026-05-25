@@ -18,10 +18,15 @@ import type {
 } from "@/shared/api/api-types";
 import { mockCredentials, tasksFixture, userFixtureByEmail } from "@/shared/mocks/data/seed";
 
-const ACCESS_TOKEN_PREFIX = "mock-access-token";
-const REFRESH_TOKEN_PREFIX = "mock-refresh-token";
-export const ACCESS_TOKEN_COOKIE_NAME = "accessToken";
 export const REFRESH_TOKEN_COOKIE_NAME = "token";
+const ACCESS_TOKEN_EXPIRES_IN_SECONDS = 60 * 30;
+const REFRESH_TOKEN_EXPIRES_IN_SECONDS = 60 * 60 * 24 * 7;
+const TOKEN_HEADER = {
+  alg: "HS256",
+  typ: "JWT",
+} as const;
+const ACCESS_TOKEN_SIGNATURE = "mock-access-signature";
+const REFRESH_TOKEN_SIGNATURE = "mock-refresh-signature";
 
 const PAGE_SIZE = 10;
 const taskStore = tasksFixture.map((task, index) => ({
@@ -31,28 +36,88 @@ const taskStore = tasksFixture.map((task, index) => ({
   ).toISOString(),
 }));
 
+type TokenPayload = {
+  exp: number;
+  id: string;
+};
+
+function encodeBase64Url(value: string) {
+  if (typeof Buffer !== "undefined") {
+    return Buffer.from(value, "utf8").toString("base64url");
+  }
+
+  return btoa(value)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+function decodeBase64Url(value: string) {
+  if (typeof Buffer !== "undefined") {
+    return Buffer.from(value, "base64url").toString("utf8");
+  }
+
+  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, "=");
+  return atob(padded);
+}
+
+function createToken(id: string, signature: string, expiresInSeconds: number) {
+  const payload: TokenPayload = {
+    id,
+    exp: Math.floor(Date.now() / 1000) + expiresInSeconds,
+  };
+
+  return [
+    encodeBase64Url(JSON.stringify(TOKEN_HEADER)),
+    encodeBase64Url(JSON.stringify(payload)),
+    signature,
+  ].join(".");
+}
+
+function parseToken(token: string | null, expectedSignature: string) {
+  if (!token) {
+    return null;
+  }
+
+  const [encodedHeader, encodedPayload, signature] = token.split(".");
+
+  if (!encodedHeader || !encodedPayload || !signature || signature !== expectedSignature) {
+    return null;
+  }
+
+  try {
+    const header = JSON.parse(decodeBase64Url(encodedHeader)) as typeof TOKEN_HEADER;
+    const payload = JSON.parse(decodeBase64Url(encodedPayload)) as TokenPayload;
+
+    if (header.typ !== "JWT" || typeof payload.id !== "string" || typeof payload.exp !== "number") {
+      return null;
+    }
+
+    if (payload.exp <= Math.floor(Date.now() / 1000)) {
+      return null;
+    }
+
+    return payload;
+  } catch {
+    return null;
+  }
+}
+
 function createAccessToken(email: string) {
-  return `${ACCESS_TOKEN_PREFIX}:${email}`;
+  return createToken(email, ACCESS_TOKEN_SIGNATURE, ACCESS_TOKEN_EXPIRES_IN_SECONDS);
 }
 
 function createRefreshToken(email: string) {
-  return `${REFRESH_TOKEN_PREFIX}:${email}`;
+  return createToken(email, REFRESH_TOKEN_SIGNATURE, REFRESH_TOKEN_EXPIRES_IN_SECONDS);
 }
 
 function parseAccessToken(accessToken: string | null) {
-  if (!accessToken?.startsWith(`${ACCESS_TOKEN_PREFIX}:`)) {
-    return null;
-  }
-
-  return accessToken.slice(`${ACCESS_TOKEN_PREFIX}:`.length) || null;
+  return parseToken(accessToken, ACCESS_TOKEN_SIGNATURE);
 }
 
 function parseRefreshToken(refreshToken: string | null) {
-  if (!refreshToken?.startsWith(`${REFRESH_TOKEN_PREFIX}:`)) {
-    return null;
-  }
-
-  return refreshToken.slice(`${REFRESH_TOKEN_PREFIX}:`.length) || null;
+  return parseToken(refreshToken, REFRESH_TOKEN_SIGNATURE);
 }
 
 function getCookieValue(request: Request, cookieName: string) {
@@ -75,7 +140,7 @@ function getBearerToken(request: Request) {
 }
 
 export function getAuthorizedEmail(request: Request) {
-  return parseAccessToken(getBearerToken(request));
+  return parseAccessToken(getBearerToken(request))?.id ?? null;
 }
 
 export function isAuthorizedRequest(request: Request) {
@@ -83,7 +148,7 @@ export function isAuthorizedRequest(request: Request) {
 }
 
 export function getRefreshTokenEmail(request: Request) {
-  return parseRefreshToken(getCookieValue(request, REFRESH_TOKEN_COOKIE_NAME) ?? null);
+  return parseRefreshToken(getCookieValue(request, REFRESH_TOKEN_COOKIE_NAME) ?? null)?.id ?? null;
 }
 
 export function hasRefreshTokenCookie(request: Request) {

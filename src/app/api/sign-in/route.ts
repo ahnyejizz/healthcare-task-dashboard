@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 // shared
 import type { SignInRequest } from "@/shared/api/api-types";
 import {
-  ACCESS_TOKEN_COOKIE_NAME,
   getAuthTokens,
   getInvalidCredentialsError,
   isValidSignIn,
@@ -32,10 +31,6 @@ export async function POST(request: Request) {
   const response = NextResponse.json(tokens);
 
   // 쿠키 설정
-  response.cookies.set(ACCESS_TOKEN_COOKIE_NAME, tokens.accessToken, {
-    path: "/",
-    sameSite: "lax",
-  });
   response.cookies.set(REFRESH_TOKEN_COOKIE_NAME, tokens.refreshToken, {
     path: "/",
     sameSite: "lax",
