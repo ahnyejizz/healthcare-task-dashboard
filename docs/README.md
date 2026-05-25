@@ -208,6 +208,8 @@ NEXT_PUBLIC_ENABLE_MSW=true
 ---
 
 ## [공통 인증 흐름]
+![공통 인증 로딩 화면](../public/readme/common/common-loading1.png)
+- 새로고침 또는 최초 진입 직후에는 hydration이 완료되고 인증 상태가 확정되기 전까지, 인증 확인용 로딩 오버레이를 먼저 표시
 - 인증이 필요한 API 요청이 401을 반환하는 경우 [POST] /api/refresh를 자동 호출해 accessToken 재발급 시도
 - 재발급에 성공하면 기존 요청을 한 번 더 재시도하고, 실패하면 로그아웃 상태로 전환
 

@@ -23,6 +23,11 @@ import { AuthRequiredPanel } from "@/widgets/auth/ui/auth-required-panel";
  * @desc  - 인증 상태에 따라 하위 화면 또는 인증 안내 패널 렌더링
  */
 export function AccessTokenGate({ children }: { children: ReactNode }) {
+  const isHydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const hasAccessToken = useSyncExternalStore(
     subscribeAuthState,
     getAuthStateSnapshot,
@@ -36,6 +41,10 @@ export function AccessTokenGate({ children }: { children: ReactNode }) {
 
   if (isAuthRedirecting) {
     return <LoadingOverlay message="로그아웃 중입니다." />;
+  }
+
+  if (!isHydrated) {
+    return <LoadingOverlay message="인증 상태를 확인하는 중입니다." />;
   }
 
   return hasAccessToken ? children : <AuthRequiredPanel />;
