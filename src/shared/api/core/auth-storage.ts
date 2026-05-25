@@ -2,6 +2,8 @@
 import type { AuthTokenResponse } from "@/shared/api/api-types";
 import { REFRESH_TOKEN_COOKIE_NAME } from "@/shared/mocks/mock-backend";
 
+// mock 환경에서는 accessToken을 localStorage에 저장해 Bearer 헤더로 전달
+
 const AUTH_STATE_CHANGE_EVENT = "healthcare-task-dashboard-auth-state-change";
 const AUTH_REDIRECT_EVENT = "healthcare-task-dashboard-auth-redirect-change";
 const ACCESS_TOKEN_STORAGE_KEY = "healthcare-task-dashboard-access-token";

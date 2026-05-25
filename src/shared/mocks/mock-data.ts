@@ -10,6 +10,8 @@ import type {
 import { tasksFixture, userFixtureByEmail } from "@/shared/mocks/data/seed";
 
 const PAGE_SIZE = 10;
+
+// taskStore는 프로세스 메모리 기반 mock 저장소라서 서버 재시작 시 초기화되므로, 실제 프로덕션 환경에서는 DB/외부 저장소를 기준으로 조회/수정이 이뤄져야 함.
 const taskStore = tasksFixture.map((task, index) => ({
   ...task,
   registerDatetime: new Date(

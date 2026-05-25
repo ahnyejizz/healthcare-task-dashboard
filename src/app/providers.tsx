@@ -32,6 +32,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
       return;
     }
 
+    // MSW는 개발/테스트 편의를 위한 브라우저 mock 계층
+    // 실제 프로덕션 환경에서는 실제 API 또는 Route Handler 응답을 그대로 사용해야 함.
     void import("@/shared/mocks/browser")
       .then(async ({ worker }) => {
         await worker.start({

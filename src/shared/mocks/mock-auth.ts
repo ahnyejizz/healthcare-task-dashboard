@@ -2,15 +2,19 @@
 import type { AuthTokenResponse, SignInRequest } from "@/shared/api/api-types";
 import { mockCredentials } from "@/shared/mocks/data/seed";
 
+// 실제 프로덕션 환경에서는 서버 비밀키 기반 서명/검증과 키 회전 정책이 별도로 필요
+
 export const REFRESH_TOKEN_COOKIE_NAME = "token";
+const ACCESS_TOKEN_SIGNATURE = "mock-access-signature";
+const REFRESH_TOKEN_SIGNATURE = "mock-refresh-signature";
+
 const ACCESS_TOKEN_EXPIRES_IN_SECONDS = 60 * 30;
 const REFRESH_TOKEN_EXPIRES_IN_SECONDS = 60 * 60 * 24 * 7;
+
 const TOKEN_HEADER = {
   alg: "HS256",
   typ: "JWT",
 } as const;
-const ACCESS_TOKEN_SIGNATURE = "mock-access-signature";
-const REFRESH_TOKEN_SIGNATURE = "mock-refresh-signature";
 
 type TokenPayload = {
   exp: number;
