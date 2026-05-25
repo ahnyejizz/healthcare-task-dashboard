@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { getTaskPage, getUnauthorizedError, isAuthorizedRequest } from "@/shared/mocks/mock-backend";
+import {
+  getInvalidTaskPageError,
+  getTaskPage,
+  getUnauthorizedError,
+  isAuthorizedRequest,
+} from "@/shared/mocks/mock-backend";
 
 /**
  * @page  - [할 일 목록]
@@ -14,7 +19,14 @@ export async function GET(request: Request) {
   }
 
   const url = new URL(request.url);
-  const page = Number(url.searchParams.get("page") ?? "1");
+  const pageValue = url.searchParams.get("page");
+  const page = Number(pageValue);
+
+  if (!pageValue || !Number.isInteger(page) || page < 1) {
+    return NextResponse.json(getInvalidTaskPageError(), {
+      status: 400,
+    });
+  }
 
   return NextResponse.json(getTaskPage(page));
 }

@@ -1,7 +1,6 @@
 import { delay, http, HttpResponse } from "msw";
 
 // shared
-import type { SignInRequest } from "@/shared/api/api-types";
 import {
   deleteTaskById,
   getAuthTokens,
@@ -9,6 +8,7 @@ import {
   getDashboard,
   getDeleteTaskNotFoundError,
   getInvalidCredentialsError,
+  getInvalidTaskPageError,
   getInvalidRefreshTokenError,
   getMissingRefreshTokenError,
   getRefreshTokenEmail,
@@ -25,11 +25,24 @@ import {
   REFRESH_TOKEN_COOKIE_NAME,
 } from "@/shared/mocks/mock-backend";
 
+// features
+import { signInSchema } from "@/features/auth/sign-in/model/sign-in-schema";
+
 export const handlers = [
   // sign-in
   http.post("/api/sign-in", async ({ request }) => {
     await delay(400);
-    const payload = (await request.json()) as SignInRequest;
+    const body = await request.json().catch(() => null);
+    const parsed = signInSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return HttpResponse.json(
+        { errorMessage: parsed.error.issues[0]?.message ?? "요청 형식이 올바르지 않습니다." },
+        { status: 400 },
+      );
+    }
+
+    const payload = parsed.data;
 
     if (!isValidSignIn(payload)) {
       return HttpResponse.json(getInvalidCredentialsError(), { status: 400 });
@@ -135,7 +148,12 @@ export const handlers = [
     }
 
     const url = new URL(request.url);
-    const page = Number(url.searchParams.get("page") ?? "1");
+    const pageValue = url.searchParams.get("page");
+    const page = Number(pageValue);
+
+    if (!pageValue || !Number.isInteger(page) || page < 1) {
+      return HttpResponse.json(getInvalidTaskPageError(), { status: 400 });
+    }
 
     return HttpResponse.json(getTaskPage(page));
   }),

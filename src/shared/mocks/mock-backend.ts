@@ -197,6 +197,12 @@ export function getInvalidCredentialsError(): ErrorResponse {
   };
 }
 
+export function getInvalidTaskPageError(): ErrorResponse {
+  return {
+    errorMessage: "page 파라미터는 1 이상의 정수여야 합니다.",
+  };
+}
+
 export function getSession(email: string): SessionResponse {
   return {
     email,
@@ -221,8 +227,7 @@ export function getDashboard(): DashboardResponse {
 }
 
 export function getTaskPage(page: number): TaskListResponse {
-  const safePage = Number.isFinite(page) && page > 0 ? page : 1;
-  const start = (safePage - 1) * PAGE_SIZE;
+  const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
 
   return {
