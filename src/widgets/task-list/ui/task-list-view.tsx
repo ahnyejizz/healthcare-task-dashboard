@@ -167,10 +167,12 @@ export function TaskListView({
     };
   }, [isFilterOpen]);
 
-  // 필터/정렬/검색 시 현재까지 로드된 일부 데이터만으로 결과가 왜곡되지 않도록 남은 페이지를 끝까지 추가 조회
+  // 필터/정렬/검색을 적용한 경우, 현재까지 로드된 일부 데이터로 결과가 왜곡되지 않도록 남은 페이지를 추가 조회
   useEffect(() => {
-    const isDefaultState = taskSortOrder === "asc" && taskFilter === "all" && !searchQuery.trim();
-    if (isDefaultState || !hasNextPage || isFetchingNextPage) {
+    const isInitialTaskListState =
+      taskSortOrder === "asc" && taskFilter === "todo" && !searchQuery.trim();
+
+    if (isInitialTaskListState || !hasNextPage || isFetchingNextPage) {
       return;
     }
 
@@ -183,6 +185,30 @@ export function TaskListView({
     searchQuery,
     taskFilter,
     tasks.length,
+  ]);
+
+  // 첫 진입 시 현재까지 로드된 TODO 목록만으로 스크롤 영역을 채우지 못하는 경우에는 다음 페이지를 추가 조회
+  useEffect(() => {
+    const isInitialTaskListState =
+      taskSortOrder === "asc" && taskFilter === "todo" && !searchQuery.trim();
+
+    if (!isInitialTaskListState || !hasNextPage || isFetchingNextPage || !scrollRef.current) {
+      return;
+    }
+
+    const { clientHeight, scrollHeight } = scrollRef.current;
+
+    if (scrollHeight <= clientHeight) {
+      onEndReached();
+    }
+  }, [
+    hasNextPage,
+    isFetchingNextPage,
+    onEndReached,
+    rows.length,
+    searchQuery,
+    taskFilter,
+    taskSortOrder,
   ]);
 
   /* ================================================================================== */
