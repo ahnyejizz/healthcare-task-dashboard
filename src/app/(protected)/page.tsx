@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 /**
  * @page  - [대시보드]
  * @title - 대시보드 라우트 페이지
- * @desc  - 대시보드 라우트 진입점, 데이터를 DashboardPage 컴포넌트에 전달
+ * @desc  - 대시보드 라우트 진입점, DashboardPage 컴포넌트 렌더링
  */
 export default function Page() {
   return <DashboardPage />;
