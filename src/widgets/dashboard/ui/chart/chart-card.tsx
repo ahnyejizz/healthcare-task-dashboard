@@ -189,14 +189,14 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
 
   return (
     <>
-      <div className="grid h-full min-h-0 auto-rows-fr gap-3 lg:grid-cols-2">
+      <div className="grid gap-3 lg:h-full lg:min-h-0 lg:auto-rows-fr lg:grid-cols-2">
         {chartCards.map((card, index) => {
           const chartVisibilityClass = readyCharts[index] ? "opacity-100" : "opacity-0";
 
           return (
             <div
               key={card.title}
-              className="group/chart-card flex h-full flex-col rounded-[24px] border border-border bg-white p-4 text-primary"
+              className="group/chart-card flex min-h-[260px] flex-col rounded-[24px] border border-border bg-white p-4 text-primary lg:min-h-0"
             >
               <ChartCardHeader
                 title={card.title}
@@ -232,7 +232,7 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
                   ) : undefined
                 }
               />
-              <div className="relative mt-3 min-h-[210px] flex-1">
+              <div className="relative mt-3 min-h-[170px] flex-1 lg:min-h-0">
                 {/* 로딩 스피너 오버레이 */}
                 {readyCharts[index] ? null : (
                   <div className="absolute inset-0 z-10 flex items-center justify-center rounded-[20px] bg-white/78">
@@ -244,7 +244,7 @@ export function ChartCard({ metrics }: { metrics: DashboardResponse }) {
                   ref={(node) => {
                     chartRefs.current[index] = node;
                   }}
-                  className={`absolute inset-0 h-[235px] w-full transition-opacity duration-200 lg:h-full ${chartVisibilityClass}`}
+                  className={`absolute inset-0 h-full w-full transition-opacity duration-200 ${chartVisibilityClass}`}
                 />
               </div>
             </div>

@@ -59,10 +59,10 @@ export function DashboardPage() {
     <Panel
       title={pageMeta.dashboard.title}
       description={pageMeta.dashboard.description}
-      className="flex h-full flex-col"
-      contentClassName="h-full"
+      className="flex h-full min-h-0 flex-col overflow-hidden"
+      contentClassName="min-h-0 flex-1"
     >
-      <div className="grid h-full min-h-0 grid-rows-[auto_1fr] gap-3">
+      <div className="grid gap-3 lg:h-full lg:min-h-0 lg:grid-rows-[auto_minmax(0,1fr)]">
         <div className="grid gap-3 md:grid-cols-3">
           {/* 전체 */}
           <MetricCard caption="전체" tone="primary" value={data.numOfTask} />
