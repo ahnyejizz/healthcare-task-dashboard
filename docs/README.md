@@ -103,9 +103,9 @@ NEXT_PUBLIC_ENABLE_MSW=true
 
 ---
 
+![대시보드 화면](../public/readme/dashboard/dashboard2.png)
 ![대시보드 화면](../public/readme/dashboard/dashboard3.png)
 ![대시보드 화면](../public/readme/dashboard/dashboard4.png)
-![대시보드 화면](../public/readme/dashboard/dashboard2.png)
 ![대시보드 화면](../public/readme/dashboard/dashboard5.png)
 ![대시보드 화면](../public/readme/dashboard/dashboard6.png)
 - 4개의 차트 제공

@@ -18,18 +18,18 @@ export function createComparisonCountOption(context: DashboardChartOptionContext
     todoStrong,
     todoSurface,
   } = context;
-
   return {
     animationDuration: 500,
     grid: {
       left: 8,
-      right: 6,
+      right: 20,
       top: 10,
       bottom: 8,
       containLabel: true,
     },
     xAxis: {
       type: "value",
+      max: 100,
       splitLine: {
         lineStyle: {
           color: border,
