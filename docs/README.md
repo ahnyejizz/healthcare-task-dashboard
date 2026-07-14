@@ -1,5 +1,7 @@
 # healthcare-task-dashboard
 
+![프로젝트 구조 다이어그램](../public/readme/project-structure-diagram.png)
+
 - Next.js App Router 기반의 태스크 대시보드 프로젝트
 - [로그인] → [대시보드] → [할 일 목록] → [할 일 상세] → [회원정보] 흐름
 - vercel 배포 URL: https://healthcare-task-dashboard.vercel.app/
@@ -34,7 +36,6 @@ FSD(Feature-Sliced Design) 구조 기반으로
 
 **API 구성**  
 MSW 기반 모킹 환경과 Next.js Route Handler 기반 API를 함께 구성
-`NEXT_PUBLIC_ENABLE_MSW=true`일 때 MSW가 활성화
 
 ## 개발 명령어
 
